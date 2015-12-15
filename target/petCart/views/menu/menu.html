@@ -1,15 +1,12 @@
-
-
 <div class="row" id="product_category_div" ng-controller="menuCtrl">
 	<ul class="list-group" ng-repeat="dept in departments">
 		<li class="list-group-item">
-			<span class="badge" onclick="openSubCategory(1)">{{(categories).length }}&nbsp;
+			<span class="badge" ng-click="openSubCategory($index)" >{{(dept.categories).length }}&nbsp;
 				<span class="caret" ></span>
 		   </span>
 		   <a ui-sref="departmentCategory({did: dept.id})">{{ dept.departmentName | uppercase}}</a>
-			<ul style="display:none" id='1'>
-				<li ui-sref="homeCategoryProduct({cid:,name:})">guppy</li>
-				<li >shark</li>
+			<ul style="display:none" ng-attr-id="{{ 'ps-menu-'+$index }}" >
+				<li ui-sref="homeCategoryProduct({cid: cat.id,name: cat.name})" ng-repeat="cat in dept.categories" >{{ cat.name }}</li>
 			</ul>
 	   </li>
 		

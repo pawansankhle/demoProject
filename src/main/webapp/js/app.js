@@ -27,8 +27,21 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			'homeRecentView@home': {
 				templateUrl: 'views/other/recent-view.html'
 				 //controller: 'homeSliderController'
-			},
 			}
+			}
+		   }).state('user',{
+			    abstract: true,
+			    url: '/user',
+			    template: '<div ui-view></div>'
+		   })
+		   .state('user.login',{
+			   url: '/login',
+			   templateUrl: 'views/userauth/login.html'
+		   })
+		   .state('user.sighup',{
+			   url: '/signup',
+			   templateUrl: 'views/userauth/signup.html'
+				   
 		   }).state('homeCategoryProduct', {
               url: '/category/:name/:cid',
               template: 'I could sure use a drink right now.',

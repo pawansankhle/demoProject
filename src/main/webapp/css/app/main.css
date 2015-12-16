@@ -32,7 +32,7 @@
 
 #product_category_div ul li .badge
 {
-	background-color: darkorange;
+	background-color: rgb(234, 92, 42);
 	cursor: pointer;
 }
 
@@ -178,8 +178,10 @@
      transition-delay: 0.2s;
 }
 
-#product_category_div ul li ul li{
+#product_category_div ul li ul li
+{
    display: block;
+   color: white;
 }
 
 #product_category_div ul li ul li a
@@ -204,8 +206,25 @@
 {
 	margin-top: 10px;
 	cursor: pointer;
-	
 }
 
+.ps-menu-row
+{
+	margin-top: -21px;
+	background-color: #772953;
+}
 
+.ps-menu-row a
+{
+    color: white;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: sans-serif;
+ }
+
+#ps-menu-col
+{
+	margin-top: -15px;
+    min-height: 500px;
+}
     

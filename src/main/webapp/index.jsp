@@ -11,7 +11,6 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../petCart/css/app/main.css">
 <link rel="stylesheet" href="../petCart/css/app/ps-animate.css">
-
 <script src="../petCart/js/app/global-var.js"></script>
 <script>
         context='<%=request.getContextPath()%>';
@@ -38,10 +37,11 @@
 	<div class="container-fluid">
 		<!--row for main page -->
 		<div class="row" >
-			<div class="col-sm-2 hidden-xs right-border" style="">
-			 	<div ng-include="'views/menu/menu.html'"></div>
+			<div class="col-sm-2 hidden-xs right-border" id="ps-menu-col" style="">
+			 	<div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
 	        </div>
-		    <div class="col-sm-10 col-xs-12 span12 ui-view-container">
+
+		    <div class="col-sm-10 col-xs-12 span12 ui-view-container" >
 		         <div ui-view></div>
 		    </div>
 		 </div>
@@ -58,7 +58,7 @@
   </script>
    
    <!-- notifier -->
-    <script src="../petCart/js/Notifier.js"></script>
+    <script src="../petCart/js/lib/Notifier.js"></script>
     
     <!-- Modules -->
     <script src="js/app.js"></script>

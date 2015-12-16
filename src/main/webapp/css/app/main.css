@@ -187,11 +187,25 @@
     color: #FF8C00;
 }
 
-.ps-user-auth{
+.ps-user-auth
+{
 	background-color: #E2E2E2;
     box-shadow: 1px 1px 10px #E2E2E2;
     padding: 30px;
 	
 }
-    
+
+.ps-form-adjust
+{
+	padding: 50px;
+}
+
+.ps-badge-uf
+{
+	margin-top: 10px;
+	cursor: pointer;
+	
+}
+
+
     

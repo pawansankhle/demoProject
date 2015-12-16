@@ -42,7 +42,17 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			   url: '/signup',
 			   templateUrl: 'views/userauth/signup.html'
 				   
-		   }).state('homeCategoryProduct', {
+		   })
+		   .state('product',{
+			    abstract: true,
+			    url: '/product',
+			    template: '<div ui-view></div>'
+		   })
+		   .state('product.view',{
+			   url: '/view',
+			   template: '<h1>product view</h1>'
+		   })
+		   .state('homeCategoryProduct', {
               url: '/category/:name/:cid',
               template: 'I could sure use a drink right now.',
               controller: 'homeCategoryCtrl'

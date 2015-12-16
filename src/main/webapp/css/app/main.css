@@ -174,14 +174,14 @@
 #product_category_div ul li ul li:hover{
 
     transform: translateX(20px) scale(1.5);
-    transition: all 0.5s linear;
+    transition: all 0.5s  ease-in-out;
      transition-delay: 0.2s;
 }
 
 #product_category_div ul li ul li
 {
    display: block;
-   color: white;
+   color: #EA5C2A;
 }
 
 #product_category_div ul li ul li a
@@ -191,9 +191,11 @@
 
 .ps-user-auth
 {
-	background-color: #E2E2E2;
+	//background-color: #E2E2E2;
+	background-color: #772953;
     box-shadow: 1px 1px 10px #E2E2E2;
     padding: 30px;
+    color: white;
 	
 }
 
@@ -206,25 +208,52 @@
 {
 	margin-top: 10px;
 	cursor: pointer;
+	background-color: #EA5C2A
 }
 
 .ps-menu-row
 {
 	margin-top: -21px;
+	background-color: #EFEFEF;
+	
+}
+
+.ps-menu-row:hover
+{
 	background-color: #772953;
 }
 
 .ps-menu-row a
 {
-    color: white;
+    color: rgb(234, 92, 42);
     font-weight: normal;
     font-size: 16px;
     font-family: sans-serif;
  }
+ 
+.ps-menu-row a:hover
+{
+ color: white;
+}
 
 #ps-menu-col
 {
 	margin-top: -15px;
     min-height: 500px;
 }
-    
+
+.ps-main-container
+{
+ min-height: 500px;
+
+}
+
+ul.navbar-nav li:hover
+{
+	background-color: #772953;
+}
+
+.navbar-default .navbar-nav>li>a:hover
+{
+   color: white;
+}

@@ -62,6 +62,14 @@ public class ProductServiceImpl implements IProductService {
 		logger.info("inside @class ProductServiceImpl  @mehod addProduct product is");
 		 return productDAO.search(context,lowerLimit,upperLimit,orderBy,orderType);
 	}
+
+
+
+	@Override
+	public Product viewProduct(Integer id) {
+	  logger.info("inside @class ProductServiceImpl  @mehod viewProduct id is: "+id);
+	    return productDAO.viewProduct(id);
+	}
 	
 
 	

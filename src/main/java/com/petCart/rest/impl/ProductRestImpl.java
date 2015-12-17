@@ -89,6 +89,14 @@ public class ProductRestImpl{
     }
 
 	
+	@GET
+	@Path("view/{id}")
+	@Produces("application/json")
+	public Product veiwProduct(@PathParam("id") Integer id){
+	    logger.info("inside @class ProductRestImpl @method veiwProduct entry...id:"+id);
+		return productService.viewProduct(id);
+	}
+	
 	
 	@GET
 	@Path("search")

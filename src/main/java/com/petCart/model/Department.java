@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 
@@ -47,6 +46,7 @@ public class Department implements Serializable {
 
 	
 	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@JsonManagedReference("department-category")
 	private List<Category> categories;
 	
 	public Department() {
@@ -70,8 +70,6 @@ public class Department implements Serializable {
 	}
 
 	
-	
-	@JsonManagedReference("department-category")
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -80,10 +78,4 @@ public class Department implements Serializable {
 		this.categories = categories;
 	}
 
-	
-	
-   
-	
-	
-    
 }

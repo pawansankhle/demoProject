@@ -13,6 +13,7 @@ public interface IProductService {
 	public void deleteProduct(Product product);
 	public Product getProduct();
 	public Product findById(Integer id);
+	public Product viewProduct(Integer id);
 	public List<Product> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
 	
 	

@@ -12,7 +12,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -38,15 +37,17 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 public class Category implements Serializable {
 	
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public Category() {
 		super();
 	}
 
+	@Basic
+	@Column
+	@GeneratedValue
+	@Id
 	private Integer id;
 	
 	@Basic
@@ -54,20 +55,22 @@ public class Category implements Serializable {
 	private String name;
 	
 	
+	@ManyToOne
+	@JoinColumn(name="dept_id")
+	@JsonBackReference("category-department")
 	private Department department;
 	
-	
+	@Basic
+	@Column(name="created_time")
 	@Temporal(TemporalType.DATE)
 	private Date CreatedTime;
 	
-	
+	@Basic
+	@Column(name="modified_time")
 	@Temporal(TemporalType.DATE)
 	private Date ModifiedTime;
 	
-	@Basic
-	@Column
-	@GeneratedValue
-	@Id
+	
 	public Integer getId() {
 		return id;
 	}
@@ -85,8 +88,6 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 	
-	@Basic
-	@Column(name="created_time")
 	public Date getCreatedTime() {
 		return CreatedTime;
 	}
@@ -95,8 +96,6 @@ public class Category implements Serializable {
 		CreatedTime = createdTime;
 	}
 
-	@Basic
-	@Column(name="modified_time")
 	public Date getModifiedTime() {
 		return ModifiedTime;
 	}
@@ -106,9 +105,8 @@ public class Category implements Serializable {
 	}
 
 	
-	@JsonBackReference("category-department")
-    @ManyToOne(optional = false)
-	@JoinColumn(name="dept_id")
+	
+    
 	public Department getDepartment() {
 		return this.department;
 	}

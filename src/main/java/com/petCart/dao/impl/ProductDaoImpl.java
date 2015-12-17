@@ -100,6 +100,21 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		return null;
 	}
 
+
+	@Override
+	public Product viewProduct(Integer id) {
+		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
+		try{
+			Query query=getEntityManager().createNamedQuery("viewProduct").setParameter("id",id);
+			return  (Product)query.getSingleResult();
+		   
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error("inside @class ProductDaoimpl @method: viewProduct cause:"+e.toString());
+		}
+		return null;
+	}
+
 	
 	
 

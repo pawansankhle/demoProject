@@ -1,4 +1,4 @@
-<div class="row bottom-border"> <!--  .product-view-row -->
+<div class="row bottom-border" style="margin-left: 1px;" ng-controller="productViewCtrl"> <!--  .product-view-row -->
 			<div class="col-sm-6">
 				<div class="row">
 				    <div class="col-sm-2" ><!-- product-other-image-view --> 
@@ -31,11 +31,13 @@
 				   </div>
 				</div>
 				<div class="col-sm-12 bottom-border">
-					<p class="text-muted">M.R.P&nbsp;<i class="fa fa-inr"></i>:&nbsp;<span class="text-success">6000</span></p>
-					<p class="text-muted">Price&nbsp;<i class="fa fa-inr"></i>:&nbsp;<span class="text-success">5000</span></p>
-					<p class="text-muted">Sale Price&nbsp;<i class="fa fa-inr"></i>:&nbsp;<span class="text-success">4500</span></p>
+					<p class="text-muted">M.R.P&nbsp;:&nbsp;<span class="text-success">{{ product.mrpprice | currency:'&#8377;'}}</span></p>
+					<p class="text-muted">Price&nbsp;:&nbsp;<span class="text-success">{{ product.price | currency:'&#8377;'}}</span></p>
+					<p class="text-muted" ng-if="showOfferPrice(product.offerPrice,product.price)">Offer Price&nbsp;:&nbsp;<span class="text-success">{{ product.offerPrice | currency:'&#8377;'}}</span></p>
 					<p class="text-muted">Cash on Delivery:&nbsp;<span class="text-primary">Yes</span></p>
-					<p class="text-muted">Availability:&nbsp; <span class="text-primary">in Stock</span></p>
+					<p class="text-muted">Availability:&nbsp;<span class="text-primary" ng-if="showAvailabe(product.quantity)" >
+					in Stock</span><span class="text-primary" ng-if="!showAvailabe(product.quantity)" >
+					Out Of Stock</span>&nbsp;<span ng-if="showAvailabe(product.quantity)" class="text-primary">({{product.quantity}} left)</span></p>
 				</div>
 			   </div>
 			</div><!--  /single-product-desc -->
@@ -151,7 +153,6 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-			</div>
-		</div><!--  /.other-product-row -->
+			</div><!--  /.other-product-row -->
 	
 

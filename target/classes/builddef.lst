@@ -24,6 +24,7 @@ UTF-8
 /home/innoeye/demoProject/src/main/java/com/petCart/model/Department.java
 /home/innoeye/demoProject/src/main/java/com/petCart/dao/impl/DepartmentDaoImpl.java
 /home/innoeye/demoProject/src/main/java/com/petCart/dao/IProductDAO.java
+/home/innoeye/demoProject/src/main/java/com/petCart/model/Rating.java
 /home/innoeye/demoProject/src/main/java/com/petCart/service/IDepartmentService.java
 /home/innoeye/demoProject/src/main/java/com/petCart/rest/impl/DepartmentRestImpl.java
 /home/innoeye/demoProject/src/main/java/com/petCart/model/Category.java

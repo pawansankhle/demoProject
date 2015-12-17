@@ -4,7 +4,7 @@
 			<h2 class="">{{ info.name }}</h2> 
 			<p class="caption">{{ 'guppy' | uppercase }}</p> 
 			<a class="info" ng-click="addToCart(info.id)">Add to cart</a>
-            <a ui-sref="product.view" class="info">view</a>
+            <a ui-sref="product.view({id: info.id})" class="info">view</a>
             
 		</div>
 </div>

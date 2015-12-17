@@ -1,5 +1,6 @@
 var app = angular.module("DemoApp", ['ui.router','ngResource', 'ngAnimate']);
 
+
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/');
 	$stateProvider
@@ -49,8 +50,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			    template: '<div ui-view></div>'
 		   })
 		   .state('product.view',{
-			   url: '/view',
-			   template: '<h1>product view</h1>'
+			   url: '/view/:id',
+			   templateUrl: 'views/product/product_view.html',
+			   controller: 'productViewCtrl'
 		   })
 		   .state('homeCategoryProduct', {
               url: '/category/:name/:cid',

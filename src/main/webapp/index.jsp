@@ -83,7 +83,7 @@
     <script src="js/services/userService.js"></script>
     
     <!-- Directives -->
-    <script src="js/directives/product.js"></script>
+    <script src="js/directives/js/product.js"></script>
     
   
   

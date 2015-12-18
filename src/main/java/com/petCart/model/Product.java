@@ -8,6 +8,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -108,9 +110,14 @@ public class Product  implements Serializable{
 	@JsonManagedReference("product-rating")
 	private List<Rating> ratings;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@NotAudited
 	private List<Files> images;
+	
+	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name="supplier_id")
+	@NotAudited
+	private Supplier supplierId;
 	
     
 	public Integer getId() {
@@ -130,9 +137,6 @@ public class Product  implements Serializable{
 		Name = name;
 	}
 
-	
-
-	
 	public Double getPrice() {
 		return Price;
 	}
@@ -219,4 +223,31 @@ public class Product  implements Serializable{
 	public void setOfferPrice(Double offerPrice) {
 		OfferPrice = offerPrice;
 	}
+
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+	public List<Files> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Files> images) {
+		this.images = images;
+	}
+
+	public Supplier getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Supplier supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	
+	
 }

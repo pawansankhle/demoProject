@@ -1,4 +1,4 @@
-var app = angular.module("DemoApp", ['ui.router','ngResource', 'ngAnimate']);
+var app = angular.module("DemoApp", ['ui.router','ngResource', 'ngAnimate','angularUtils.directives.dirPagination']);
 
 
 app.config(function ($stateProvider, $urlRouterProvider) {

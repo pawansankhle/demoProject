@@ -10,8 +10,14 @@ app
 	
 }])
 .controller('homeProductCtrl', ['$scope','$stateParams','productSrv',function($scope, $stateParams, productSrv) {
-  //$scope.products =  productSrv.get({ pstate: 'home' });
-   $scope.products =  productSrv.query(); 
+	$scope.currentPage = 1;
+	$scope.pageSize = 10;
+	$scope.products =  productSrv.query();
+	
+	$scope.pageChangeHandler = function(num) {
+	      console.log('meals page changed to ' + num);
+	  };
+   
    
 }])
 .controller('homeCategoryCtrl',['$scope', '$stateParams', 'productSrv', function($scope, $stateParams, productSrv){

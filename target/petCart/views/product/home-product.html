@@ -1,5 +1,13 @@
 <div class="row">
-	<div class="col-sm-3" ng-repeat="product in products">
+	<div class="col-sm-3" dir-paginate="product in products | itemsPerPage: pageSize" current-page="currentPage" pagination-id="productPagination">
 		<product-info info="product"></product-info>
 	</div>
 </div>
+<div class="row">
+	<div class="col-xs-12">
+    	<div class="text-center">
+              <dir-pagination-controls boundary-links="true" pagination-id="productPagination" on-page-change="pageChangeHandler(newPageNumber)" template-url="directives/pages/dirPagination.html"></dir-pagination-controls>
+        </div>
+    </div>
+</div>
+     

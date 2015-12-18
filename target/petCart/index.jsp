@@ -23,12 +23,17 @@
 
 
 
-<!-- Include the core AngularJS library -->
+ <!-- Include the core AngularJS library -->
     <script src="../petCart/js/lib/angular/angular.min.js"></script>
     <script src="../petCart/js/lib/angular/angular-resource.min.js"></script>
     <script src="../petCart/js/lib/angular/angular-sanitize.js"></script>
      <script src="../petCart/js/lib/angular/angular-animate.js"></script>
     <script src="../petCart/js/lib/angular/angular-ui-router.js"></script>
+ <!-- pagination module -->
+    <script src="../petCart/js/lib/angular/dirPagination.js"></script>
+    
+    
+    
 </head> 
 
 <body ng-app="DemoApp">

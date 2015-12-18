@@ -1,0 +1,22 @@
+
+<div class="row ps-form-adjust">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4 ps-user-auth" >
+	<form class="form-contorle"  name="loginForm"  role="loginForm" ng-controller="userAuthCtrl" ng-submit="submitForm(loginForm)"  class="form-horizontal">
+	<div class="form-group">
+		<label for="username">User Name</label>
+		<input class="form-control" name="username" type="text" placeholder="Username" required ng-model="username" />
+	</div>
+	 <div class="form-group">
+	   <label for="password">Password</label>
+       <input class="form-control" name="password" type="password" placeholder="Password" required  ng-model="password" />
+    </div>
+	<input type="submit" class="btn btn-success col-sm-12" value="Login">
+	<div class="form-group">
+	          <button class="btn btn-link col-sm-8">Forgot Password..??</button>
+	          <span class="col-sm-4 badge ps-badge-uf" ui-sref="user.sighup">signUp</span>
+	</div>
+	</form>
+   </div>
+   <div class="col-sm-4"></div>
+</div>

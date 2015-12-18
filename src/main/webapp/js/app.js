@@ -8,25 +8,25 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		url: '/',
         views: {
         	// the main template will be placed here (relatively named)
-            '': { templateUrl: 'views/home.html' },
+            '': { templateUrl: HOME_TEMPLATE_PATH },
             'homeSlider@home': { 
-            	templateUrl: 'views/slider/home-slider.html' 
+            	templateUrl: SLIDER_TEMPLAE_PATH 
                 //controller: 'homeSliderController'		
             },
             'homeproducts@home': { 
-            	templateUrl: 'views/product/home-product.html', 
+            	templateUrl: HOME_PRODUCT_TEMPLATE_PATH, 
                 controller: 'homeProductCtrl'		
             },
             'homeTopRatedItem@home': {
-				templateUrl: 'views/other/top-rated-product.html'
+				templateUrl: TOP_RATED_PRODUCT_TEMPLATE_PATH
 				 //controller: 'homeSliderController'
 			},
 			'homeFeaureItem@home': {
-				templateUrl: 'views/other/feature-product.html'
+				templateUrl: FEATURED_PRODUCT_TEMPLATE_PATH
 				 //controller: 'homeSliderController'
 			},
 			'homeRecentView@home': {
-				templateUrl: 'views/other/recent-view.html'
+				templateUrl: RECENT_VIEW_RPDOUCT_PATH
 				 //controller: 'homeSliderController'
 			}
 			}
@@ -37,11 +37,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		   })
 		   .state('user.login',{
 			   url: '/login',
-			   templateUrl: 'views/userauth/login.html'
+			   templateUrl: USER_LOGIN_FROM_TEMPLATE_PATH
 		   })
 		   .state('user.sighup',{
 			   url: '/signup',
-			   templateUrl: 'views/userauth/signup.html'
+			   templateUrl: USER_SIGNUP_TEMPLATE_PATH
 				   
 		   })
 		   .state('product',{
@@ -51,7 +51,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		   })
 		   .state('product.view',{
 			   url: '/view/:id',
-			   templateUrl: 'views/product/product_view.html',
+			   templateUrl: VIEW_PRODUCT_TEMPLATE_PATH,
 			   controller: 'productViewCtrl'
 		   })
 		   .state('homeCategoryProduct', {

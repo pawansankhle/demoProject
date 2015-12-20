@@ -1,10 +1,9 @@
-app.factory('menuSrv', function($resource) { 
-	
-   return $resource(DEPARTMENT_URL,{id:'@id'},
+app.factory('menuSrv',['baseUrl', 'URLS','$resource', function(baseUrl,URLS, $resource)
+{ 
+	return $resource(baseUrl+URLS.departmentUrl,{id:'@id'},
     {
-      update: {
-      method: 'PUT'
-    }
+      update:{method: 'PUT'}
     });
   
-});
+}
+]);

@@ -5,7 +5,6 @@ app.directive('productInfo',
     scope: {
       info: '='
     },
-    templateUrl:
-    'js/directives/pages/product.html'
+    templateUrl: 'js/directives/pages/product.html'
   };
 });

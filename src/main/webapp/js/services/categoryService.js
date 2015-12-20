@@ -1,9 +1,9 @@
-app.factory('categorySrv',  function($resource) { 
-   return $resource(CATEGORY_URL,{id:'@id'},
+app.factory('categorySrv', ['URLS','$resource',  function($resource,URLS) { 
+   return $resource(URLS.categoryUrl,{id:'@id'},
     {
       update: {
       method: 'PUT'
     }
     });
   
-});
+}]);

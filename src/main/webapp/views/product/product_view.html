@@ -1,19 +1,14 @@
-<div class="row bottom-border" style="margin-left: 1px;" ng-controller="productViewCtrl"> <!--  .product-view-row -->
+<div class="row bottom-border" style="margin-left: 1px;padding: 5px;" ng-controller="productViewCtrl"> <!--  .product-view-row -->
 			<div class="col-sm-6">
 				<div class="row">
 				    <div class="col-sm-2" ><!-- product-other-image-view --> 
-						<div class="row bottom-border" style="height: 50px;">
-							<img class="img img-responsive" src="/app1/images/280.jpg" alt="" >
+						<div class="row" style="height: 50px;margin-bottom: 10px;padding: 5px" ng-repeat="img in product.images">
+							<img class="img img-responsive" ng-src="{{ img.file }}" alt="" >
 						</div>
-						<div class="row bottom-border">
-							img-2
-						</div>
-						<div class="row ">
-							img-3
-						</div>
+						
 				    </div><!-- /product-other-image-view --> 
 				    <div class="col-sm-10" style="height: 422px; border:1px solid #ddd"><!-- product-image-view -->
-						<img class="img img-responsive" src="/app1/images/80.jpg" alt="" style="max-height: 422px; max-width: 422px;">
+						<img class="img img-responsive" ng-src="{{ product.images[0].file}}" alt="" style="max-height: 422px; max-width: 422px;">
 				    </div><!-- /product-image-view -->
 				</div>
 			   

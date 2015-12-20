@@ -24,9 +24,11 @@ app
 	$scope.products = productSrv.get({ pstate: 'category' ,id: $stateParams.cid });
 	
 }])
-.controller('productAddToCartCtrl', ['$scope', function($scope){
-	$scope.addToCart = function(pid) { 
-  	    Notifier.success('product','1 product added count is: ');
+.controller('productAddToCartCtrl', ['$scope','$rootScope', 'count', function($scope, $rootScope, count){
+	
+	$scope.addToCart = function(pid) {
+		$rootScope.count += 1;
+  	    Notifier.success('product','1 product added count is: '+ $rootScope.count);
   	    };
 	
 	}

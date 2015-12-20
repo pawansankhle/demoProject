@@ -16,18 +16,22 @@
 
 #product_category_div .list-group-item:first-child 
 {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	
+	border-radius: 0px;
 }
 
 #product_category_div .list-group-item
 {
- border: 0px;
- border-bottom: solid 2px #ddd;
- margin-left: 5px;
- margin-right: 5px;
+    border: 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: -19px;
  
+}
+
+#product_category_div .list-group-item:hover
+{
+	background-color: #772953
+	
 }
 
 #product_category_div ul li .badge
@@ -68,7 +72,7 @@
     width: 70px;
     position: absolute;
     top: -5px;
-    right: -10px;
+    right: 5px;
 }
 
 .view {
@@ -192,7 +196,7 @@
 .ps-user-auth
 {
 	//background-color: #E2E2E2;
-	background-color: #772953;
+	background-color: #F9F9F9;;
     box-shadow: 1px 1px 10px #E2E2E2;
     padding: 30px;
     color: white;

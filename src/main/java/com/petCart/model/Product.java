@@ -107,8 +107,8 @@ public class Product  implements Serializable{
 	@JsonIgnore
 	@NotAudited
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	@JsonManagedReference("product-rating")
-	private List<Rating> ratings;
+	@JsonManagedReference("product-review")
+	private List<Review> reviews;
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@NotAudited
@@ -224,13 +224,7 @@ public class Product  implements Serializable{
 		OfferPrice = offerPrice;
 	}
 
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
+	
 
 	public List<Files> getImages() {
 		return images;
@@ -246,6 +240,14 @@ public class Product  implements Serializable{
 
 	public void setSupplierId(Supplier supplierId) {
 		this.supplierId = supplierId;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	

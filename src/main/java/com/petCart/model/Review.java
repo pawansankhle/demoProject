@@ -37,11 +37,7 @@ public class Review  implements Serializable{
 	@JsonBackReference("review-product")
 	private Product product;
 	
-	@Column(name="cusotmer_name")
-	private String customerName;
 	
-	@Column(name="cusotmer_email")
-	private String customerEamil;
 	
 	@Column(name="product_id")
 	private String ProductId;
@@ -71,21 +67,7 @@ public class Review  implements Serializable{
 		this.product = product;
 	}
 
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getCustomerEamil() {
-		return customerEamil;
-	}
-
-	public void setCustomerEamil(String customerEamil) {
-		this.customerEamil = customerEamil;
-	}
+	
 
 	public String getProductId() {
 		return ProductId;

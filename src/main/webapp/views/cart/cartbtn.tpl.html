@@ -1,0 +1,21 @@
+
+			<li ng-if="shoppingCart.items.length < 1"> no Item in you cart</li>
+			<li>
+			  <table class="table table-stripped">
+				  <thead><tr><td>Name</td><td>Qwt</td><td>Price</td></tr></thead>
+				  <tbody>
+					<tr ng-repeat="item in shoppingCart.items" >
+					<td>{{ item.itemName | uppercase }}</td>
+				    <td>{{ item.quantity }} </td>   
+				    <td>{{ item.itemTotal | currency:'&#8377;' }}</td>
+				  </tr>
+				 </tbody>
+			  </table>
+			</li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <table class="table table-stripped">
+				  <thead><tr><td>Total</td><td></td><td></td><td>{{shoppingCart.total | currency:'&#8377;' }}</td></tr></thead>
+			  </table>
+            </li>
+            <li><button ui-sref="cart" class="btn btn-success col-sm-12">View Cart</button></li>

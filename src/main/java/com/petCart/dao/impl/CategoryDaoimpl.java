@@ -15,6 +15,7 @@ import com.petCart.dao.ICategoryDAO;
 
 import com.petCart.dao.generic.impl.GenericDaoImpl;
 import com.petCart.model.Category;
+import com.petCart.model.Product;
 
 @Repository
 @Transactional
@@ -52,12 +53,7 @@ public class CategoryDaoimpl extends GenericDaoImpl<Category> implements ICatego
 		return null;
 	}
 
-	@Override
-	public Category findById(Object id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public List<Category> findAllCategory() {
 		logger.info("inside @class CategoryDaoimpl @method: findAllCategory entry...");
@@ -76,6 +72,20 @@ public class CategoryDaoimpl extends GenericDaoImpl<Category> implements ICatego
 			Integer upperLimit, String orderBy, String orderType) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Product> findProductByCategory(Integer id) {
+		logger.info("inside @class CategoryDaoimpl @method: findProductByCategory entry...");
+		try{
+			Query query=getEntityManager().createNamedQuery("findCategoryById").setParameter("id", id);
+			return  query.getResultList();
+			
+		}catch(Exception ex){
+			logger.error("Exception occured @class: CategoryDaoimpl @method: findProductByCategory @cause: "+ex.getMessage());
+		}
+		return null;
+		
 	}
 
 }

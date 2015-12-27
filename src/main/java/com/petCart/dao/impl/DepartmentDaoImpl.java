@@ -52,10 +52,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements IDe
 		return super.update(dept);
 	}
 
-	@Override
-	public Department findById(Object dept) {
-		return super.findById(dept);
-	}
+	
 
 	@Override
 	public List<Department> search(SearchContext context, Integer lowerLimit,

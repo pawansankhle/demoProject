@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.petCart.dao.ICategoryDAO;
 import com.petCart.dao.IProductDAO;
 import com.petCart.model.Category;
+import com.petCart.model.Product;
 import com.petCart.service.ICategoryService;
 
 @Service
@@ -23,11 +24,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Autowired
 	ICategoryDAO categoryDAO;
 	
-	@Override
-	public void addProduct(Category category) {
-		
-
-	}
+	
 
 	@Override
 	public List<Category> getAllCategory() {
@@ -56,6 +53,18 @@ public class CategoryServiceImpl implements ICategoryService {
 	public List<Category> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Product> getProductByCategory(Integer cid) {
+		try{
+			 return categoryDAO.findProductByCategory(cid);
+		    
+		}catch(Exception e){
+			logger.equals(" inside class @class CategoryServiceimpl @method getProductByCategory cause: "+e.toString());
+			
+		}
 		return null;
 	}
 

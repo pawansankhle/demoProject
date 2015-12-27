@@ -30,7 +30,7 @@ public class Review  implements Serializable{
 	@Column
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	private Integer id;
+	private long id;
 	
 	@ManyToOne
 	@JoinColumn(name="pid")
@@ -55,11 +55,11 @@ public class Review  implements Serializable{
 	@Column(name="created_on")
 	private Date createdOn;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

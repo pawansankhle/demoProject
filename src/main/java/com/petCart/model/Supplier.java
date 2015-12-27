@@ -17,7 +17,7 @@ public class Supplier {
 	
 	@Column
 	@GeneratedValue @Id
-	private Integer id;
+	private long id;
 	
 	@Basic
 	private Boolean enabled;
@@ -30,12 +30,12 @@ public class Supplier {
 	private User detailId;
 
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

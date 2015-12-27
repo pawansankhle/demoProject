@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petCart.model.Category;
+import com.petCart.model.Product;
 
 import com.petCart.service.ICategoryService;
 
@@ -39,11 +41,17 @@ public class CategoryRestImpl {
 		try{
 			return categoryService.getAllCategory();
 		}catch(Exception e){
-			e.printStackTrace();
 			logger.error("inside @class CategoryRestImpl  @method getAllCategory cause:"+e.toString());
 
 			return null;
 		}
+	}
+	
+	@GET
+	@Path("/products/{cid}")
+	public List<Product> getProductByCategory(@PathParam("id") Integer cid){
+		logger.info("inside @class CategoryRestImpl @method getProductByCategory entry...");
+		return categoryService.getProductByCategory(cid);
 	}
 
 }

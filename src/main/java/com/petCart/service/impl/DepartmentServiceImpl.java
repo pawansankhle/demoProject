@@ -53,14 +53,17 @@ public class DepartmentServiceImpl implements IDepartmentService{
 		return deptDAO.find(dept);
 	}
 
-	@Override
-	public Department findById(Integer id) {
-		return deptDAO.findById(id);
-	}
+	
 
 	@Override
 	public List<Department> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Department findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

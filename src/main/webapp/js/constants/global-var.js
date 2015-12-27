@@ -10,7 +10,10 @@ app.constant('GLOBAL_APP', {
 	recentViewProductTplPath: 'views/other/recent-view.html',
 	loginTplPath: 'views/userauth/login.html',
 	signUpTplPath: 'views/userauth/signup.html',
-	viewProductTplPath: 'views/product/product_view.html'
+	viewProductTplPath: 'views/product/product_view.html',
+    cartViewTplPath: 'views/cart/cart-view.tpl.html',
+    categoryTplPath: 'views/category/category.tpl.html',
+    checkoutTplPath: 'views/checkout/checkout.tpl.html'
 	 
 });
 

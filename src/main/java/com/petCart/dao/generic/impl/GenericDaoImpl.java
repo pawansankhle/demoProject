@@ -63,10 +63,7 @@ public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 		return this.entityManager.merge(t);
 	}
 
-	public T findById(Object id){
-		return this.entityManager.find(type, id);
-		
-	}
+	
 	
 	
 

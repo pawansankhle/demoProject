@@ -32,7 +32,7 @@ public class User implements Serializable{
 	@Column
 	@GeneratedValue
 	@Id
-    private Integer id;
+    private long id;
 	
 	@Basic 
 	@Column(name="name")
@@ -111,11 +111,11 @@ public class User implements Serializable{
 		this.enabled = enabled;
 	}
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -14,7 +14,7 @@ public interface IDepartmentService {
     public List<Department> getAllDepartment();
 	public void deleteDepartment(Department dept);
 	public Department findDept(Department dept);
-	public Department findById(Integer id);
+	public Department findById(Long id);
 	public List<Department> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
 	
 }

@@ -28,15 +28,32 @@
 				   <button type="submit" class="btn btn-default">Go</button>
 				 </form>
 		    </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ COUNT }}</span> <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+        <li class="dropdown ps-cart-table">
+          <a href="" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li ng-if="shoppingCart.items.length < 1"> no Item in you cart</li>
+			<li>
+			  <table class="table table-responsive">
+				  <thead><tr><td></td><td>Name</td><td>Qwt</td><td>Price</td></tr></thead>
+				  <tbody>
+					<tr ng-repeat="item in shoppingCart.items" >
+					<td><img class=" ps-cart-img img-rounded img-responsive" ng-src="{{item.itemId.images[0].file}}"></td>
+					<td>{{ item.itemId.name | uppercase }}</td>
+				    <td>{{ item.quantity }} </td>   
+				    <td>{{ item.itemId.offerPrice | currency:'&#8377;' }}</td>
+				  </tr>
+				 </tbody>
+			  </table>
+			</li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
+            <li>
+              <table class="table table-stripped">
+				  <thead><tr><td>Total</td><td></td><td></td><td>{{shoppingCart.total | currency:'&#8377;' }}</td></tr></thead>
+			  </table> 
+            </li>
+            <li><button ui-sref="cart" class="btn btn-success col-sm-12">View Cart</button></li>
+
+            </ul>
         </li>
       </ul>
         </div>

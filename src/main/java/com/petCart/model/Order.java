@@ -34,7 +34,7 @@ public class Order implements Serializable {
 
 	@Column
 	@GeneratedValue @Id
-	private Integer id;
+	private long id;
 	
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="customer_id")
@@ -90,11 +90,11 @@ public class Order implements Serializable {
 	@Column(name="delivery_date")
 	private Date deliveryDate;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

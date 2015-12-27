@@ -1,17 +1,17 @@
-app.factory('AuthService', function ($http, Session) {
+app.factory('AuthService',['$http', 'SessionSrv', function ($http, SessionSrv) {
   var authService = {};
  
   authService.login = function (credentials) {
     return $http
       .post('/login', credentials)
       .then(function (res) {
-        Session.create(res.data.id, res.data.user.id, res.data.user.role);
+    	  SessionSrv.create(res.data.id, res.data.user.id, res.data.user.role);
         return res.data.user;
       });
   };
  
   authService.isAuthenticated = function () {
-    return !!Session.userId;
+    return !!SessionSrv.userId;
   };
  
   authService.isAuthorized = function (authorizedRoles) {
@@ -19,8 +19,8 @@ app.factory('AuthService', function ($http, Session) {
       authorizedRoles = [authorizedRoles];
     }
     return (authService.isAuthenticated() &&
-      authorizedRoles.indexOf(Session.userRole) !== -1);
+      authorizedRoles.indexOf(SessionSrv.userRole) !== -1);
   };
  
   return authService;
-})
+}])

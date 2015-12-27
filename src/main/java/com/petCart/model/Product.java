@@ -51,7 +51,7 @@ public class Product  implements Serializable{
 	@Column
 	@GeneratedValue 
 	@Id
-    private Integer id;
+    private Long id;
 	
 	@Basic
 	@Column(name="name")
@@ -114,17 +114,18 @@ public class Product  implements Serializable{
 	@NotAudited
 	private List<Files> images;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="supplier_id")
 	@NotAudited
 	private Supplier supplierId;
 	
     
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

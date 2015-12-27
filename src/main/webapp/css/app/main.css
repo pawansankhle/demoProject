@@ -138,7 +138,7 @@
 }
 .view-first .mask {
     opacity: 0;
-    background-color: rgba(219,127,8, 0.7); 
+    background-color: rgba(177, 133, 157, 0.59);; 
     transition: all 0.4s ease-in-out;
 }
 .view-first h2 {
@@ -260,4 +260,51 @@ ul.navbar-nav li:hover
 .navbar-default .navbar-nav>li>a:hover
 {
    color: white;
+}
+
+@media (min-width: 768px){
+.navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+    width: 300px;
+    background-color: rgba(119, 41, 83, 0.57);
+    color: #FFFFFF;
+}
+}
+
+.btn-view-cart
+{
+  background-color: #EA5C2A;
+  border-color: #EA5C2A
+}
+.btn-view-cart:hover
+{
+ color: white
+}
+
+.ps-view-cart-updown{  
+    padding: 5px 15px 5px 15px;
+    background-color: rgba(119, 41, 83, 0.57);
+    color: white;
+    cursor: pointer;
+}
+
+.ps-view-cart-updown:hover
+{
+   background-color: #772953;
+   box-shadow: 0px 0px 5px #772953;
+}
+
+.ps-cart-img
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #B1859D;
+    box-shadow: 0px 0px 5px #772953;
+}
+
+.ps-cart-table table>tbody>tr>td 
+{
+ vertical-align: middle;  
 }

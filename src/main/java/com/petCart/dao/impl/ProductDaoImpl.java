@@ -28,26 +28,37 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 
 	private final Logger logger = LoggerFactory.getLogger(ProductDaoImpl.class);
 
-	
-	
+
+
 	public Product addProduct(Product p) {
 		return super.create(p);
 	}
 
-	
+
 	public void deleteProduct(Product p) {
 		super.delete(p);
 	}
 
-	
+
 	public Product find(Product p) {
 		return super.find(p);
 	}
 
-	
-	public Product findById(Product p) {
-		return super.findById(p);
+
+	public Product findById(Long id) {
+		logger.info("inside @class ProductDaoimpl @method: findById entry...");
+		try{
+			Query query=getEntityManager().createNamedQuery("findProductById").setParameter("id", id);
+			return  (Product) query.getSingleResult();
+		  }catch(Exception ex){
+			logger.error("Exception occured @class: ProductDaoimpl @method: findById @cause: "+ex.getMessage());
+		}
+		return null;
+
+
 	}
+
+
 
 
 	@Override
@@ -73,16 +84,16 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 			JPATypedQueryVisitor<Product> visitor =  new JPATypedQueryVisitor<Product>(getEntityManager(), getType());
 			if(sc!=null){
 				sc.accept(visitor);
-		    	visitor.visit(sc);
-		    	TypedQuery<Product> typedQuery = visitor.getQuery();
-		    	/*if(lowerLimit>=0){
+				visitor.visit(sc);
+				TypedQuery<Product> typedQuery = visitor.getQuery();
+				/*if(lowerLimit>=0){
 		    		typedQuery.setFirstResult(lowerLimit);
 		    	}
 		    	if(upperLimit>=0){
 		    		typedQuery.setMaxResults(upperLimit);
 		    	}*/
-		    	return typedQuery.getResultList();
-		    	
+				return typedQuery.getResultList();
+
 			}else{
 				try {
 					throw new NotFoundException("Invalid search query.");
@@ -91,23 +102,23 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 					e.printStackTrace();
 				}
 			}
-			
+
 		}catch(Exception ex){
 			logger.error("inside @class ProductDaoimpl @method: search cause:"+ex.toString());
-			
+
 		}
-		
+
 		return null;
 	}
 
 
 	@Override
-	public Product viewProduct(Integer id) {
+	public Product viewProduct(Long id) {
 		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
 		try{
 			Query query=getEntityManager().createNamedQuery("viewProduct").setParameter("id",id);
 			return  (Product)query.getSingleResult();
-		   
+
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.error("inside @class ProductDaoimpl @method: viewProduct cause:"+e.toString());
@@ -115,11 +126,5 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		return null;
 	}
 
-	
-	
-
-	
-
-	
 
 }

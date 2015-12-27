@@ -50,7 +50,7 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Product findById(Integer id) {
+	public Product findById(Long id) {
 		return productDAO.findById(id);
 	}
 
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements IProductService {
 
 
 	@Override
-	public Product viewProduct(Integer id) {
+	public Product viewProduct(Long id) {
 	  logger.info("inside @class ProductServiceImpl  @mehod viewProduct id is: "+id);
 	    return productDAO.viewProduct(id);
 	}

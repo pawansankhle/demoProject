@@ -1,11 +1,11 @@
 var app = angular.module("DemoApp", ['ui.router','ngResource', 'ngAnimate','angularUtils.directives.dirPagination']);
 app.value('count',0);
 app.value('baseUrl','http://localhost:8888/petCart/rest');
-app.run(function ($rootScope, count, AUTH_EVENTS, STATS, AuthService) 
+app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv',function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv) 
 		{
 			$rootScope.count = count;
 			$rootScope.$on('$stateChangeStart', function (event, next) {
-				if(next.name == STATS.dashboard){
+			if(next.name == STATS.dashboard){
 				var authorizedRoles = next.data.authorizedRoles;
 			    if (!AuthService.isAuthorized(authorizedRoles)) {
 			         event.preventDefault();
@@ -19,19 +19,31 @@ app.run(function ($rootScope, count, AUTH_EVENTS, STATS, AuthService)
 			    }
 			}
 			  });
-		})
-app.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService',
-		function($scope,$rootScope, USER_ROLES, AuthService)
+		}])
+app.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv',
+		function($scope,$rootScope, USER_ROLES, AuthService,CartSrv,SessionSrv)
 		{ 
+		   $scope.currentUser = null;
+		   $scope.shoppingCart = null;
+	       CartSrv.getCart().then(function(res){$scope.setShoppingCart(res);},function(){});
+	       
 	       $rootScope.$watch('$rootScope.count',function(){return $rootScope.count},true);
-	       $scope.currentUser = null;
+	       $scope.$watch('$scope.shoppingCart',function(){return $scope.shoppingCart},true);
+	       $rootScope.$on('setShoppingCart',function(evnt,res){
+			       $scope.setShoppingCart(res.cart);
+			   })
+	       
+	       
 		   $scope.userRoles = USER_ROLES;
 		   $scope.isAuthorized = AuthService.isAuthorized;
 		   $scope.setCurrentUser = function (user) 
 		    {
-			  $scope.currentUser = user;
+			   $scope.currentUser = user;
 			};
-		
+			$scope.setShoppingCart = function (cart) 
+		    {    
+				$scope.shoppingCart = cart;
+			};
 		}]
         
 		
@@ -101,9 +113,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_AP
 			   			authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
 			   		 }
            })
-		   .state('homeCategoryProduct', {
+           .state(STATS.cart, {
+			   	url: '/cartView',
+			   	templateUrl: GLOBAL_APP.cartViewTplPath,
+			})
+			.state(STATS.checkout, {
+			   	url: '/checkout',
+			   	templateUrl: GLOBAL_APP.checkoutTplPath,
+			})
+           .state('homeCategoryProduct', {
               url: '/category/:name/:cid',
-              template: 'I could sure use a drink right now.',
+              templateUrl: GLOBAL_APP.categoryTplPath,
               controller: 'homeCategoryCtrl'
             })
 			

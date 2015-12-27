@@ -2,6 +2,7 @@ package com.petCart.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -9,16 +10,30 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 
 
+
+
+
+@NamedQueries( {
+@NamedQuery(name="findCartByItemId",query="Select c From Cart c where itemId=:itemId"),
+@NamedQuery(name="findCartById",query="Select c From Cart c where id=:id"),
+@NamedQuery(name="findCartByName",query="Select c From Cart c where name=:name"),
+})
 
 @Entity
 @Table(name="cart")
@@ -30,117 +45,107 @@ public class Cart implements Serializable{
 		super();
 	}
 
-	@Basic
-	@Column(name="item_id")
-	@GeneratedValue
+	
 	@Id
-	private Integer itemId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column
+    private Integer id;
 	
-	@Basic
-	@Column(name="cart_id")
-	private String cartId;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="product_id")
-	private Product productId;
-	
-	@Basic
-	@Column(name="product_name")
-	private String productName;
-	
-	@Basic
-	@Column(name="price")
-	private Double price;
-	
-	@Basic
-	@Column(name="quantity")
-	private String quantity;
-	
-	
-	@Basic
-	@Column(name="buy_now")
-	private Boolean buyNow;
-	
+	@JsonIgnore
+	@Column(name="name")  
+    private String name;
+     
+    
+	@JsonIgnore
 	@Basic
 	@Column(name="added_on")
 	@Temporal(TemporalType.DATE)
 	private Date addedOn;
 	
+	@JsonIgnore
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
+	
+	@OneToMany(mappedBy="cartId",cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonManagedReference("cart-cartitem")
+    private Set<CartItem> items;
+	
+	@Column(name="total")
+    private double total;
 
-	public Integer getItemId() {
-		return itemId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setItemId(Integer itemId) {
-		this.itemId = itemId;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getCartId() {
-		return cartId;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setCartId(String cartId) {
-		this.cartId = cartId;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Product getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Product productId) {
-		this.productId = productId;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public String getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
-	}
-
-	public Boolean getBuyNow() {
-		return buyNow;
-	}
-
-	public void setBuyNow(Boolean buyNow) {
-		this.buyNow = buyNow;
-	}
 
 	public Date getAddedOn() {
 		return addedOn;
 	}
 
+
 	public void setAddedOn(Date addedOn) {
 		this.addedOn = addedOn;
 	}
+
 
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
 
+
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
+
+
+	public Set<CartItem> getItems() {
+		return items;
+	}
+
+
+	public void setItems(Set<CartItem> items) {
+		this.items = items;
+	}
+
+
+	public double getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", name=" + name + ", addedOn=" + addedOn
+				+ ", modifiedOn=" + modifiedOn + ", items=" + items
+				+ ", total=" + total + "]";
+	}
+	
+	
+	
+
+	
 	
 	
 	

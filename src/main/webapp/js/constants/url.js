@@ -3,7 +3,11 @@ app.constant('URLS', {
   getAllCategoryUrl: '/dept/findAll',
   productUrl: '/products/:pstate/:id',
   departmentUrl: '/dept/:id',
-  categoryUrl: '/category/:id' 
+  categoryUrl: '/category/:id',
+  cartUrl: '/cart',
+  addToCartUrl: '/cart/addToCart/',
+  updateCartUrl: '/cart/update/',
+  cartItemDelete: '/cart/delete/'
 });
 
 /*var BASE_URL=context+"/rest";

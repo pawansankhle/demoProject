@@ -1,11 +1,11 @@
-<div class="view view-first" ng-controller="productAddToCartCtrl">
-	<img class="img img-thumbnil img-responsive" ng-src="25780.jpg" >
+<div class="view view-first" ng-controller="AddToCartCtrl">
+	<img class="img img-thumbnil img-responsive" ng-src="{{ product.images[0].file }}" >
     	<div class="mask">
-			<h2 class="">{{ info.name }}</h2> 
+			<h2 class="">{{ product.name }}</h2> 
 			<p class="caption">{{ 'guppy' | uppercase }}</p> 
-			<a class="info" ng-click="addToCart(info.id)">Add to cart</a>
-            <a ui-sref="product.view({id: info.id})" class="info">view</a>
+			<a class="info" ng-click="addToCart(product)">Add to cart</a>
+            <a ui-sref="product.view({id: product.id})" class="info">view</a>
             
 		</div>
 </div>
-<p class="price">{{ info.offerPrice | currency:'&#8377;' }}</p>
+<p class="price">{{ product.offerPrice | currency:'&#8377;' }}</p>

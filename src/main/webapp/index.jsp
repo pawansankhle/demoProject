@@ -8,7 +8,7 @@
 </script>
 <link rel="stylesheet" href="../petCart/css/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="../petCart/css/bootstrap/bootstrap-theme.min.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="../petCart/css/bootstrap/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../petCart/css/app/main.css">
 <link rel="stylesheet" href="../petCart/css/app/ps-animate.css">
 
@@ -79,6 +79,7 @@
     <script src="js/controllers/categoryController.js"></script>
     <script src="js/controllers/menuController.js"></script>
     <script src="js/controllers/loginController.js"></script>
+    <script src="js/controllers/cartController.js"></script>
 
 <!-- Services -->
     <script src="js/services/productService.js"></script>
@@ -88,6 +89,7 @@
     <script src="js/services/sessionService.js"></script>
     <script src="js/services/requestInterceptor.js"></script>
     <script src="js/services/AuthService.js"></script>
+    <script src="js/services/CartService.js"></script>
     
 <!-- Directives -->
     <script src="js/directives/js/product.js"></script>

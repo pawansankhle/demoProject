@@ -78,9 +78,12 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	            <bean class="org.apache.cxf.jaxrs.ext.search.SearchContextProvider"/>
 	        </jaxrs:providers>
         <jaxrs:serviceBeans>
+            <bean class="com.petCart.rest.impl.UserRestImpl"/>
     	 	<bean class="com.petCart.rest.impl.ProductRestImpl"/>
     	 	<bean class="com.petCart.rest.impl.DepartmentRestImpl"/>
     	 	<bean class="com.petCart.rest.impl.CategoryRestImpl"/>
+    	 	<bean class="com.petCart.rest.impl.CartRestImpl"/>
+    	 	
     	</jaxrs:serviceBeans>
     </jaxrs:server>
     <tx:annotation-driven />

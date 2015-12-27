@@ -20,7 +20,7 @@ public class Files {
 	@Column
 	@GeneratedValue 
 	@Id
-    private Integer id;
+    private long id;
 	
 	@Basic
 	@Column(length=250)
@@ -32,12 +32,12 @@ public class Files {
 	private String file;
 
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

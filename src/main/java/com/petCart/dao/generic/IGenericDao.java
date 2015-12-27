@@ -17,7 +17,7 @@ public interface IGenericDao<T> {
 
     T update(T t); 
     
-    T findById(Object id);
+    
     
    
     

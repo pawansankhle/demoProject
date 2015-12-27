@@ -3,7 +3,7 @@ app.directive('productInfo',
   return {
     restrict: 'E',
     scope: {
-      info: '='
+      product: '='
     },
     templateUrl: 'js/directives/pages/product.html'
   };

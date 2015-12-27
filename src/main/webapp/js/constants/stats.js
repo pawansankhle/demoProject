@@ -10,5 +10,7 @@ app.constant('STATS', {
   userLogin: 'user.login',
   userSighup: 'user.sighup',
   product: 'product',
-  productView: 'product.view'
+  productView: 'product.view',
+  cart: 'cart',
+  checkout: 'checkout'
   });

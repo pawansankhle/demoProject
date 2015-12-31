@@ -106,6 +106,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_AP
 			   templateUrl: GLOBAL_APP.viewProductTplPath,
 			   controller: 'productViewCtrl'
 		   })
+		   .state(STATS.productReview,{
+			   url: '/review/:id',
+			   templateUrl: GLOBAL_APP.productreviewTplPath,
+			   //controller: 'productReviewCtrl'
+		   })
 		   .state(STATS.dashboard, {
 			   	url: '/dashboard',
 			   	templateUrl: GLOBAL_APP.dasthBoardTplPath,

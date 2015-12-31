@@ -80,7 +80,7 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 			Integer upperLimit, String orderBy, String orderType) {
 		logger.info("inside @class ProductDaoimpl @method: search entry...");
 		try{
-			SearchCondition<Product> sc = searchContext.getCondition(this.getType());
+			SearchCondition<Product> sc = searchContext.getCondition(searchContext.getSearchExpression(),this.getType());
 			JPATypedQueryVisitor<Product> visitor =  new JPATypedQueryVisitor<Product>(getEntityManager(), getType());
 			if(sc!=null){
 				sc.accept(visitor);

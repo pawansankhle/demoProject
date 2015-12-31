@@ -11,6 +11,7 @@ app.constant('STATS', {
   userSighup: 'user.sighup',
   product: 'product',
   productView: 'product.view',
+  productReview: 'product.review',
   cart: 'cart',
   checkout: 'checkout'
   });

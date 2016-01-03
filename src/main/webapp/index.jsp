@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,8 @@
 
 <body ng-app="DemoApp" ng-controller="ApplicationController">
     
-    <div ng-include="'views/navbar/navbar.html'"></div>
+    <jsp:include page="views/navbar/navbar.jsp" />
+    <!-- <div ng-include="'views/navbar/navbar.html'"></div> -->
     <div class="container-fluid">
 		<!--row for main page -->
 		<div class="row" >
@@ -33,6 +35,9 @@
                  </div>
               </div>	
 	   </div>
+    </div>
+    <div>
+         <div ng-include="'views/other/modal.html'"></div>
     </div>
 	 <div>
 	 	<div ng-include="'views/other/footer.html'"></div>
@@ -78,7 +83,7 @@
     <script src="js/controllers/departmentController.js"></script>
     <script src="js/controllers/categoryController.js"></script>
     <script src="js/controllers/menuController.js"></script>
-    <script src="js/controllers/loginController.js"></script>
+    <script src="js/controllers/authController.js"></script>
     <script src="js/controllers/cartController.js"></script>
 
 <!-- Services -->

@@ -38,7 +38,7 @@ public class Order implements Serializable {
 	
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="customer_id")
-	private User customer;
+	private Users customer;
 	
 	@Basic
 	@Column(name="bill_number")
@@ -98,11 +98,11 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public User getCustomer() {
+	public Users getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(User customer) {
+	public void setCustomer(Users customer) {
 		this.customer = customer;
 	}
 

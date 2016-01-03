@@ -17,7 +17,22 @@
                 <li><a href="#">Messages</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a ui-sref="user.login" >Login</a></li>
+             <li ng-if="!currentUser"><a ui-sref="user.login" >Login</a></li>
+             <li ng-if="currentUser" class="dropdown" >
+				 <a href="" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">hi!! {{ currentUser.username | lowercase}}<span class="caret"></span></a>
+		         <ul class="dropdown-menu">
+			        <li>
+			           <a href="">Settings</a>
+			        </li>
+			        <li>
+			           <a href="">Orders</a>
+			        </li>
+			        <li>
+			           <a href="/petCart/j_spring_security_logout">Log out</a>
+			        </li>
+			     </ul>
+		    </li>
+             <!--  <li ng-click="showModal('login')"><a href="">Login</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li>
@@ -32,7 +47,7 @@
           <a href="" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ng-if="shoppingCart.items.length < 1"> no Item in you cart</li>
-			<li>
+			<li ng-if="shoppingCart.items.length > 0">
 			  <table class="table table-responsive">
 				  <thead><tr><td></td><td>Name</td><td>Qwt</td><td>Price</td></tr></thead>
 				  <tbody>
@@ -46,12 +61,12 @@
 			  </table>
 			</li>
             <li role="separator" class="divider"></li>
-            <li>
+            <li ng-if="shoppingCart.items.length > 0">
               <table class="table table-stripped">
 				  <thead><tr><td>Total</td><td></td><td></td><td>{{shoppingCart.total | currency:'&#8377;' }}</td></tr></thead>
 			  </table> 
             </li>
-            <li><button ui-sref="cart" class="btn btn-success col-sm-12">View Cart</button></li>
+            <li ng-if="shoppingCart.items.length > 0"><button ui-sref="cart" class="btn btn-success col-sm-12">View Cart</button></li>
 
             </ul>
         </li>

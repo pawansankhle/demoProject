@@ -5,6 +5,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,11 +17,11 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class Files {
 
 	
-	@Basic
-	@Column
-	@GeneratedValue 
+	
+	@Column(name="fileid")
 	@Id
-    private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO) 
+	private Long id;
 	
 	@Basic
 	@Column(length=250)
@@ -28,7 +29,7 @@ public class Files {
 	
 	
 	@Basic
-	@Column(length=250, nullable=false)
+	@Column(length=250)
 	private String file;
 
 

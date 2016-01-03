@@ -44,6 +44,21 @@ app.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','Auth
 		    {    
 				$scope.shoppingCart = cart;
 			};
+			$scope.showModal = function(modalFor){
+				var url="";
+	            if(modalFor == 'login')
+	            {
+					url = GLOBAL_APP.loginTplPath
+				}
+	            if(modalFor == 'signup')
+	            {
+					url = GLOBAL_APP.signUpTplPath
+				}
+				
+					 $('#commonModal').modal({show:true})
+			               $('#commonModal .modal-body').load(url,function(result){
+				     });
+		   };
 		}]
         
 		

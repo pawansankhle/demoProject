@@ -6,16 +6,18 @@ function Cart() {
   };
 }
 
+
 app.service('SessionSrv', function () {
-  this.create = function (sessionId, userId, userRole) {
+  this.create = function (sessionId, userName, userRole) {
     this.id = sessionId;
-    this.userId = userId;
-    this.userRole = userRole;
+    this.username = userName;
+    this.userrole = userRole;
+    
   };
   this.destroy = function () {
     this.id = null;
-    this.userId = null;
-    this.userRole = null;
+    this.usernme = null;
+    this.userrole = null;
   };
   
   this.cart = new Cart(),

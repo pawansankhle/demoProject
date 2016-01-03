@@ -12,22 +12,50 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.map.annotate.JsonView;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
+
+@NamedQueries( {
+@NamedQuery(name="findUserByName",query="Select u From Users u where username=:username"),
+})
 @XmlRootElement(name="Users")
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Audited
-public class User implements Serializable{
+public class Users implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	
+	public Users() {
+	}
+	
+	public Users(String username, String password, boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+	}
+
+	public Users(String username, String password, 
+		boolean enabled, Set<Roles> Roles) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.roles = Roles;
+	}
+	
+	
 	@Basic
 	@Column
 	@GeneratedValue
@@ -35,12 +63,13 @@ public class User implements Serializable{
     private long id;
 	
 	@Basic 
-	@Column(name="name")
+	@Column(name="username")
 	private String username;
 	
 	
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
+	
 	
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
@@ -83,6 +112,11 @@ public class User implements Serializable{
 	@JoinColumn(name="image_id")
 	@NotAudited
 	private Files image;
+	
+	@ManyToMany(targetEntity=com.petCart.model.Roles.class,cascade = CascadeType.ALL)
+	@JoinTable(name="userrole", joinColumns=@JoinColumn(name="userid"), inverseJoinColumns=@JoinColumn(name="roleid"))
+	@NotAudited
+	private Set<Roles> roles = new HashSet<Roles>();
 	
 
 	public String getUsername() {
@@ -199,6 +233,14 @@ public class User implements Serializable{
 
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
+	}
+
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
 	}
 
 	

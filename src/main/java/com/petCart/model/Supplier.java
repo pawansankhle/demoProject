@@ -27,7 +27,7 @@ public class Supplier {
 	
 	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="supplier_detail_id")
-	private User detailId;
+	private Users detailId;
 
 
 	public long getId() {

@@ -1,18 +1,22 @@
 <div class="row ps-form-adjust">
   <div class="col-sm-4"></div>
   <div class="col-sm-4 ps-user-auth">
-	<form class="form-contorle" class="form-horizontal" role="form" name="signUpForm" ng-submit="usrSignUP(signUpForm)">
+	<form class="form-contorle" class="form-horizontal" role="form" ng-controller="authCtrl" name="signUpForm" ng-submit="signUp(signUpForm)">
+		<div class="form-group">
+		   <label for="username">User Name</label>
+	        <input type="text"  class="form-control"  ng-model="signUpForm.username" placeholder="user Name">
+	      </div>
 		<div class="form-group">
 		   <label for="useremail">Email address</label>
-	        <input type="email"  class="form-control"  ng-model="useremail" placeholder="Email">
+	        <input type="email"  class="form-control"  ng-model="signUpForm.email" placeholder="Email">
 	      </div>
 	       <div class="form-group">
-	        <label for="usepassword">Password</label>
-	        <input type="password"  class="form-control" ng-model="usepassword" placeholder="Password">
+	        <label for="password">Password</label>
+	        <input type="password"  class="form-control" ng-model="signUpForm.password" placeholder="Password">
 	       </div>
 	       <div class="form-group">
 	        <label for="userrepassword">Re Password</label>
-	        <input type="password"  class="form-control" ng-model="userrepassword" placeholder="Re Password">
+	        <input type="password"  class="form-control" ng-model="repassword" placeholder="Re Password">
 	       </div>
 	       <div class="form-group">
 			<input type="submit" class="btn btn-success col-sm-12" value="SignUp">

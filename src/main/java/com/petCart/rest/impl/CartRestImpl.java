@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,7 +30,7 @@ import com.petCart.service.ICartService;
 
 @Service("CartRestImpl")
 @Path("/cart")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/json")
 public class CartRestImpl {
 
 private Logger logger = LoggerFactory.getLogger(CartRestImpl.class);
@@ -45,13 +46,13 @@ private Logger logger = LoggerFactory.getLogger(CartRestImpl.class);
 	
 	@POST
 	@Path("update")
+	@Consumes("application/json")
 	public Cart updateCart(Cart cart){
 		logger.info("inside @class CartRestImpl @method updateCart entry..");
 		Message message = PhaseInterceptorChain.getCurrentMessage();
 	    HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
 	    HttpSession  session = request.getSession(true);
-	    return null;
-	    //return cartService.updateCart(session,cart);
+	    return cartService.updateCart(session,cart);
 	 }
 	
 	
@@ -76,10 +77,12 @@ private Logger logger = LoggerFactory.getLogger(CartRestImpl.class);
 	    
 	   Cart cart = (Cart) session.getAttribute("cart");
 	   if(cart != null){
+		   logger.info("@method getCartData find cart name is: "+cart.toString());
 	       cart = cartService.getCartByName(cart.getName());
-	       if(cart != null)
+	       if(cart != null){
+	    	   logger.info("@method getCartData return cart"+cart.toString());
 	    	   return cart;
-	       else
+	       }else
 	    	   return cartService.createCart(session);
 	     }else
 		   return cartService.createCart(session);

@@ -26,7 +26,18 @@ public class CartDaoImpl extends GenericDaoImpl<Cart> implements ICartDAO {
 	
 	@Override
 	public Cart addToCart(Cart cart) {
-		
+		logger.info("inside @class CartDaoImpl @method addToCart entry..");
+		try{
+			 return super.update(cart);
+			 
+		}catch(Exception e){
+			logger.error("@class CartDaoImpl @method addToCart cause"+e.toString());
+		}
+		return null;
+	}
+
+	@Override
+	public Cart updateCart(Cart cart) {
 		logger.info("inside @class CartDaoImpl @method updateCart entry..");
 		try{
 			 return super.update(cart);
@@ -34,12 +45,6 @@ public class CartDaoImpl extends GenericDaoImpl<Cart> implements ICartDAO {
 		}catch(Exception e){
 			logger.error("@class CartDaoImpl @method updateCart cause"+e.toString());
 		}
-		return null;
-	}
-
-	@Override
-	public Cart updateCart(Cart cart) {
-		
 		return null;
 	}
 

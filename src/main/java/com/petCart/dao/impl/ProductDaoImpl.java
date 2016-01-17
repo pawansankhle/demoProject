@@ -1,11 +1,13 @@
 package com.petCart.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javassist.NotFoundException;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
 import org.apache.cxf.jaxrs.ext.search.SearchConditionVisitor;
@@ -80,19 +82,21 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 			Integer upperLimit, String orderBy, String orderType) {
 		logger.info("inside @class ProductDaoimpl @method: search entry...");
 		try{
-			SearchCondition<Product> sc = searchContext.getCondition(searchContext.getSearchExpression(),this.getType());
-			JPATypedQueryVisitor<Product> visitor =  new JPATypedQueryVisitor<Product>(getEntityManager(), getType());
+			SearchCondition<Product> sc = searchContext.getCondition(Product.class);
+			JPATypedQueryVisitor<Product> visitor =  new JPATypedQueryVisitor<Product>(getEntityManager(), Product.class);
+			System.out.println("sc"+sc);
 			if(sc!=null){
 				sc.accept(visitor);
 				visitor.visit(sc);
 				TypedQuery<Product> typedQuery = visitor.getQuery();
-				/*if(lowerLimit>=0){
+				if(lowerLimit>=0){
 		    		typedQuery.setFirstResult(lowerLimit);
 		    	}
 		    	if(upperLimit>=0){
-		    		typedQuery.setMaxResults(upperLimit);
-		    	}*/
+		    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
+		    	}
 				return typedQuery.getResultList();
+			 
 
 			}else{
 				try {

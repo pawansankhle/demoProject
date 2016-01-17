@@ -59,7 +59,7 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public List<Product> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
 			String orderBy, String orderType) {
-		logger.info("inside @class ProductServiceImpl  @mehod addProduct product is");
+		logger.info("inside @class ProductServiceImpl  @mehod search");
 		 return productDAO.search(context,lowerLimit,upperLimit,orderBy,orderType);
 	}
 

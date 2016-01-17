@@ -1,43 +1,73 @@
-.ui-view-container {
-  position: relative;
-}
-
-[ui-view].ng-enter, [ui-view].ng-leave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  -webkit-transition:all .5s ease-in-out;
-	-moz-transition:all .5s ease-in-out;
-	-o-transition:all .5s ease-in-out;
-	transition:all .5s ease-in-out;
+[ui-view].ng-enter, [ui-view].ng-leave 
+{
+    transition:0.9s all ease; -moz-transition:0.9s all ease; -webkit-transition:0.9s all ease; 
 }
 
 [ui-view].ng-enter {
-  opacity: 0;
-  -webkit-transform:scale3d(0.5, 0.5, 0.5);
-  -moz-transform:scale3d(0.5, 0.5, 0.5);
-  transform:scale3d(0.5, 0.5, 0.5);
+    -webkit-animation:slideInRight 0.9s both ease;
+    -moz-animation:slideInRight 0.9s both ease;
+    animation:slideInRight 0.9s both ease; 
 }
 
-[ui-view].ng-enter-active {
-  opacity: 1;
-  -webkit-transform:scale3d(1, 1, 1);
-  -moz-transform:scale3d(1, 1, 1);
-  transform:scale3d(1, 1, 1);
-}
+
 
 [ui-view].ng-leave {
-  opacity: 1;
-  /*padding-left: 0px;*/  
-  -webkit-transform:translate3d(0, 0, 0);
-  -moz-transform:translate3d(0, 0, 0);
-  transform:translate3d(0, 0, 0);
+     opacity: 0; 
+    -webkit-animation:slideOutLeft 0.9s both ease;
+    -moz-animation:slideOutLeft 0.9s both ease;
+    animation:slideOutLeft 0.9s both ease;  
 }
 
-[ui-view].ng-leave-active {
-  opacity: 0;
-  /*padding-left: 100px;*/
-  -webkit-transform:translate3d(100px, 0, 0);
-  -moz-transform:translate3d(100px, 0, 0);
-  transform:translate3d(100px, 0, 0);
+
+/**************checkout form Animaion******************/
+
+
+/* basic styling for entering and leaving */
+/* left and right added to ensure full width */
+#form-views.ng-enter,
+#form-views.ng-leave{ 
+    transition:0.9s all ease; -moz-transition:0.9s all ease; -webkit-transition:0.9s all ease; 
+}
+    
+/* enter animation */
+#form-views.ng-enter            { 
+    -webkit-animation:slideInRight 0.9s both ease;
+    -moz-animation:slideInRight 0.9s both ease;
+    animation:slideInRight 0.9s both ease; 
+}
+
+/* leave animation */
+#form-views.ng-leave{
+     opacity: 0; 
+    -webkit-animation:slideOutLeft 0.9s both ease;
+    -moz-animation:slideOutLeft 0.9s both ease;
+    animation:slideOutLeft 0.9s both ease;   
+}
+
+
+/* ANIMATIONS
+============================================================================= */
+/* slide out to the left */
+@keyframes slideOutLeft {
+    to      { transform: translateX(-200%); }
+}
+@-moz-keyframes slideOutLeft {  
+    to      { -moz-transform: translateX(-200%); }
+}
+@-webkit-keyframes slideOutLeft {
+    to      { -webkit-transform: translateX(-200%); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from    { transform:translateX(200%); }
+    to      { transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+    from    { -moz-transform:translateX(200%); }
+    to      { -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+    from    { -webkit-transform:translateX(200%); }
+    to      { -webkit-transform: translateX(0); }
 }

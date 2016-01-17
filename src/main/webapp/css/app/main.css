@@ -1,3 +1,16 @@
+.ui-view-container
+{
+  min-height: 620px;
+  position: relative;
+}
+
+#form-views
+{ 
+width:auto;
+position: relative; 
+
+}
+
 .bottom-border{
   border-bottom:1px solid #ddd
 }
@@ -193,7 +206,6 @@
 
 .ps-user-auth
 {
-	//background-color: #E2E2E2;
 	background-color: #F9F9F9;;
     box-shadow: 1px 1px 10px #E2E2E2;
     padding: 30px;
@@ -250,18 +262,13 @@
 
 }
 
-ul.navbar-nav li:hover
-{
-	background-color: #772953;
-}
-
-.navbar-default .navbar-nav>li>a:hover
+.ps-cart-table .navbar-default .navbar-nav>li>a:hover
 {
    color: white;
 }
 
 @media (min-width: 768px){
-.navbar-right .dropdown-menu {
+.navbar-right .dropdown-menu#cart_menu {
     right: 0;
     left: auto;
     width: 300px;
@@ -326,3 +333,67 @@ ul.navbar-nav li:hover
 {
   box-shadow: 0px 0px 10px #ddd; 
 }
+
+li.ps-cart-table a:hover
+{
+    box-shadow: 1px 1px 10px #ddd;
+}
+
+/********************checkout view*******************************/
+
+/* form styling */
+#form-container               
+ { 
+	 margin-bottom:20px;
+     border-radius:5px; 
+ }
+#form-container .page-header   
+{ 
+	margin:0; padding:30px; 
+    border-top-left-radius:5px; 
+    border-top-right-radius:5px; 
+}
+
+/* numbered buttons */
+#status-buttons    {  }
+#status-buttons a  { 
+	color: #777; 
+	display:inline-block; 
+	font-size:12px; 
+	margin-right:50px; 
+	text-align:center; 
+	text-transform:uppercase; 
+	}
+
+#status-buttons a:hover
+{ 
+	text-decoration:none; 
+}
+
+/* we will style the span as the circled number */
+#status-buttons span{ 
+	background: #333;
+    display: block;
+    height: 50px;
+    color: white;
+    font-size: 15px;
+    width: 50px;
+    margin: 0 auto 10px;
+    padding-top: 15px;
+    border-radius: 50%; 
+    
+   }
+
+/* active buttons turn light green-blue*/
+#status-buttons a.active span   
+{ background: #EA5C2A;}
+
+.ps-checkout-ok{
+	position: relative;
+    top: -45px;
+    right: 69px;
+    color: #EA5C2A;
+    font-size: 25px;
+	
+}
+/***************************************/

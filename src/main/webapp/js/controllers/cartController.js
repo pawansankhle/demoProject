@@ -23,7 +23,6 @@ app.controller('cartCtrl',['$rootScope', '$scope', 'SessionSrv','CartSrv',functi
 	$scope.addToCart = function(product){
 		CartSrv.addToCart(product).then(function(cart){
 			$rootScope.$emit('setShoppingCart',{cart})
-			$rootScope.count+=1;
-		  },function(){}
+			},function(){}
 		);} 
 }]);

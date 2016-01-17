@@ -19,6 +19,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 
 @Entity
@@ -41,8 +43,8 @@ public class Roles implements Serializable{
 	@Column(nullable=false, length=200)
 	private String description;
 	
-	
-	@ManyToMany(targetEntity=com.petCart.model.Permissions.class, fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnore
+	@ManyToMany(targetEntity=com.petCart.model.Permissions.class, fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name="rolepermission", joinColumns=@JoinColumn(name="roleid"), inverseJoinColumns=@JoinColumn(name="permissionid"))
 	private Set<Permissions> permissions = new HashSet<Permissions>();
 

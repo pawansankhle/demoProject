@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 import com.petCart.dao.IProductDAO;
@@ -97,24 +98,16 @@ public class ProductRestImpl{
 		return productService.viewProduct(id);
 	}
 	
-	
+	@ExceptionHandler
 	@GET
 	@Path("search")
 	@Produces("application/json")
-	public List<Product> search(@DefaultValue("1")@QueryParam("page")Integer page,@DefaultValue("id")@QueryParam("sortFields")String sortFields,@DefaultValue("asc")
-    @QueryParam("sortDirections")
-    String sortDirections){
-		logger.info("inside @class ProductRestImpl @method search entry...id:");
-		
-		/*PaginationListWrapperImpl<Product> paginationwrapper = new PaginationListWrapperImpl();
-		
-		paginationwrapper.setPageSize(size);
-		paginationwrapper.setSortDirections(sortDirections);
-		paginationwrapper.setSortFields(sortFields);
-		
+	public List<Product> search(@DefaultValue("id")@QueryParam("orderBy")String orderBy,
+			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("0")@QueryParam("lowerLimit")Integer lowerLimit,
+			@DefaultValue("0")@QueryParam("upperLimit")Integer upperLimit
+      ){
+		logger.info("inside @class ProductRestImpl @method search entry.");
 		return productService.search(context,lowerLimit,upperLimit,orderBy,orderType);
-		*/
-		return productService.search(context,1,10,"id","asc");
 	}
 	
 	

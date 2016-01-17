@@ -1,4 +1,4 @@
-	app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', function ($http, URLS, SessionSrv,baseUrl,$rootScope) {
+app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', function ($http, URLS, SessionSrv,baseUrl,$rootScope) {
 		var cartService = {};
 		
 		cartService.addToCart = function(product){
@@ -6,9 +6,8 @@
 			return $http
 		      .post(url)
 		      .then(function (res) {
-				      
 				      var exist = false;
-				      Notifier.success(product.name+' added to your cart','Product');
+				      toastr.success(product.name+' added to your cart', 'Product');
 				      if(SessionSrv.cart.items != null)
 				      {
 						  var len = SessionSrv.cart.items.length;
@@ -18,8 +17,7 @@
 					      var len = 0;
 					      
 					   }
-					     
-					  for(var i=0; i< len; i++ ){
+					   for(var i=0; i< len; i++ ){
 							   if(SessionSrv.cart.items[i].id == res.data.items[0].id)
 							   {
 								   SessionSrv.cart.items[i].quantity+=1;
@@ -35,14 +33,14 @@
 				    
 		        return SessionSrv.cart;
 		      },function(res){
-				  Notifier.error('Error','Something Wrong...try Again');
+		    	  toastr.error('Error','Something Wrong...try Again')
 				  });
 	       };
 	       cartService.updateCart = function(cart){
 			     return $http
 				  .post(baseUrl+URLS.updateCartUrl,cart)
 				  .then(function(res) {
-					  Notifier.success('Info','cart Updated Successfully');
+					  toast.success('cart Updated Successfully','Info');
 				  })
 				      
 			   };
@@ -50,7 +48,7 @@
 				     return $http
 					  .put(baseUrl+URLS.cartItemDelete+id)
 					  .then(function(res) {
-						  Notifier.info('Info','one Product Remove From Cart');
+						  toastr.info('one Product Remove From Cart','Info');
 					  })
 			   };
 	       cartService.getCart = function(){

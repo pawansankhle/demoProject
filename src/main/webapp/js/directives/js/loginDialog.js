@@ -12,3 +12,4 @@ app.directive('loginDialog', function (AUTH_EVENTS) {
 		      scope.$on(AUTH_EVENTS.sessionTimeout, showDialog)
 		    }
 		  }});
+

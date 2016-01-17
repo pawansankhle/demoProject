@@ -2,7 +2,8 @@ package com.petCart.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 
@@ -68,9 +70,8 @@ public class Cart implements Serializable{
 	private Date modifiedOn;
 	
 	
-	@OneToMany(mappedBy="cartId",cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference("cart-cartitem")
-    private Set<CartItem> items;
+	@OneToMany(mappedBy="cartId",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<CartItem> items;
 	
 	@Column(name="total")
     private double total;
@@ -115,12 +116,12 @@ public class Cart implements Serializable{
 	}
 
 
-	public Set<CartItem> getItems() {
+	public List<CartItem> getItems() {
 		return items;
 	}
 
 
-	public void setItems(Set<CartItem> items) {
+	public void setItems(List<CartItem> items) {
 		this.items = items;
 	}
 

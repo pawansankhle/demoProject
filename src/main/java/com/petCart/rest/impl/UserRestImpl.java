@@ -37,88 +37,101 @@ import com.petCart.service.IUserService;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestImpl {
 
-	
+
 	private Logger logger = LoggerFactory.getLogger(UserRestImpl.class);
-	
+
 	@Context
 	private SearchContext context;
-	
-	
+
+
 	/*@Autowired
 	@Qualifier("successHandler")
 	private AuthenticationSuccessHandler successHandler;
-	*/
+	 */
 	@Autowired
 	private IUserService userService;
 	/*@Autowired
 	@Qualifier("jdbcUserService")
 	UserDetailsManager userDetailManager;
-	*/
-	
+	 */
+
 	/*@Autowired
 	IChangePassword changePasswordDao;
-	*/
-	
+	 */
+
 	@GET
-	@Path("/user")
-	public String isUserAvailable(Principal principal){
-		Message message = PhaseInterceptorChain.getCurrentMessage();
-	    HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
-	    HttpSession  session = request.getSession(true);
-	    
-		if(principal != null){
-		   Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		   String username = authentication.getName();
-		   String roles = authentication.
-				   getAuthorities().toString().replace("[","").replace("]","");
-		   String sessionid = session.getId();
-		   String response = "{\"status\": \"success\", \"username\": \""+username+"\",\"roles\": \""+roles+"\",\"id\": \""+sessionid+"\"}";
-		   return response;
-		}else{
-			
-			return null;
-		}
+	@Path("/profile")
+	public Users isUserAvailable(){
+		HttpSession  session = getSession();
 		
+		    Authentication authentication  = (Authentication) session.getAttribute("authentication");
+		    if(authentication!=null){
+				String username = authentication.getName();
+				Users user =  userService.findByName(username);
+				return user;
+			}else{
+              return null;
+		   }
+
 	}
 	
+	
+
 	@POST
 	@Path("/signup")
-	public String SignupUser(Users user){
+	public Users SignupUser(Users user){
 		logger.info("inside @class UserRestImpl  @method SignupUser entry...");
-		Message message = PhaseInterceptorChain.getCurrentMessage();
-	    HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
-	    HttpSession  session = request.getSession(true);
-	    String j_username = user.getUsername();
+		HttpSession  session = getSession();
+		String j_username = user.getUsername();
 		String j_password = user.getPassword();
 		Users usr = userService.createUser(user);
 		if(usr !=null){
-			return userService.Customlogin(j_username,j_password,session);
-		}else{
-			return "{\"status\": \"error\",\"message\": \"user Alread Exist with username\"}";
+			usr =  userService.Customlogin(j_username,j_password,session);
+			return usr;
 		}
+		return null;
+	}
+
+
+	@POST
+	@Path("/login")
+	public Users cutomLogin(@Valid LoginForm loginForm){
+		logger.info("inside @class UserRestImpl  @method loginUser entry...");
+		HttpSession  session = getSession();
+		String j_username = loginForm.getusername();
+		String j_password = loginForm.getpassword();
+
+        Users usr =  userService.Customlogin(j_username,j_password,session);
+		return usr;
 	}
 	
 	
-	@POST
-	@Path("/login")
-	public String cutomLogin(@Valid LoginForm loginForm){
-		logger.info("inside @class UserRestImpl  @method loginUser entry...");
-	   
+
+	@GET
+	@Path("/logout")
+	public String customLogout(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();
-	    HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
-	    HttpSession  session = request.getSession(true);
-	    String j_username = loginForm.getusername();
-		String j_password = loginForm.getpassword();
-        
-		  return userService.Customlogin(j_username,j_password,session);
-	   }
-	
+		HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
+		HttpSession  session = getSession();
+		userService.customLogout(request,session);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if(authentication == null)
+		{
+			return "{\"status\": \"success\",\"message\":\"logout successfully\"}"; 
+
+		}else
+		{
+			return "{\"status\": \"error\",\"message\":\"could not logout\"}";
+		}
+
+	}
+
 	@POST
 	@Path("/changePassword")
 	public String submitChangePassword(@PathParam("password") String newPassword){
 		Object principal = SecurityContextHolder.getContext().
 				getAuthentication().getPrincipal();
-		
+
 		String username = principal.toString();
 		if(principal instanceof UserDetails){
 			username = ((UserDetails)principal).getUsername();
@@ -128,6 +141,12 @@ public class UserRestImpl {
 		SecurityContextHolder.clearContext();
 		return "{\"status\": \"success\"}";
 	}
-	}
-	
 
+
+	public HttpSession getSession(){
+		Message message = PhaseInterceptorChain.getCurrentMessage();
+		HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
+		HttpSession  session = request.getSession(true);
+		return session;
+	}
+}

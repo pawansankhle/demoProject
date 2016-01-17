@@ -1,13 +1,16 @@
 app.constant('URLS', {
   baseUrl: '/rest',
-  getAllCategoryUrl: '/dept/findAll',
-  productUrl: '/products/:pstate/:id',
-  departmentUrl: '/dept/:id',
+  productUrl: '/products',
+  productSearchUrl: '/products/search',
+  departmentUrl: '/dept',
   categoryUrl: '/category/:id',
   cartUrl: '/cart',
   addToCartUrl: '/cart/addToCart/',
   updateCartUrl: '/cart/update/',
-  cartItemDelete: '/cart/delete/'
+  cartItemDelete: '/cart/delete/',
+  userUrl: '/user',
+  userProfileUrl: '/user/profile'
+  
 });
 
 /*var BASE_URL=context+"/rest";

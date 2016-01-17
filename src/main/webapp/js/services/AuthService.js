@@ -1,4 +1,4 @@
-app.factory('AuthService',['$http','baseUrl', 'SessionSrv', function ($http, baseUrl, SessionSrv) {
+app.factory('AuthService',['$http','baseUrl', 'SessionSrv','Msgs', function ($http, baseUrl, SessionSrv,Msgs) {
   var authService = {};
  
   authService.login = function (credentials) {
@@ -6,37 +6,57 @@ app.factory('AuthService',['$http','baseUrl', 'SessionSrv', function ($http, bas
 	  return $http
       .post(url , credentials)
       .then(function (res) {
-		   switch(res.data.status){
-			  case 'success':
-			      SessionSrv.create(res.data.id,res.data.username, res.data.roles);
-			      Notifier.success("Login","you have been logged in");
-			      return res.data;
-			      break
-			 case 'error':
-			      Notifier.error("Login",res.data.message)
+		    switch(res.status){
+				case 200:
+			      SessionSrv.saveUser(res.data);
+			      toastr.success(Msgs.loginSuccessMsg, "Login");
+			      return res;
 			      break;
-		         }
-		    });
+			   case 204:
+			      return res;
+			      break;
+			   }
+			    
+		});
   };
   authService.signup = function (credentials) {
     return $http
       .post(baseUrl+'/user/signup', credentials)
-      .then(function (res) {
-		  switch(res.data.status){
-			  case 'success':
-			      SessionSrv.create(res.data.id,res.data.username, res.data.roles);
-			      Notifier.success("Signup","Sign up Successfully");
-			      return res.data;
-			      break
-			 case 'error':
-			      Notifier.error("Signup",res.data.message)
+      .then(function(res) {
+		     switch(res.status){
+				case 200:
+			      SessionSrv.saveUser(res.data);
+			      toastr.success(Msgs.signupSuccessMsg, "Signup")
+			      return res;
 			      break;
-		         }
-		     });
+			    case 204:
+			        return res;
+			        break;
+			        
+			        }
+		     },function(){});
+		
   };
+  authService.logout = function () {
+	    return $http
+	      .get(baseUrl+'/user/logout')
+	      .then(function (res) {
+			  switch(res.status){
+				  case 200:
+				      SessionSrv.clearUser();
+				      toastr.success(Msgs.logoutSuccessMsg,"Logout")
+				      return res;
+				      break
+				  case 204:
+					  toastr.error(Msgs.logoutErrorMsg,"Logout")
+				      return res;
+				      break;
+			         }
+			     });
+	  };
  
   authService.isAuthenticated = function () {
-    return !!SessionSrv.username;
+	  return !!SessionSrv.user;
   };
  
   authService.isAuthorized = function (authorizedRoles) {

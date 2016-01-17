@@ -6,5 +6,5 @@ import com.petCart.model.Users;
 
 public interface IUserDao extends IGenericDao<Users>{
 
-	public Users findUserByName(Users user);
+	Users findUserByName(String username);
 }

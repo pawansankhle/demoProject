@@ -1,9 +1,3 @@
-app.factory('departmentSrv',['$resource', 'URLS',  function($resource,URLS) { 
-   return $resource(context+URLS.departmentUrl,{id:'@id'},
-    {
-      update: {
-      method: 'PUT'
-    }
-    });
-  
-}]);
+app.factory('departmentSrv',['URLS','Restangular', function(URLS,Restangular) { 
+	 return Restangular.all(URLS.departmentUrl);
+  }]);

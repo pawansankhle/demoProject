@@ -1,10 +1,12 @@
 package com.petCart.service.impl;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,10 +53,9 @@ public class UserServiceImpl implements IUserService{
 		logger.info("inside @class UserServiceImpl @method createUser entry...");
 		try{
 
-			Users user1 = userDao.findUserByName(user);
-
-			if(user1 == null){
-
+			Users user1 = userDao.findUserByName(user.getUsername());
+            if(user1 == null){
+                
 				Files file = new Files();
 				file.setFile(null);
 				String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -77,38 +79,64 @@ public class UserServiceImpl implements IUserService{
 				user.setImage(file);
 				return userDao.create(user);
 			}else{
-
+				
 				return null;
 			}
 		}catch(Exception e){
-			e.printStackTrace();
 			logger.error("@class UserServiceImpl @method createUser cause: "+e.toString());
 		}
 		return user;
 	}
 
 	@Override
-	public String Customlogin(String j_username,String j_password,HttpSession session) {
+	public Users Customlogin(String j_username,String j_password,HttpSession session) {
 		logger.info("inside @class UserServiceImpl @method Customlogin entry...");
-		
+
 		Authentication token = new UsernamePasswordAuthenticationToken(j_username, j_password);
 		try{
 
 			Authentication authentication = authenticationManager.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+			session.setAttribute("authentication",authentication);
 			String username = authentication.getName();
-			String roles = authentication.getAuthorities().toString().replace("[","").replace("]","");
-			String sessionid = session.getId();
-			return "{\"status\": \"success\", \"username\": \""+username+"\",\"roles\": \""+roles+"\",\"id\": \""+sessionid+"\"}";
+			Users user = userDao.findUserByName(username);
+			if(user!=null && authentication!=null)
+			    return user;
+			}catch(org.springframework.security.core.AuthenticationException ex){
+			ex.printStackTrace();
+			logger.error("@class UserServiceImpl @method Customlogin  cause: "+ex.toString());
+			return null;
+		  }
+		return null;
+	}
 
-		}catch(org.springframework.security.core.AuthenticationException error){
-			error.printStackTrace();
-			logger.error("@class UserServiceImpl @method Customlogin  cause: "+error.toString());
-			return "{\"status\": \"error\", \"message\": \""+error.getMessage()+"\"}";
+	@Override
+	public void customLogout(HttpServletRequest request,HttpSession session) {
+		logger.info("inside @class UserServiceImpl @method customLogout entry...");
+   
+		try{
+			Authentication authentication = (Authentication) session.getAttribute("authentication");
+			if (authentication != null){ 
+				new SecurityContextLogoutHandler().logout(request,null,authentication);
+			  }
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}catch(Exception ex){
+			ex.printStackTrace();
+			logger.error("@class UserServiceImpl @method customLogout  cause: "+ex.toString());
+
 		}
 	}
 
-	
+	@Override
+	public Users findByName(String username) {
+		logger.info("inside @class UserServiceImpl @method createUser entry...");
+		try{
+			  return userDao.findUserByName(username);
+		}catch(Exception ex){
+			logger.error("@class UserServiceImpl @method findByName  cause: "+ex.toString());
+			return null;
+		}
+     }
 }
 
 

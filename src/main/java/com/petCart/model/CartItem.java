@@ -21,14 +21,19 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
 @NamedQueries( {
 @NamedQuery(name="findItemByItemId",query="Select i From CartItem i where itemId=:itemId and cartId=:cartId"),
+@NamedQuery(name="findItemsByCartId",query="Select i From CartItem i where cartId=:cartId"),
+
 })
 @Entity
 @Table(name="cart_item")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CartItem  implements Serializable{
 
 	
@@ -46,11 +51,11 @@ public class CartItem  implements Serializable{
     private long id;
      
     
-    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JoinColumn(name = "item_id")
     private Product itemId;
-    //private long itemId;
+    
 	
     @Column(name="quantity")
     private int quantity;
@@ -61,9 +66,9 @@ public class CartItem  implements Serializable{
 	
 	
 	@ManyToOne
-    @JoinColumn(name="cart_id", nullable=false)
-	@JsonBackReference("cartitem-cart")
-    private Cart cartId;
+	@JsonIgnore
+	@JoinColumn(name="cart_id", nullable=false)
+	private Cart cartId;
 
 
 	public long getId() {

@@ -4,30 +4,57 @@ function Cart() {
     'items': [],
     'total': ''
   };
-}
+};
+
+function User() {
+	 return {
+	'addressLine1': '',
+    'addressLine2': '',
+    'city': '',
+    'deliveryAddress': '',
+    'email': '',
+    'enabled': false,
+    'firstName': '',
+    'id': '',
+    'image': {},
+    'lastName': '',
+    'mobile': '',
+    'postalCode': '',
+    'roles': [],
+    'username': ''
+   };
+  	
+};
 
 
 app.service('SessionSrv', function () {
-  this.create = function (sessionId, userName, userRole) {
-    this.id = sessionId;
+  /*this.create = function (userid, userName, userRole) {
+    this.userid = userid;
     this.username = userName;
     this.userrole = userRole;
+    this.deliveryAddress = deliveryAddress;
     
   };
   this.destroy = function () {
-    this.id = null;
-    this.usernme = null;
+    this.userid = null;
+    this.username = null;
     this.userrole = null;
-  };
+  };*/
   
+  this.user = new User(),
+  this.clearUser = function(){
+	this.user = new User();
+  },
+  this.saveUser = function(user){
+	   this.user = user;
+	},
   this.cart = new Cart(),
   this.clearCart = function() {
     this.cart = new Cart();
     this.cart.cartId = 1;
   },
   this.saveCart = function(cart) {
-	 
-    this.cart = cart;
+	  this.cart = cart;
   },
   this.updateCart =  function(id,item,qwt,total) {
 	 this.cart.items.push({

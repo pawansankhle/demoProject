@@ -58,10 +58,10 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 	}
 
 	@Override
-	public Users findUserByName(Users user) {
+	public Users findUserByName(String username) {
 		logger.info("inside @class UserDaoimpl @method: findUserByName entry...");
 		try{
-			Query query=getEntityManager().createNamedQuery("findUserByName").setParameter("username",user.getUsername());
+			Query query=getEntityManager().createNamedQuery("findUserByName").setParameter("username",username);
 			return  (Users) query.getSingleResult();
 		  }catch(Exception ex){
 			logger.error("Exception occured @class: UserDaoimpl @method: findUserByName @cause: "+ex.getMessage());

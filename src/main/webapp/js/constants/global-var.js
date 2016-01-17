@@ -13,8 +13,13 @@ app.constant('GLOBAL_APP', {
 	viewProductTplPath: 'views/product/product_view.html',
     cartViewTplPath: 'views/cart/cart-view.tpl.html',
     categoryTplPath: 'views/category/category.tpl.html',
+    productreviewTplPath: 'views/review.html',
     checkoutTplPath: 'views/checkout/checkout.tpl.html',
-    productreviewTplPath: 'views/review.html'
+    checkoutLoginTplPath: 'views/checkout/checkout.login.tpl.html',
+    checkoutSignupTplPath: 'views/checkout/checkout.signup.tpl.html',
+	checkoutAddressTplPath: 'views/checkout/checkout.address.tpl.html',
+	checkoutPaymentTplPath: 'views/checkout/checkout.payment.tpl.html'
+	
 	 
 });
 

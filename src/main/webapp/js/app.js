@@ -1,7 +1,11 @@
-var app = angular.module("DemoApp", ['ui.router','ngResource', 'ngAnimate','angularUtils.directives.dirPagination']);
+var app = angular.module("DemoApp", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination']);
 app.value('count',0);
-app.value('baseUrl','http://localhost:8888/petCart/rest');
-app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv',function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv) 
+app.value('pageUpperLimit',12);
+app.value('maxlimitofpagination',12);
+app.value('pageLowerLimit',0);
+app.value('baseUrl','http://localhost:8888/petCart/rest')
+app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv',
+function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv) 
 		{
 			$rootScope.count = count;
 			$rootScope.$on('$stateChangeStart', function (event, next) {
@@ -19,53 +23,59 @@ app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv',func
 			    }
 			}
 			  });
-		}])
-app.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv',
-		function($scope,$rootScope, USER_ROLES, AuthService,CartSrv,SessionSrv)
+}])
+.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv','GLOBAL_APP','AUTH_EVENTS','UserSrv',
+		function($scope,$rootScope, USER_ROLES,AuthService,CartSrv,SessionSrv,GLOBAL_APP,AUTH_EVENTS,UserSrv)
 		{ 
-		   $scope.currentUser = null;
-		   $scope.shoppingCart = null;
+		   $rootScope.currentUser = null;
+		   $rootScope.shoppingCart = null;
+		   $scope.toggleModal = false;
+		   $scope.showsignup = false;
+		   $scope.showlogin = true;
 	       CartSrv.getCart().then(function(res){$scope.setShoppingCart(res);},function(){});
+	       UserSrv.getProfile().then(function(user){$rootScope.setCurrentUser(user)});
 	       
 	       $rootScope.$watch('$rootScope.count',function(){return $rootScope.count},true);
-	       $scope.$watch('$scope.shoppingCart',function(){return $scope.shoppingCart},true);
+	       $rootScope.$watch('$rootScope.pageUpperLimit',function(){return $rootScope.pageUpperLimit},true);
+	       $rootScope.$watch('$rootScope.pageLowerLimit',function(){return $rootScope.pageLowerLimit},true);
+	       $rootScope.$watch('$rootScope.currentUser',function(){return $rootScope.currentUser},true);
+	       $rootScope.$watch('$scope.shoppingCart',function(){return $rootScope.shoppingCart},true);
 	       $rootScope.$on('setShoppingCart',function(evnt,res){
 			       $scope.setShoppingCart(res.cart);
-			   })
-	       
-	       
-		   $scope.userRoles = USER_ROLES;
+			   });
+		   
+	       $scope.userRoles = USER_ROLES;
 		   $scope.isAuthorized = AuthService.isAuthorized;
-		   $scope.setCurrentUser = function (user) 
+		   $rootScope.setCurrentUser = function (user) 
 		    {
-			   $scope.currentUser = user;
+				$rootScope.currentUser = user;
 			};
 			$scope.setShoppingCart = function (cart) 
 		    {    
-				$scope.shoppingCart = cart;
+				$rootScope.shoppingCart = cart;
+				$rootScope.count = cart.items.length;
 			};
-			$scope.showModal = function(modalFor){
-				var url="";
-	            if(modalFor == 'login')
+			$scope.authModal = function(modalFor){
+			    if(modalFor == 'login')
 	            {
-					url = GLOBAL_APP.loginTplPath
+					$scope.toggleModal = !$scope.toggleModal;
+					$scope.showlogin = true;
+					$scope.showsignup = false;
+						
 				}
 	            if(modalFor == 'signup')
 	            {
-					url = GLOBAL_APP.signUpTplPath
+				    $scope.toggleModal = !$scope.toggleModal;
+				    $scope.showlogin = false;
+				    $scope.showsignup = true;
+				    $scope.toggleModal = !$scope.toggleModal;
+					
 				}
-				
-					 $('#commonModal').modal({show:true})
-			               $('#commonModal .modal-body').load(url,function(result){
-				     });
-		   };
-		}]
-        
-		
-);
-
-
-app.config(function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_APP, STATS, USER_ROLES) {
+			 };
+}])
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider','GLOBAL_APP', 'STATS', 'USER_ROLES','RestangularProvider', 
+    function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_APP, STATS, USER_ROLES,RestangularProvider) {
+	RestangularProvider.setBaseUrl('http://localhost:8888/petCart/rest');
 	$urlRouterProvider.otherwise('/');
 	$httpProvider.interceptors.push(['$injector',function ($injector) { return $injector.get('AuthInterceptor');} ]);
 	$stateProvider
@@ -80,7 +90,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_AP
             },
             'homeproducts@home': { 
             	templateUrl: GLOBAL_APP.homeProductTplPath, 
-                controller: 'homeProductCtrl'		
+                controller: 'productCtrl'		
             },
            'homeTopRatedItem@home': {
 				templateUrl: GLOBAL_APP.topRatedProductTplPath
@@ -141,11 +151,24 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_AP
 			   	url: '/checkout',
 			   	templateUrl: GLOBAL_APP.checkoutTplPath,
 			})
+			.state(STATS.checkoutLogin, {
+			   	url: '/login',
+			   	templateUrl: GLOBAL_APP.checkoutLoginTplPath,
+			   	controller: 'checkoutCtrl'
+			})
+			.state(STATS.checkoutAddress, {
+			   	url: '/address',
+			   	templateUrl: GLOBAL_APP.checkoutAddressTplPath,
+			})
+			.state(STATS.checkoutPayment, {
+			   	url: '/payment',
+			   	templateUrl: GLOBAL_APP.checkoutPaymentTplPath,
+			})
            .state('homeCategoryProduct', {
-              url: '/category/:name/:cid',
+              url: '/category/:cid',
               templateUrl: GLOBAL_APP.categoryTplPath,
-              controller: 'homeCategoryCtrl'
+              controller: 'productbyCategoryCtrl'
             })
 			
     
-});
+}]);

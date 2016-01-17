@@ -13,11 +13,9 @@
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Messages</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-             <li ng-if="!currentUser"><a ui-sref="user.login" >Login</a></li>
+             <li ng-if="!currentUser"><a href="" ng-click="authModal('login')">Login</a></li>
              <li ng-if="currentUser" class="dropdown" >
 				 <a href="" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">hi!! {{ currentUser.username | lowercase}}<span class="caret"></span></a>
 		         <ul class="dropdown-menu">
@@ -27,8 +25,8 @@
 			        <li>
 			           <a href="">Orders</a>
 			        </li>
-			        <li>
-			           <a href="/petCart/j_spring_security_logout">Log out</a>
+			        <li ng-controller="authCtrl">
+			           <a ng-click="logout()">Log out</a>
 			        </li>
 			     </ul>
 		    </li>
@@ -45,8 +43,8 @@
 		    </li>
         <li class="dropdown ps-cart-table">
           <a href="" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li ng-if="shoppingCart.items.length < 1"> no Item in you cart</li>
+            <ul class="dropdown-menu" style="min-width: 320px;">
+              <li ng-if="shoppingCart.items.length < 1"> <h4 class="text-center">No item in your Cart</h4></li>
 			<li ng-if="shoppingCart.items.length > 0">
 			  <table class="table table-responsive">
 				  <thead><tr><td></td><td>Name</td><td>Qwt</td><td>Price</td></tr></thead>

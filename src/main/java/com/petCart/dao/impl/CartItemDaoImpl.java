@@ -1,5 +1,8 @@
 package com.petCart.dao.impl;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 
@@ -32,6 +35,18 @@ public class CartItemDaoImpl extends GenericDaoImpl<CartItem> implements ICartIt
 		}
 		catch(Exception e){
 			logger.error("inside @class CartItemDaoImpl @method: findItembyItemId cause:"+e.toString());
+		}
+		return null;
+	}
+	
+	@Override
+	public List<CartItem> findItemsbyCatId(Cart cart) {
+		logger.info("inside @class CartItemDaoImpl @method findItembyItemId entry");
+		try{
+			Query query=getEntityManager().createNamedQuery("findItemsByCartId").setParameter("cartId",cart);
+			return query.getResultList();
+		}catch(Exception e){
+			logger.error("inside @class CartItemDaoImpl @method: findItemsbyCatId cause:"+e.toString());
 		}
 		return null;
 	}

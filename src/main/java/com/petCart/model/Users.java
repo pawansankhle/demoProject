@@ -21,6 +21,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreType;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -67,6 +71,7 @@ public class Users implements Serializable{
 	private String username;
 	
 	
+	@JsonIgnore
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 	
@@ -108,12 +113,12 @@ public class Users implements Serializable{
 	@Column(name="mobile")
 	private String mobile;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="image_id")
 	@NotAudited
 	private Files image;
 	
-	@ManyToMany(targetEntity=com.petCart.model.Roles.class,cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity=com.petCart.model.Roles.class,cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(name="userrole", joinColumns=@JoinColumn(name="userid"), inverseJoinColumns=@JoinColumn(name="roleid"))
 	@NotAudited
 	private Set<Roles> roles = new HashSet<Roles>();
@@ -128,10 +133,12 @@ public class Users implements Serializable{
 	}
 
 	
+	@JsonIgnore
 	public String getPassword() {
 		return this.password;
 	}
 
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -242,6 +249,8 @@ public class Users implements Serializable{
 	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
 	}
+
+	
 
 	
 

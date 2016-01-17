@@ -13,5 +13,10 @@ app.constant('STATS', {
   productView: 'product.view',
   productReview: 'product.review',
   cart: 'cart',
-  checkout: 'checkout'
+  checkout: 'checkout',
+  checkoutLogin: 'checkout.login',
+  checkoutSignup: 'checkout.signup',
+  checkoutAddress: 'checkout.address',
+  checkoutPayment: 'checkout.payment'
+  
   });

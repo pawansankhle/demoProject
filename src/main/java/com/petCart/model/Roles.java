@@ -17,12 +17,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 
+@NamedQueries( {
+@NamedQuery(name="findRoleByName",query="Select r From Roles r where rollName=:rollName"),
 
+})
 @Entity
 @Table(name = "roles")
 public class Roles implements Serializable{
@@ -86,6 +91,14 @@ public class Roles implements Serializable{
 
 	public void setPermissions(Set<Permissions> permissions) {
 		this.permissions = permissions;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Roles [roleid=" + roleid + ", rollName=" + rollName
+				+ ", description=" + description + ", permissions="
+				+ permissions + "]";
 	}
 
 

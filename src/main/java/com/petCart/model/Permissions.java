@@ -10,10 +10,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+@NamedQueries( {
+@NamedQuery(name="findPermissionsByName",query="Select p From Permissions p where permissionname=:permissionname"),
 
+})
 @Entity
 @Table(name="permissions")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

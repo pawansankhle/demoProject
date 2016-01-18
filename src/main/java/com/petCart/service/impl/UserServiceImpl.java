@@ -22,6 +22,8 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.petCart.dao.IPermissionDao;
+import com.petCart.dao.IRolesDAO;
 import com.petCart.dao.IUserDao;
 import com.petCart.model.Files;
 import com.petCart.model.LoginForm;
@@ -42,7 +44,11 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	IUserDao userDao;
-
+	
+	@Autowired
+	IRolesDAO rolesDao;
+	
+	
 	@Autowired
 	@Qualifier("authenticationManager")
 	private AuthenticationManager authenticationManager;
@@ -54,24 +60,27 @@ public class UserServiceImpl implements IUserService{
 		try{
 
 			Users user1 = userDao.findUserByName(user.getUsername());
-            if(user1 == null){
+			Roles role = rolesDao.findRoleByName(userRoles.ROLE_USER);
+			System.out.println("role is:"+role.toString());
+			if(user1 == null){
                 
 				Files file = new Files();
 				file.setFile(null);
 				String encodedPassword = passwordEncoder.encode(user.getPassword());
-				Permissions permission = new Permissions();
+				/*Permissions permission = new Permissions();
 				permission.setPermissionname(userPermission.user_permission);
 				permission.setDescription("permssion for user who is new");
 				Set<Permissions> permissions = new HashSet<Permissions>();
 				permissions.add(permission);
-
-				Roles role = new Roles();
+*/
+				/*Roles role = new Roles();
 				role.setDescription("normal user");
 				role.setRollName(userRoles.ROLE_USER);
 				role.setPermissions(permissions);
-
+*/
 				Set<Roles> roles = new HashSet<Roles>();
 				roles.add(role);
+				System.out.println("roles is: "+roles.toString());
 
 				user.setRoles(roles);
 				user.setEnabled(true);

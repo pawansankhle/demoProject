@@ -43,7 +43,7 @@
 		    </li>
         <li class="dropdown ps-cart-table">
           <a href="" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
-            <ul class="dropdown-menu" style="min-width: 320px;">
+            <ul class="dropdown-menu well" style="min-width: 320px;">
               <li ng-if="shoppingCart.items.length < 1"> <h4 class="text-center">No item in your Cart</h4></li>
 			<li ng-if="shoppingCart.items.length > 0">
 			  <table class="table table-responsive">

@@ -94,6 +94,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
     	 	<bean class="com.petCart.rest.impl.DepartmentRestImpl"/>
     	 	<bean class="com.petCart.rest.impl.CategoryRestImpl"/>
     	 	<bean class="com.petCart.rest.impl.CartRestImpl"/>
+    	 	<bean class="com.petCart.rest.impl.CheckoutRestImpl" />
     	 	
     	</jaxrs:serviceBeans>
     </jaxrs:server>

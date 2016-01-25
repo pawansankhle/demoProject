@@ -142,7 +142,6 @@ public class UserRestImpl {
 		return "{\"status\": \"success\"}";
 	}
 
-
 	public HttpSession getSession(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();
 		HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);

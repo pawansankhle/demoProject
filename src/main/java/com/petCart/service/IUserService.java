@@ -12,5 +12,7 @@ public interface IUserService {
     Users Customlogin(String j_username,String j_password,HttpSession session);
     void customLogout(HttpServletRequest request, HttpSession session);
     Users findByName(String username);
+	String  updateProfile(HttpSession session, Users user);
+	
 	
 }

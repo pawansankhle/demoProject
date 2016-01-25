@@ -138,7 +138,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public Users findByName(String username) {
-		logger.info("inside @class UserServiceImpl @method createUser entry...");
+		logger.info("inside @class UserServiceImpl @method findByName entry...");
 		try{
 			  return userDao.findUserByName(username);
 		}catch(Exception ex){
@@ -146,6 +146,12 @@ public class UserServiceImpl implements IUserService{
 			return null;
 		}
      }
+
+	@Override
+	public String updateProfile(HttpSession session, Users user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

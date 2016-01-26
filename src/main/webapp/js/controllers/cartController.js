@@ -13,8 +13,9 @@ app.controller('cartCtrl',['$rootScope', '$scope', 'SessionSrv','CartSrv',functi
 	$scope.updateCart = function(cart) {
 		 CartSrv.updateCart(cart).then(function(res){},function(){})
 	}
-	$scope.cartItemRemove = function(item){
-		SessionSrv.cart.items.pop(item)
+	$scope.cartItemRemove = function(index,id){
+		SessionSrv.cart.items.pop(index)
+		CartSrv.deleteItem(id);
 	}
 	
 }])

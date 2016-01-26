@@ -396,4 +396,9 @@ li.ps-cart-table a:hover
     font-size: 25px;
 	
 }
+
+.ps-shadow
+{
+  box-shadow: 0px 0px 10px 0px #e8e9e8;
+}
 /***************************************/

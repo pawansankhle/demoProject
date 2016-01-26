@@ -3,22 +3,23 @@
  <div class="col-sm-8 col-xs-12 ps-cart-table">
    <table class="table table-stripped table-responsive">
    	<thead>
-   		<tr>
+   		<tr class="well">
 			<td></td>
    			<td>Name</td>
    			<td>Qwt</td>
    			<td>Price</td>
+   			<td></td>
    		</tr>
    	 </thead>
    	 <tbody>
    		<tr ng-repeat="item in cart.items">
-		  <td><img class="img-thumbnil img-responsive" ng-src="{{item.itemId.images[0].file}}" width="200" height="200"></td>
+		  <td><img class="img-thumbnil" ng-src="{{item.itemId.images[0].file}}" width="55" height="70"></td>
    		  <td>{{ item.itemId.name | uppercase }}</td>
 		  <td><span class="ps-view-cart-updown" ng-click="upQwt($index)">+</span><span ng-model="item.quantity" style="padding: 5px 10px 5px 10px;">{{ item.quantity }}</span><span class="ps-view-cart-updown" ng-click="downQwt($index)">-</span></td>   
 		  <td>{{ item.itemId.offerPrice | currency:'&#8377;' }}</td>
 		  <td><h3><i class="fa fa-trash" ng-click="cartItemRemove($index,item.id)" style="cursor:pointer;"></i></h3></td>
    		</tr>
-   		<tr><td>Total</td><td></td><td></td><td>{{ cart.total | currency:'&#8377;'}}</td></tr>
+   		<tr class="well"><td>Total</td><td></td><td></td><td>{{ cart.total | currency:'&#8377;'}}</td><td></td></tr>
    		<tr>
 		   <td><button class="col-sm-12 btn btn-success" ng-click="updateCart(cart)">Update</button></td>
 		   <td><button class="col-sm-12 btn btn-warning" ui-sref="checkout.login">Checkout</button></td>

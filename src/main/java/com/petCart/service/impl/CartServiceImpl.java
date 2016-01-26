@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.petCart.dao.ICartDAO;
 import com.petCart.dao.ICartItemDAO;
@@ -166,6 +167,22 @@ public class CartServiceImpl implements ICartService{
 		}
 
 		return null;
+	}
+
+	@ExceptionHandler
+	@Override
+	public String deleteItem(Integer id) {
+		try{
+			cartItemDao.delete(id);
+			return "{\"status\": \"success\"}";
+			
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+			logger.error("@class CartServiceimpl @method deleteItem"+ex.toString());
+			return null;
+		}
+		
 	}
 
 

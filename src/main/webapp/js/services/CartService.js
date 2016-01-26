@@ -40,13 +40,13 @@ app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', fu
 			     return $http
 				  .post(baseUrl+URLS.updateCartUrl,cart)
 				  .then(function(res) {
-					  toast.success('cart Updated Successfully','Info');
+					  toastr.success('cart Updated Successfully','Info');
 				  })
 				      
 			   };
 		   cartService.deleteItem = function(id){
 				     return $http
-					  .put(baseUrl+URLS.cartItemDelete+id)
+					  .delete(baseUrl+URLS.cartItemDelete+id)
 					  .then(function(res) {
 						  toastr.info('one Product Remove From Cart','Info');
 					  })

@@ -1,25 +1,45 @@
 <div class="row">
-<h4 class="text-muted">Shipping Details</h4>
-    <div class="form-group col-sm-12" >
-		<label for="username">Shipping Address</label>
-		<input type="textarea" id="shippingAddress" class="form-control" ng-if="currentUser.deliveryAddress.length > 1" placeholder="Address..."  ng-model="currentUser.deliveryAddress" disabled />
-		<input type="textarea" id="shippingAddress" class="form-control" ng-if="currentUser.deliveryAddress == null " placeholder="Address..."  ng-model="currentUser.deliveryAddress" />
+ <h4 class="text-muted">Shipping Details</h4>
+  <div class="col-sm-3" ng-show="showShippingAddress">
+    <div class="well ps-shadow">
+	  <span class="text-muted">Address</span>
+	  <i class="fa fa-pencil pull-right col-sm-offset-9 col-sm-3" style="cursor: pointer;font-size: 20px;" ng-click="editShippingAddress()"></i>
+	  <span class="btn-link pull-right col-sm-offset-9 col-sm-3" ng-click="editShippingAddress()">edit</span>
+	  <br/>
+	  <div class="address">
+		  <b>{{ currentUser.username }}</b><br/>
+		  {{currentUser.deliveryAddress }}
+          {{ currentUser.postalCode }}
+         
+       </div>
     </div>
-	<div class="form-group col-sm-12" >
-		<label for="username">Area zip</label>
-		<input type="text" id="postalCode" class="form-control"  ng-if="currentUser.postalCode.length > 1" placeholder="pincode..."  ng-model="currentUser.postalCode" disabled />
-		<input type="text" id="postalCode" class="form-control"  ng-if="currentUser.postalCode == null " placeholder="pincode..."  ng-model="currentUser.postalCode" />
-		</div>
-	<div class="form-group col-sm-12" >
-		<label for="username">Mobile No.</label>
-		<input type="text" id="mobile" class="form-control"  ng-if="currentUser.mobile.length > 1" ng-model="currentUser.mobile" disabled/>
-		<input type="text" id="mobile" class="form-control"  ng-if="currentUser.mobile == null" ng-model="currentUser.mobile" />
-  </div>
-   <div class="form-group row">
-		<div class="col-xs-6 col-xs-offset-3">
-			<a ui-sref="checkout.payment" class="btn btn-block btn-info">
-				Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-		</a>
-  </div>
+   </div>
+   <div class="col-sm-12">
+	  <form class="form-contorle" role="shippingDetailsForm" ng-show="isShippingAddressEdit"  class="form-horizontal"  method="post"  ng-submit="shippingDetails(currentUser)" novalidate >
+			<div class="form-group col-sm-12" >
+				<label for="username">Shipping Address</label>
+				<input type="textarea" id="shippingAddress" class="form-control" placeholder="Address..." ng-model="currentUser.deliveryAddress" />
+			</div>
+			<div class="form-group col-sm-12" >
+				<label for="username">Area zip</label>
+				<input type="text" id="postalCode" class="form-control" placeholder="pincode..." ng-model="currentUser.postalCode" />
+		   </div>
+			<div class="form-group col-sm-12" >
+				<label for="username">Mobile No.</label>
+				<input type="text" id="mobile" class="form-control" ng-model="currentUser.mobile" />
+		   </div>
+		   <div class="form-group row">
+				<div class="col-xs-6 col-xs-offset-3">
+					<button type="submit" class="btn btn-block btn-info" >
+						Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+					</button>
+			   </div>
+		  </div>
+	  </form>
+	  <div class="col-xs-6 col-xs-offset-3">
+					<button type="button" ui-sref="checkout.payment" ng-show="btnStatePayment" class="btn btn-block btn-success" >
+						Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+					</button>
+			   </div>
   </div>
 </div>

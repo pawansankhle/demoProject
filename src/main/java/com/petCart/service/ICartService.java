@@ -8,10 +8,11 @@ import com.petCart.model.Cart;
 
 public interface ICartService {
 
-	public Cart createCart(HttpSession session);
-	public Cart addToCart(HttpSession session,Long id);
-	public Cart updateCart(HttpSession session,Cart cart);
-	public Cart getCartByName(String cartName);
+	Cart createCart(HttpSession session);
+	Cart addToCart(HttpSession session,Long id);
+	Cart updateCart(HttpSession session,Cart cart);
+	Cart getCartByName(String cartName);
+	String deleteItem(Integer id);
 	
 	
 	

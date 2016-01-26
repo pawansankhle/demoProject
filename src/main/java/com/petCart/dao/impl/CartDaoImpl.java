@@ -56,7 +56,7 @@ public class CartDaoImpl extends GenericDaoImpl<Cart> implements ICartDAO {
 	}
 
 	@Override
-	public Cart findByItemId(Long itemId) {
+	public Cart findByItemId(Integer itemId) {
 		logger.info("inside @class cartDaoimpl @method: findByItemId entry...");
 		try{
 			Query query=getEntityManager().createNamedQuery("findCartByItemId").setParameter("itemId",itemId);

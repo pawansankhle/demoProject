@@ -51,10 +51,4 @@ public class CartItemDaoImpl extends GenericDaoImpl<CartItem> implements ICartIt
 		return null;
 	}
 
-	
-
-	
-	
-
-	
 }

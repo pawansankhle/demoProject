@@ -1,6 +1,71 @@
-<div class="text-center">
-    <span class="glyphicon glyphicon-heart"></span>
-    <h3>Thanks For Your Money!</h3>
-    
-    <button type="submit" class="btn btn-danger">Submit</button>
+<div class="row">
+	<div class="col-sm-8 right-border" ng-controller="cartCtrl" >
+	 <div class="bottom-border">
+	   <table class="table table-stripped table-responsive">
+			<thead class="">
+				<tr>
+					<td></td>
+					<td>Name</td>
+					<td>Qwt</td>
+					<td>Price</td>
+					<td></td>
+				</tr>
+			 </thead>
+			 <tbody>
+				<tr ng-repeat="item in cart.items">
+				  <td><img class="img-thumbnil img-responsive" ng-src="{{item.itemId.images[0].file}}" width="50" height="100"></td>
+				  <td>{{ item.itemId.name | uppercase }}</td>
+				  <td><span ng-model="item.quantity" style="padding: 5px 10px 5px 10px;">{{ item.quantity }}</span></td>   
+				  <td>{{ item.itemId.offerPrice | currency:'&#8377;' }}</td>
+				  <td><h3><i class="fa fa-trash" ng-click="cartItemRemove($index,item.id)" style="cursor:pointer;"></i></h3></td>
+				</tr>
+				<tr class="well"><td>Total</td><td></td><td></td><td>{{ cart.total | currency:'&#8377;'}}</td><td></td></tr>
+		   </tbody>
+	  </table>
+   </div>
+   <h5 class="text-muted">Shipping Address<span><i class="fa fa-pencil pull-right" ui-sref="checkout.address" style="cursor: pointer;font-size: 20px;"></i></span></h5>
+   <i class="btn-link pull-right" ui-sref="checkout.address">edit</i>
+   <div class="col-sm-6">
+    <div class="">
+       
+       <div class="address">
+		  <b>{{ currentUser.username }}</b><br/>
+		  {{currentUser.deliveryAddress }}
+          {{ currentUser.postalCode }}<br/>
+          <span class="text-strong">Mobile.</span> {{ currentUser.mobile }}
+         
+       </div>
+    </div>
+   </div>
+	</div>
+	<div class="col-sm-4">
+		<h4 class="text-muted bottom-border">Payment Method</h4>
+	<form class="form-group"   class="form-horizontal" ng-submit="placeOrder(orderDetails)" novalidate >
+       <div class="radio">
+			<label>
+			  <input type="radio" name="PaymentMethod" value="COD" ng-model="orderDetails.PaymentMethod"> Cash On Delivery
+			</label>
+	  </div>
+	  <div class="radio">
+			<label>
+			   <input type="radio"   name="PaymentMethod" value="CREDIT_CARD" ng-model="orderDetails.PaymentMethod">Credit Card
+			</label>
+	  </div>
+	  <div class="radio">
+			<label>
+			   <input type="radio"   name="PaymentMethod" value="DEBIT_CARD" ng-model="orderDetails.PaymentMethod">Debit Card
+			</label>
+	  </div>
+	   <div class="radio">
+			<label>
+			   <input type="radio"   name="PaymentMethod" value="PAYTM" ng-model="orderDetails.PaymentMethod">Paytm
+			</label>
+	  </div>
+	       <button type="submit" class="btn btn-success">Place Order</button>
+		
+	</form>
+	<hr/>
+	<p class="text-muted well">By Placing order you will be redirect to home page and will get comformation message and email</p>
+	</div>
 </div>
+ 

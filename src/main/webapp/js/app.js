@@ -4,8 +4,8 @@ app.value('pageUpperLimit',12);
 app.value('maxlimitofpagination',12);
 app.value('pageLowerLimit',0);
 app.value('baseUrl','http://localhost:8888/petCart/rest')
-app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv',
-function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv) 
+app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv','$state',
+function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state) 
 		{
 			$rootScope.count = count;
 			$rootScope.$on('$stateChangeStart', function (event, next) {
@@ -21,7 +21,8 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv)
 			        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
 			      }
 			    }
-			}
+			   }
+			
 			  });
 }])
 .controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv','GLOBAL_APP','AUTH_EVENTS','UserSrv',
@@ -47,7 +48,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv)
 	       $scope.userRoles = USER_ROLES;
 		   $scope.isAuthorized = AuthService.isAuthorized;
 		   $rootScope.setCurrentUser = function (user) 
-		    {
+		    {   
 				$rootScope.currentUser = user;
 			};
 			$scope.setShoppingCart = function (cart) 
@@ -150,19 +151,22 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv)
 			.state(STATS.checkout, {
 			   	url: '/checkout',
 			   	templateUrl: GLOBAL_APP.checkoutTplPath,
+			   	controller: 'checkoutCtrl'
 			})
 			.state(STATS.checkoutLogin, {
 			   	url: '/login',
 			   	templateUrl: GLOBAL_APP.checkoutLoginTplPath,
 			   	controller: 'checkoutCtrl'
-			})
+			 })
 			.state(STATS.checkoutAddress, {
 			   	url: '/address',
 			   	templateUrl: GLOBAL_APP.checkoutAddressTplPath,
+			   	controller: 'checkoutCtrl'
 			})
 			.state(STATS.checkoutPayment, {
 			   	url: '/payment',
 			   	templateUrl: GLOBAL_APP.checkoutPaymentTplPath,
+			   	controller: 'checkoutCtrl'
 			})
            .state('homeCategoryProduct', {
               url: '/category/:cid',

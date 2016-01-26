@@ -48,10 +48,10 @@ public class CartItem  implements Serializable{
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private Integer id;
      
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JoinColumn(name = "item_id")
     private Product itemId;
@@ -65,18 +65,18 @@ public class CartItem  implements Serializable{
 	private Boolean buyNow;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JsonIgnore
 	@JoinColumn(name="cart_id", nullable=false)
 	private Cart cartId;
 
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

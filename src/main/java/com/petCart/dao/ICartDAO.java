@@ -18,7 +18,8 @@ public interface ICartDAO extends IGenericDao<Cart>  {
 			String orderBy, String orderType);
 	public Cart addToCart(Cart cart);
 	public Cart updateCart(Cart cart);
-	public Cart findByItemId(Long itemId);
+	public Cart findByItemId(Integer itemId);
 	public Cart findCartByName(String name);
 	public Cart findById(Integer id);
+	
 }

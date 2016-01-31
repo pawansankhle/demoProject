@@ -3,7 +3,7 @@ app.value('count',0);
 app.value('pageUpperLimit',12);
 app.value('maxlimitofpagination',12);
 app.value('pageLowerLimit',0);
-app.value('baseUrl','http://localhost:8888/petCart/rest')
+app.value('baseUrl','http://localhost:8989/petCart/rest');
 app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv','$state',
 function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state) 
 		{
@@ -11,7 +11,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			$rootScope.$on('$stateChangeStart', function (event, next) {
 			if(next.name == STATS.dashboard){
 				var authorizedRoles = next.data.authorizedRoles;
-			    if (!AuthService.isAuthorized(authorizedRoles)) {
+				if (!AuthService.isAuthorized(authorizedRoles)) {
 			         event.preventDefault();
 			      if (AuthService.isAuthenticated()) {
 			        // user is not allowed
@@ -22,11 +22,11 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			      }
 			    }
 			   }
+			});
 			
-			  });
 }])
-.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv','GLOBAL_APP','AUTH_EVENTS','UserSrv',
-		function($scope,$rootScope, USER_ROLES,AuthService,CartSrv,SessionSrv,GLOBAL_APP,AUTH_EVENTS,UserSrv)
+.controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv','GLOBAL_APP','AUTH_EVENTS','UserSrv','$state'
+,'STATS',		function($scope,$rootScope, USER_ROLES,AuthService,CartSrv,SessionSrv,GLOBAL_APP,AUTH_EVENTS,UserSrv,$state,STATS)
 		{ 
 		   $rootScope.currentUser = null;
 		   $rootScope.shoppingCart = null;
@@ -34,23 +34,27 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 		   $scope.showsignup = false;
 		   $scope.showlogin = true;
 	       CartSrv.getCart().then(function(res){$scope.setShoppingCart(res);},function(){});
-	       UserSrv.getProfile().then(function(user){$rootScope.setCurrentUser(user)});
-	       
+	       UserSrv.getProfile().get(function(res){SessionSrv.saveUser(res); $rootScope.setCurrentUser(res)});
 	       $rootScope.$watch('$rootScope.count',function(){return $rootScope.count},true);
 	       $rootScope.$watch('$rootScope.pageUpperLimit',function(){return $rootScope.pageUpperLimit},true);
 	       $rootScope.$watch('$rootScope.pageLowerLimit',function(){return $rootScope.pageLowerLimit},true);
 	       $rootScope.$watch('$rootScope.currentUser',function(){return $rootScope.currentUser},true);
 	       $rootScope.$watch('$scope.shoppingCart',function(){return $rootScope.shoppingCart},true);
-	       $rootScope.$on('setShoppingCart',function(evnt,res){
-			       $scope.setShoppingCart(res.cart);
-			   });
+	       $rootScope.$on('setShoppingCart',function(evnt,res){$scope.setShoppingCart(res.cart);});
 		   
-	       $scope.userRoles = USER_ROLES;
-		   $scope.isAuthorized = AuthService.isAuthorized;
+		   $scope.userRoles = USER_ROLES;
 		   $rootScope.setCurrentUser = function (user) 
-		    {   
+		    {  
+			  if(exist(user) && exist(user.roles)){
+				if(user.roles[0].rollName == $scope.userRoles.admin){$state.go(STATS.dashboard);}
 				$rootScope.currentUser = user;
+			   }else{
+				   $rootScope.currentUser = null;
+			   }
+				
 			};
+			
+			 $scope.isAuthorized = AuthService.isAuthorized;
 			$scope.setShoppingCart = function (cart) 
 		    {    
 				$rootScope.shoppingCart = cart;
@@ -76,8 +80,10 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 }])
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider','GLOBAL_APP', 'STATS', 'USER_ROLES','RestangularProvider', 
     function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_APP, STATS, USER_ROLES,RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost:8888/petCart/rest');
+	RestangularProvider.setBaseUrl('http://localhost:8989/petCart/rest');
+	//RestangularProvider.setDefaultHeaders({token: "x-restangular"});
 	$urlRouterProvider.otherwise('/');
+	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	$httpProvider.interceptors.push(['$injector',function ($injector) { return $injector.get('AuthInterceptor');} ]);
 	$stateProvider
 	.state(STATS.home,{
@@ -141,7 +147,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	url: '/dashboard',
 			   	templateUrl: GLOBAL_APP.dasthBoardTplPath,
 			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }
            })
            .state(STATS.cart, {
@@ -176,3 +182,5 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			
     
 }]);
+
+

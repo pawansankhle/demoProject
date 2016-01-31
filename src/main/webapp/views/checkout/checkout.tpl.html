@@ -1,11 +1,11 @@
 <div class="row">
 <div class="col-sm-12">
    <div id="form-container">
-     <div class="page-header text-center">
+     <div class="page-header text-center bottom-border">
             <h2 class="text-center">Checkout</h2>
             <div id="status-buttons" class="text-center">
                 <a ui-sref-active="active" ui-sref=".login" ><span>1</span>login</a><i ng-if="currentUser" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
-                <a ui-sref-active="active" ui-sref=".address"><span>2</span>address</a><i ng-show="addressok" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
+                <a ui-sref-active="active" ui-sref=".address"><span>2</span>address</a><i ng-show="currentUser.deliveryAddress.length > 1 && currentUser.postalCode.length > 1 && currentUser.mobile.length > 1 " class="glyphicon glyphicon-ok ps-checkout-ok"></i>
                 <a ui-sref-active="active" ui-sref=".payment"><span>3</span> Payment</a><i ng-show="paymentok" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
             </div>
         </div>

@@ -14,32 +14,32 @@
        </div>
     </div>
    </div>
-   <div class="col-sm-12">
-	  <form class="form-contorle" role="shippingDetailsForm" ng-show="isShippingAddressEdit"  class="form-horizontal"  method="post"  ng-submit="shippingDetails(currentUser)" novalidate >
+   <div class="col-sm-12 bs-component">
+	  <form role="shippingDetailsForm" ng-show="isShippingAddressEdit"  style="padding: 1px 70px 0px 70px;" method="post"  ng-submit="shippingDetails(currentUser)" novalidate >
 			<div class="form-group col-sm-12" >
-				<label for="username">Shipping Address</label>
-				<input type="textarea" id="shippingAddress" class="form-control" placeholder="Address..." ng-model="currentUser.deliveryAddress" />
+				<label for="username"  class="control-label">Shipping Address</label>
+				<input type="textarea" id="shippingAddress" class="form-control"  ng-model="currentUser.deliveryAddress" />
 			</div>
 			<div class="form-group col-sm-12" >
-				<label for="username">Area zip</label>
-				<input type="text" id="postalCode" class="form-control" placeholder="pincode..." ng-model="currentUser.postalCode" />
+				<label for="username"  class="control-label">Area zip</label>
+				<input type="text" id="postalCode" class="form-control"  ng-model="currentUser.postalCode" />
 		   </div>
 			<div class="form-group col-sm-12" >
-				<label for="username">Mobile No.</label>
+				<label for="username"  class="control-label">Mobile No.</label>
 				<input type="text" id="mobile" class="form-control" ng-model="currentUser.mobile" />
 		   </div>
-		   <div class="form-group row">
+		   <div class="form-group">
 				<div class="col-xs-6 col-xs-offset-3">
-					<button type="submit" class="btn btn-block btn-info" >
+					<button class="btn btn-primary btn-raised" >
 						Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
 					</button>
 			   </div>
 		  </div>
 	  </form>
 	  <div class="col-xs-6 col-xs-offset-3">
-					<button type="button" ui-sref="checkout.payment" ng-show="btnStatePayment" class="btn btn-block btn-success" >
+			<button type="button" ui-sref="checkout.payment" ng-show="btnStatePayment" class="btn btn-primary btn-raised" >
 						Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-					</button>
-			   </div>
-  </div>
+			</button>
+	 </div>
+   </div>
 </div>

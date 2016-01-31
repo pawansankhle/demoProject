@@ -41,9 +41,8 @@ app.service('SessionSrv', function () {
     this.userrole = null;
   };*/
   
-  this.user = new User(),
   this.clearUser = function(){
-	this.user = new User();
+	this.user = null;
   },
   this.saveUser = function(user){
 	   this.user = user;

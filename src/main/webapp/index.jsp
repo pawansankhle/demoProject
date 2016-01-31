@@ -4,60 +4,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Pet Cart</title>
+
+<!-- Material Design fonts -->
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 <link rel="stylesheet" href="../petCart/css/bootstrap/bootstrap.min.css">
-<link rel="stylesheet"
-	href="../petCart/css/bootstrap/bootstrap-theme.min.css">
-<link href="../petCart/css/bootstrap/font-awesome.min.css"
-	rel="stylesheet">
+<link rel="stylesheet" href="../petCart/css/bootstrap/bootstrap-theme.min.css">
+<link href="../petCart/css/bootstrap/font-awesome.min.css"rel="stylesheet">
 <link rel="stylesheet" href="../petCart/css/app/main.css">
 <link rel="stylesheet" href="../petCart/css/app/toastr.min.css">
 <link rel="stylesheet" href="../petCart/css/app/ps-animate.css">
+<link rel="stylesheet" href="../petCart/css/angular/bootstrap-material-design.min.css">
+<link rel="stylesheet" href="../petCart/css/angular/ripples.min.css">
 
 </head>
 
 <body ng-app="DemoApp" ng-controller="ApplicationController">
-
-	<jsp:include page="views/navbar/navbar.jsp" />
-	<!-- <div ng-include="'views/navbar/navbar.html'"></div> -->
+    <div class="bs-component">
+	 <jsp:include page="views/navbar/navbar.jsp" />
+	</div>
+	
 	<div class="container-fluid">
 		<!--row for main page -->
 		<div class="row">
-			<div ng-switch on="currentUser.role">
-				<div ng-switch-when="userRoles.admin">You're admin.</div>
-				<div ng-switch-when="userRoles.editor">You're editor.</div>
-				<div ng-switch-default>
-					<div class="col-sm-2 hidden-xs" id="ps-menu-col"
-						style="">
-						<div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
-					</div>
-					<div class="col-sm-10 left-border col-xs-12 ui-view-container">
-						<div ui-view></div>
-					</div>
-				</div>
+			<div class="col-sm-2 hidden-xs" id="ps-menu-col">
+			    <div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
 			</div>
-		</div>
+			<div class="col-sm-10 left-border col-xs-12 ui-view-container">
+				<div ui-view></div>
+		    </div>
+	    </div>
 	</div>
-	<div>
+	<div class="bs-component">
 		<modal title="form" visible="toggleModal">
 		<div class="row">
 			<div class="col-sm-12" ng-show="showlogin">
-				<form class="form-contorle" role="loginForm" class="form-horizontal" style="padding: 1px 70px 0px 70px;"
+				<form class="bs-component" role="loginForm" class="form-horizontal" style="padding: 1px 70px 0px 70px;"
 					name="loginForm" ng-controller="authCtrl"
 					ng-submit="login(credentials)" novalidate>
-					<div class="form-group">
-						<div class="alert alert-danger" ng-show="errorDialog">{{
+					<div class="bs-component">
+						<div class="alert alert-danger alert-dismissible" ng-show="errorDialog">{{
 							message }}</div>
 					</div>
-					<div class="form-group">
-						<label for="username">User Name</label> <input id="username"
+					<div class="form-group label-floating is-empty">
+						<label for="username" class="control-label">User Name</label> 
+						<input id="username"
 							class="form-control" ng-model="credentials.username" />
 					</div>
-					<div class="form-group">
-						<label for="password">Password</label> <input class="form-control"
-							type="password" placeholder="Password" required id="password"
+					<div class="form-group label-floating is-empty">
+						<label for="password" class="control-label">Password</label> 
+						<input class="form-control"
+							type="password"  required id="password"
 							ng-model="credentials.password" />
 					</div>
-					<input type="submit" class="btn btn-success col-sm-12"
+					<input type="submit" class="btn btn-success  btn-raised col-sm-12"
 						value="Login">
 					<div class="form-group">
 						<button class="btn btn-link col-sm-6">Forgot Password..??</button>
@@ -67,34 +69,34 @@
 				</form>
 			</div>
 			<div class="col-sm-12" ng-show="showsignup">
-				<form class="form-contorle" class="form-horizontal" role="form" style="padding: 1px 70px 0px 70px;"
+				<form class="form-control" class="form-horizontal" role="form" style="padding: 1px 70px 0px 70px;"
 					ng-controller="authCtrl" name="signUpForm"
 					ng-submit="signUp(signUpForm)">
 					<div class="form-group">
 						<div class="alert alert-danger" ng-show="errorDialog">{{ message }}</div>
 					</div>
-					<div class="form-group">
-						<label for="username">User Name</label> <input type="text"
+					<div class="form-group label-floating is-empty">
+						<label  class="control-label">User Name</label> <input type="text"
 							class="form-control" ng-model="signUpForm.username"
-							placeholder="user Name">
+							>
 					</div>
-					<div class="form-group">
-						<label for="useremail">Email address</label> <input type="email"
+					<div class="form-group  label-floating is-empty">
+						<label  class="control-label">Email address</label> <input type="email"
 							class="form-control" ng-model="signUpForm.email"
-							placeholder="Email">
+							>
+					</div>
+					<div class="form-group label-floating is-empty">
+						<label for="password" class="control-label">Password</label> <input type="password"
+							class="form-control" ng-model="signUpForm.password" required
+							>
+					</div>
+					<div class="form-group label-floating is-empty">
+						<label for="userrepassword" class="control-label">Re Password</label> <input
+							type="password" class="form-control" ng-model="repassword" required
+							>
 					</div>
 					<div class="form-group">
-						<label for="password">Password</label> <input type="password"
-							class="form-control" ng-model="signUpForm.password"
-							placeholder="Password">
-					</div>
-					<div class="form-group">
-						<label for="userrepassword">Re Password</label> <input
-							type="password" class="form-control" ng-model="repassword"
-							placeholder="Re Password">
-					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-success col-sm-12"
+						<input type="submit" class="btn btn-success btn-raised col-sm-12"
 							value="SignUp">
 					</div>
 					
@@ -111,7 +113,10 @@
 
 
 
-
+   <!-- Jquery and bootstrap -->
+	<script src="../petCart/js/lib/jquery-1.11.3.min.js"></script>
+	<script src="../petCart/js/bootstrap/bootstrap.min.js"></script>
+	
 
 
 	<!-- Include the core AngularJS library -->
@@ -122,19 +127,14 @@
 	<script src="../petCart/js/lib/angular/angular-sanitize.js"></script>
 	<script src="../petCart/js/lib/angular/angular-animate.js"></script>
 	<script src="../petCart/js/lib/angular/angular-ui-router.js"></script>
-
-	<!-- Jquery and bootstrap -->
-	<script src="../petCart/js/lib/jquery-1.11.3.min.js"></script>
-	<script src="../petCart/js/bootstrap/bootstrap.min.js"></script>
 	
 	<script src="js/app/common.js"></script>
 
-	<!-- pagination module -->
+	<script src="../petCart/js/lib/angular/material.min.js"></script>
+	<script src="../petCart/js/lib/angular/ripples.min.js"></script>
 	<script src="../petCart/js/lib/angular/dirPagination.js"></script>
+    <script src="../petCart/js/lib/toastr.min.js"></script>
 
-
-	<!-- notifier -->
-	<script src="../petCart/js/lib/toastr.min.js"></script>
 
 	<!-- Modules -->
 	<script src="js/app.js"></script>
@@ -173,4 +173,12 @@
 	<script src="js/directives/js/formAutofillFix.js"></script>
 	<script src="js/directives/js/authDialog.js"></script>
 </body>
+<script>
+ $(document).ready(function(){
+	 
+	    $.material.init();
+	    
+	 });
+
+</script>
 </html>

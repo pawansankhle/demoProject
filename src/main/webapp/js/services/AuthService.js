@@ -60,12 +60,11 @@ app.factory('AuthService',['$http','baseUrl', 'SessionSrv','Msgs', function ($ht
   };
  
   authService.isAuthorized = function (authorizedRoles) {
-	 if (!angular.isArray(authorizedRoles)) {
+	  if (!angular.isArray(authorizedRoles)) {
            authorizedRoles = [authorizedRoles];
       }
-     
-     return (authService.isAuthenticated() &&
-      authorizedRoles.indexOf(SessionSrv.userrole) !== -1);
+      return (authService.isAuthenticated() &&
+      authorizedRoles.indexOf(SessionSrv.user.roles[0].rollName) !== -1);
   };
  
   return authService;

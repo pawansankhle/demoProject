@@ -38,7 +38,8 @@ position: relative;
     margin-left: 1px;
     margin-right: 1px;
     margin-bottom: -19px;
- 
+    padding: 10px 10px 10px 10px;
+    background-color: #fff;
 }
 
 #product_category_div .list-group-item:hover
@@ -97,6 +98,7 @@ position: relative;
     position: relative;
     text-align: center;
     cursor: default;
+    background-color: #fff;
   }
 .view .mask, .view .content {
     width: 258px;
@@ -149,7 +151,7 @@ position: relative;
 }
 .view-first .mask {
     opacity: 0;
-    background-color: rgba(177, 133, 157, 0.59);; 
+    background-color: rgba(51, 51, 51, 0.18);
     transition: all 0.4s ease-in-out;
 }
 .view-first h2 {
@@ -401,4 +403,6 @@ li.ps-cart-table a:hover
 {
   box-shadow: 0px 0px 10px 0px #e8e9e8;
 }
+
+
 /***************************************/

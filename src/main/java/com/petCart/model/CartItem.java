@@ -51,7 +51,7 @@ public class CartItem  implements Serializable{
     private Integer id;
      
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JoinColumn(name = "item_id")
     private Product itemId;
@@ -65,7 +65,7 @@ public class CartItem  implements Serializable{
 	private Boolean buyNow;
 	
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name="cart_id", nullable=false)
 	private Cart cartId;

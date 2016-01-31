@@ -1,7 +1,7 @@
 app.constant('USER_ROLES', {
   all: '*',
   admin: 'ROLE_ADMIN',
-  editor: 'ROLE_EDITOR',
+  supplier: 'ROLE_SUPPLIER',
   guest: 'ROLE_GUEST',
   user: 'ROLE_USER'
 })

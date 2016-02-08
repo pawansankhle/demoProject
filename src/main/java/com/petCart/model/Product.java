@@ -26,12 +26,11 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-@NamedQueries( {
+@NamedQueries({
 @NamedQuery(name="findProductById",query="Select p From Product p where id=:id"),
 @NamedQuery(name="findAllProduct",query="Select p From Product p"),
 @NamedQuery(name="viewProduct", query="select p from Product p where id=:id")
-
-})
+ })
 
 
 @Entity

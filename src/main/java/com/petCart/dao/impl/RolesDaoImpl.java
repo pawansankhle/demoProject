@@ -21,10 +21,10 @@ public class RolesDaoImpl extends GenericDaoImpl<Roles> implements IRolesDAO {
 	private final Logger logger = LoggerFactory.getLogger(RolesDaoImpl.class);
 
 	@Override
-	public Roles findRoleByName(userRoles rollName) throws Exception {
+	public Roles findRoleByName(userRoles roleName) throws Exception {
 		logger.debug("inside class "+this.getClass().getName()+"@method findRoleByName entry ");
 		try{
-			Query query=getEntityManager().createNamedQuery("findRoleByName").setParameter("rollName",rollName);
+			Query query=getEntityManager().createNamedQuery("findRoleByName").setParameter("roleName",roleName);
 			return  (Roles) query.getSingleResult(); 
 			
 		}catch(Exception ex){

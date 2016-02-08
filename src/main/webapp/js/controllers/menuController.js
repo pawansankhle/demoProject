@@ -1,5 +1,6 @@
 app.
-controller('menuCtrl', ['$scope','departmentSrv', function($scope, departmentSrv) {
+controller('menuCtrl', ['$scope','departmentSrv','$rootScope', function($scope, departmentSrv,$rootScope) {
+   
    $scope.departments =  departmentSrv.getList().$object;
    
    $scope.openSubCategory = function(indexId){

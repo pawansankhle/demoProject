@@ -25,7 +25,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 @NamedQueries( {
-@NamedQuery(name="findRoleByName",query="Select r From Roles r where rollName=:rollName"),
+@NamedQuery(name="findRoleByName",query="Select r From Roles r where roleName=:roleName"),
 
 })
 @Entity
@@ -42,7 +42,7 @@ public class Roles implements Serializable{
  
 	@Column(name="rolename")
 	@Enumerated(EnumType.STRING)
-	private userRoles rollName;
+	private userRoles roleName;
 	 
 	@Basic
 	@Column(nullable=false, length=200)
@@ -64,13 +64,13 @@ public class Roles implements Serializable{
 	}
 
 
-	public userRoles getRollName() {
-		return rollName;
+	public userRoles getRoleName() {
+		return roleName;
 	}
 
 
-	public void setRollName(userRoles rollName) {
-		this.rollName = rollName;
+	public void setRoleName(userRoles roleName) {
+		this.roleName = roleName;
 	}
 
 
@@ -96,7 +96,7 @@ public class Roles implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Roles [roleid=" + roleid + ", rollName=" + rollName
+		return "Roles [roleid=" + roleid + ", rollName=" + roleName
 				+ ", description=" + description + ", permissions="
 				+ permissions + "]";
 	}

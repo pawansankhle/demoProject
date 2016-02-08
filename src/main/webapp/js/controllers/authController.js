@@ -22,7 +22,7 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 				break;
 			case 200:
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-				$scope.setCurrentUser(res.data);
+				$rootScope.setCurrentUser(res.data);
 				break;
 
 			}
@@ -31,7 +31,8 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 	$scope.logout = function () {
 		AuthService.logout().then(function (res) {
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-			$scope.setCurrentUser(null);
+			$rootScope.setCurrentUser(null);
+			
 			CartSrv.getCart().then(function(cart){ $rootScope.shoppingCart = cart; $rootScope.count = cart.items.length;});
 			$state.go(STATS.home);
 		}, function () {
@@ -49,7 +50,7 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 					break;
 				case 200:
 					$rootScope.$broadcast(AUTH_EVENTS.signUpSuccess);
-					$scope.setCurrentUser(res.data);
+					$rootScope.setCurrentUser(res.data);
 					break;
 				}
 			});

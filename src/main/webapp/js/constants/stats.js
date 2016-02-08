@@ -1,6 +1,5 @@
 app.constant('STATS', {
   home: 'home',
-  dashboard: 'dashboard',
   homeSlider: 'homeSlider@home',
   homeproducts: 'homeproducts@home',
   homeTopRatedItem: 'homeTopRatedItem@home',
@@ -17,6 +16,12 @@ app.constant('STATS', {
   checkoutLogin: 'checkout.login',
   checkoutSignup: 'checkout.signup',
   checkoutAddress: 'checkout.address',
-  checkoutPayment: 'checkout.payment'
-  
+  checkoutPayment: 'checkout.payment',
+
+  dashboard: 'dashboard',
+  dashboardViewUser: 'dashboard.viewUser',
+  dashboardOrders: 'dashboard.orders',
+  dashboardOrderView: 'dashboard.orderView',
+  dashboardProducts: 'dashboard.products',
+  dashboardProductView: 'dashboard.productView',
   });

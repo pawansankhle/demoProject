@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -28,6 +30,7 @@ import com.petCart.dao.IUserDao;
 import com.petCart.model.Files;
 import com.petCart.model.LoginForm;
 import com.petCart.model.Permissions;
+import com.petCart.model.Product;
 import com.petCart.model.Roles;
 import com.petCart.model.Users;
 import com.petCart.model.userPermission;
@@ -152,6 +155,20 @@ public class UserServiceImpl implements IUserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+ 
+	@Override
+	public List<Users> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
+			String orderBy, String orderType) {
+		logger.info("inside @class ProductServiceImpl  @mehod search");
+		try{
+		     return userDao.search(context,lowerLimit,upperLimit,orderBy,orderType);
+		  }catch(Exception ex){
+			  logger.error("@class UserServiceImpl @method search  cause: "+ex.toString());
+			  return null;
+			  
+		  }
+	}
+	
 }
 
 

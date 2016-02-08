@@ -45,8 +45,8 @@ app.service('SessionSrv', function () {
 	this.user = null;
   },
   this.saveUser = function(user){
-	   this.user = user;
-	},
+	  this.user = user;
+ },
   this.cart = new Cart(),
   this.clearCart = function() {
     this.cart = new Cart();
@@ -62,6 +62,5 @@ app.service('SessionSrv', function () {
 		 'quantity': qwt
 		  });
      this.cart.total = total;
-	 
-}
-});
+	}
+  });

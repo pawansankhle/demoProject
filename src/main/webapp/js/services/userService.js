@@ -1,4 +1,4 @@
-app.factory('UserSrv',['Restangular','baseUrl','URLS','SessionSrv','$resource', function (Restangular,baseUrl,URLS,SessionSrv,$resource){
+app.factory('UserSrv',['Restangular','baseUrl','URLS','SessionSrv','$resource','$http', function (Restangular,baseUrl,URLS,SessionSrv,$resource,$http){
 	  var userSrv = {}; 
 	  
 	   
@@ -6,9 +6,15 @@ app.factory('UserSrv',['Restangular','baseUrl','URLS','SessionSrv','$resource', 
 			  return Restangular.all(url);
 		};
 	  userSrv.getProfile = function(){
-		  return $resource(baseUrl+URLS.userProfileUrl);
+		  return $http.get(baseUrl+URLS.userProfileUrl)
+		  .then(function(res){
+		     if(res.status == 204){
+		           return null;
+		     }
+		     return res.data;
+          },function(res){});
 	  };
-	 return userSrv;
+	    return userSrv;
 	}]);
 
 

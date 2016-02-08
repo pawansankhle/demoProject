@@ -1,5 +1,6 @@
 <div class="row" id="product_category_div" ng-controller="menuCtrl" style="min-height:300px;">
-	<ul class="list-group" ng-repeat="dept in departments">
+   	
+   	<ul class="list-group" ng-repeat="dept in departments" ng-if="!isAuthorized(userRoles.admin)">
 		<li class="list-group-item">
 			<span class="badge" ng-click="openSubCategory($index)" >{{(dept.categories).length }}&nbsp;
 				<span class="caret" ></span>
@@ -9,6 +10,12 @@
 				<li ui-sref="homeCategoryProduct({cid: cat.id,name: cat.name})" ng-repeat="cat in dept.categories" >{{ cat.name }}</li>
 			</ul>
 	   </li>
-		
-    </ul>
+	</ul>
+	<ul class="list-group" ng-repeat="menu in App.adminmenus" ng-if="isAuthorized(userRoles.admin)">
+		<li class="list-group-item">
+			<a ui-sref="{{menu.href}}">{{ menu.name }}</a>
+			<i class="{{menu.icon}}"></i>
+		</li>
+	</ul>
+
 </div>

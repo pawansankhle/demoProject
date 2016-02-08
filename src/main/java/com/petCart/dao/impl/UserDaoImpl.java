@@ -1,9 +1,16 @@
 package com.petCart.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Query;
+import javassist.NotFoundException;
 
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+import org.apache.cxf.jaxrs.ext.search.SearchCondition;
+import org.apache.cxf.jaxrs.ext.search.SearchContext;
+import org.apache.cxf.jaxrs.ext.search.jpa.JPATypedQueryVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -68,6 +75,43 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 		}
 		return null;
 		
+	}
+	
+	@Override
+	public List<Users> search(SearchContext searchContext, Integer lowerLimit,
+			Integer upperLimit, String orderBy, String orderType) {
+		logger.info("inside @class UserDaoimpl @method: search entry...");
+		try{
+			SearchCondition<Users> sc = searchContext.getCondition(Users.class);
+			JPATypedQueryVisitor<Users> visitor =  new JPATypedQueryVisitor<Users>(getEntityManager(), Users.class);
+			if(sc!=null){
+				sc.accept(visitor);
+				visitor.visit(sc);
+				TypedQuery<Users> typedQuery = visitor.getQuery();
+				if(lowerLimit>=0){
+		    		typedQuery.setFirstResult(lowerLimit);
+		    	}
+		    	if(upperLimit>=0){
+		    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
+		    	}
+				return typedQuery.getResultList();
+			 
+
+			}else{
+				try {
+					throw new NotFoundException("Invalid search query.");
+				} catch (NotFoundException e) {
+					logger.error("inside @class UserDaoimpl @method: search cause:"+e.toString());
+					e.printStackTrace();
+				}
+			}
+
+		}catch(Exception ex){
+			logger.error("inside @class UserDaoimpl @method: search cause:"+ex.toString());
+
+		}
+
+		return null;
 	}
 
 	

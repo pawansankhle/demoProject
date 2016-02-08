@@ -13,7 +13,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 				var authorizedRoles = next.data.authorizedRoles;
 				if (!AuthService.isAuthorized(authorizedRoles)) {
 			         event.preventDefault();
-			      if (AuthService.isAuthenticated()) {
+			       if (AuthService.isAuthenticated()) {
 			        // user is not allowed
 			        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
 			      } else {
@@ -26,15 +26,18 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			
 }])
 .controller('ApplicationController',['$scope','$rootScope','USER_ROLES','AuthService', 'CartSrv','SessionSrv','GLOBAL_APP','AUTH_EVENTS','UserSrv','$state'
-,'STATS',		function($scope,$rootScope, USER_ROLES,AuthService,CartSrv,SessionSrv,GLOBAL_APP,AUTH_EVENTS,UserSrv,$state,STATS)
+,'STATS','menuService',function($scope,$rootScope, USER_ROLES,AuthService,CartSrv,SessionSrv,GLOBAL_APP,AUTH_EVENTS,UserSrv,$state,STATS,menuService)
 		{ 
+		   var self = this;
+           self.adminmenus = [];
 		   $rootScope.currentUser = null;
 		   $rootScope.shoppingCart = null;
 		   $scope.toggleModal = false;
 		   $scope.showsignup = false;
 		   $scope.showlogin = true;
+	       
 	       CartSrv.getCart().then(function(res){$scope.setShoppingCart(res);},function(){});
-	       UserSrv.getProfile().get(function(res){SessionSrv.saveUser(res); $rootScope.setCurrentUser(res)});
+	       UserSrv.getProfile().then(function(user){SessionSrv.saveUser(user);$rootScope.setCurrentUser(user)});
 	       $rootScope.$watch('$rootScope.count',function(){return $rootScope.count},true);
 	       $rootScope.$watch('$rootScope.pageUpperLimit',function(){return $rootScope.pageUpperLimit},true);
 	       $rootScope.$watch('$rootScope.pageLowerLimit',function(){return $rootScope.pageLowerLimit},true);
@@ -42,19 +45,21 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 	       $rootScope.$watch('$scope.shoppingCart',function(){return $rootScope.shoppingCart},true);
 	       $rootScope.$on('setShoppingCart',function(evnt,res){$scope.setShoppingCart(res.cart);});
 		   
-		   $scope.userRoles = USER_ROLES;
+   
+           menuService.loadadminmenu().then(function(menus) {self.adminmenus = [].concat(menus);});
+           $scope.userRoles = USER_ROLES;
 		   $rootScope.setCurrentUser = function (user) 
 		    {  
-			  if(exist(user) && exist(user.roles)){
-				if(user.roles[0].rollName == $scope.userRoles.admin){$state.go(STATS.dashboard);}
-				$rootScope.currentUser = user;
-			   }else{
-				   $rootScope.currentUser = null;
-			   }
-				
-			};
+			  if(exist(user) && exist(user.roles))
+			  {
+				    if(user.roles[0].roleName == $scope.userRoles.admin){$state.go(STATS.dashboard)}
+				    $rootScope.currentUser = user;
+		      }else{
+			  	$rootScope.currentUser = null;
+			  }
+            };
 			
-			 $scope.isAuthorized = AuthService.isAuthorized;
+			$scope.isAuthorized = AuthService.isAuthorized;
 			$scope.setShoppingCart = function (cart) 
 		    {    
 				$rootScope.shoppingCart = cart;
@@ -145,7 +150,42 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 		   })
 		   .state(STATS.dashboard, {
 			   	url: '/dashboard',
-			   	templateUrl: GLOBAL_APP.dasthBoardTplPath,
+			   	templateUrl: GLOBAL_APP.adminDashBoardTplPath,
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 }
+           })
+           .state(STATS.dashboardViewUser, {
+			   	url: '/user',
+			   	template: '<p>this is new user</p>',
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 }
+           })
+           .state(STATS.dashboardOrders, {
+			   	url: '/orders',
+			   	templateUrl: GLOBAL_APP.dashboardOrdersTplPath,
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 }
+           })
+           .state(STATS.dashboardOrderView, {
+			   	url: '/order/:id',
+			   	templateUrl: GLOBAL_APP.dashboardOrderViewTplPath,
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 }
+           })
+           .state(STATS.dashboardProducts, {
+			   	url: '/products',
+			   	templateUrl: GLOBAL_APP.dashboardPrductsTplPath,
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 }
+           })
+           .state(STATS.dashboardProductView, {
+			   	url: '/product/:id',
+			   	templateUrl: GLOBAL_APP.dashboardPrductViewTplPath,
 			   	data:{
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }

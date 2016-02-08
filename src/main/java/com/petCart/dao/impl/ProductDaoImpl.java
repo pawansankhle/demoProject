@@ -84,7 +84,6 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		try{
 			SearchCondition<Product> sc = searchContext.getCondition(Product.class);
 			JPATypedQueryVisitor<Product> visitor =  new JPATypedQueryVisitor<Product>(getEntityManager(), Product.class);
-			System.out.println("sc"+sc);
 			if(sc!=null){
 				sc.accept(visitor);
 				visitor.visit(sc);

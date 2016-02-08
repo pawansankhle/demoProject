@@ -18,8 +18,12 @@ app.constant('GLOBAL_APP', {
     checkoutLoginTplPath: 'views/checkout/checkout.login.tpl.html',
     checkoutSignupTplPath: 'views/checkout/checkout.signup.tpl.html',
 	checkoutAddressTplPath: 'views/checkout/checkout.address.tpl.html',
-	checkoutPaymentTplPath: 'views/checkout/checkout.payment.tpl.html'
-	
-	 
+	checkoutPaymentTplPath: 'views/checkout/checkout.payment.tpl.html',
+	/* admin templates */
+	adminDashBoardTplPath: 'views/dashboard/admin_dashboard.tpl.html',
+	dashboardOrdersTplPath: 'views/dashboard/orders.tpl.html',
+	dashboardOrderViewTplPath: 'views/dashboard/order.tpl.html',
+	dashboardPrductsTplPath: 'views/dashboard/products.tpl.html',
+    dashboardPrductViewTplPath: 'views/dashboard/product.tpl.html',
 });
 

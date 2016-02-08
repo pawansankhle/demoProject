@@ -7,11 +7,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -29,8 +31,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.petCart.model.LoginForm;
+import com.petCart.model.Product;
 import com.petCart.model.Users;
 import com.petCart.service.IUserService;
 
@@ -144,7 +148,19 @@ public class UserRestImpl {
 		return "{\"status\": \"success\"}";
 	}
 
-	public HttpSession getSession(){
+	@ExceptionHandler
+	@GET
+	@Path("search")
+	@Produces("application/json")
+	public List<Users> search(@DefaultValue("id")@QueryParam("orderBy")String orderBy,
+			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("0")@QueryParam("lowerLimit")Integer lowerLimit,
+			@DefaultValue("100")@QueryParam("upperLimit")Integer upperLimit
+      ){
+		logger.info("inside @class UserRestImpl @method search entry.");
+		return userService.search(context,lowerLimit,upperLimit,orderBy,orderType);
+	  }
+	
+	private HttpSession getSession(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();
 		HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
 		HttpSession  session = request.getSession(true);

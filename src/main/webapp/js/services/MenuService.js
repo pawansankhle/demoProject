@@ -12,10 +12,11 @@
    * @constructor
    */
   function MenuService($q,STATS) {
-	   var adminmenu = [{
-				icon: 'material-icons',
+	   var adminmenu = [
+      {
+				  icon: 'fa fa-user',
 			    name:'User Management',
-			    href: 'dashboard'
+			    href: STATS.dashboardUM
 			},
 			{
 				name: 'Orders',

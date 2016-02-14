@@ -24,11 +24,7 @@ public class OrderDetail implements Serializable {
 	public OrderDetail() {
 		super();
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
 
 
 
@@ -44,7 +40,7 @@ public class OrderDetail implements Serializable {
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinColumn(name="order_id")
-	private Order orderId;
+	private Orders orderId;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinColumn(name="product_id")
@@ -53,10 +49,6 @@ public class OrderDetail implements Serializable {
 	
 	@Column
 	private String attributes;
-	
-	@Basic
-	@Column(name="product_name")
-	private String productName;
 	
 	@Basic
 	@Column(name="quantity")
@@ -74,13 +66,11 @@ public class OrderDetail implements Serializable {
 		this.id = id;
 	}
 
-	
-
-	public Order getOrderId() {
+	public Orders getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Order orderId) {
+	public void setOrderId(Orders orderId) {
 		this.orderId = orderId;
 	}
 
@@ -100,13 +90,7 @@ public class OrderDetail implements Serializable {
 		this.attributes = attributes;
 	}
 
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+	
 
 	public Integer getQuantity() {
 		return quantity;

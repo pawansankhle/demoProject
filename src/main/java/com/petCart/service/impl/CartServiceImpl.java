@@ -69,7 +69,7 @@ public class CartServiceImpl implements ICartService{
 
 				if(product !=null){
 					item = new CartItem();
-					item.setBuyNow(false);
+					item.setBuyNow(true);
 					item.setItemId(product);
 					item.setQuantity(1);
 					item.setCartId(cart);
@@ -79,7 +79,7 @@ public class CartServiceImpl implements ICartService{
 					cart.setItems(items);
 					cart.setAddedOn(new Date());
 					cart.setModifiedOn(new Date());
-					cart.setTotal(product.getOfferPrice()*item.getQuantity());
+					cart.setTotal(cart.getTotal()+(product.getOfferPrice()*item.getQuantity()));
 					cart = cartDao.addToCart(cart);
 					session.setAttribute("cart", cart);
 					return cart;
@@ -97,7 +97,7 @@ public class CartServiceImpl implements ICartService{
 					items.add(item);
 					cart.setItems(items);
 					Double total = item.getItemId().getOfferPrice()*item.getQuantity();
-					cart.setTotal(total);
+					cart.setTotal(cart.getTotal()+total);
 					session.setAttribute("cart", cart);
 					return cartDao.addToCart(cart);
 
@@ -119,7 +119,13 @@ public class CartServiceImpl implements ICartService{
 			Cart cart1 = cartDao.findById(cart.getId());
 			if(cart1!=null){
 				for(CartItem item : cart.getItems()){
-					item.setCartId(cart1);
+					if(item.getQuantity() != 0){
+						item.setCartId(cart1);
+						cart1.setTotal(item.getQuantity() * item.getItemId().getOfferPrice());
+					}else{
+						cartItemDao.delete(item.getId());
+					}
+					
 				}
 				cart.setModifiedOn(new Date());
 				cart.setAddedOn(cart1.getAddedOn());

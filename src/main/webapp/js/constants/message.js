@@ -5,6 +5,7 @@ app.constant('Msgs', {
 	signupSuccessMsg: "Sign up Successfully",
 	signupErrorMsg: "User Already Exist with username",
 	logoutSuccessMsg: "logout Successfully",
-	logoutErrorMsg: "Could't logout"
+	logoutErrorMsg: "Could't logout",
+	PlaceOrderSuccessMsg: "your Order has been placed..",
 	
 });

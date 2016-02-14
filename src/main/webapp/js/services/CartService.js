@@ -48,7 +48,7 @@ app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', fu
 				     return $http
 					  .delete(baseUrl+URLS.cartItemDelete+id)
 					  .then(function(res) {
-						  toastr.info('one Product Remove From Cart','Info');
+						  toastr.success('one Item Remove From Cart','Cart Action');
 					  })
 			   };
 	       cartService.getCart = function(){
@@ -60,6 +60,12 @@ app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', fu
 				},function(){
 					});
 		      };
+		    cartService.updateCartTotal = function(cart){
+		      SessionSrv.cart.total = 0;
+		      cart.items.forEach(function(item){
+			  SessionSrv.cart.total+=item.itemId.offerPrice*item.quantity;
+             });
+		    }
 		   
 		return	cartService;
 	}]);

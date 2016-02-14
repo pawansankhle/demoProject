@@ -25,11 +25,8 @@ import org.hibernate.envers.Audited;
 @Entity
 @Table(name = "orders")
 @Audited
-public class Order implements Serializable {
+public class Orders implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Column
@@ -44,9 +41,14 @@ public class Order implements Serializable {
 	@Column(name="bill_number")
 	private String billNumber;
 	
+	
 	@Basic
 	@Column(name="total_ammount")
 	private Double totalAmount;
+	
+	@Basic
+	@Column(name="mobile",length=10)
+	private String mobile;
 	
 	@Basic
 	@Column(name="ref_id")
@@ -72,7 +74,7 @@ public class Order implements Serializable {
 	private PaymentMethod paymentMethod;
 	
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private OrderStatus status;
 	
 	@Basic
 	@Column(name="admin_comment",columnDefinition = "TEXT")
@@ -170,11 +172,11 @@ public class Order implements Serializable {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Status getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 
@@ -209,10 +211,17 @@ public class Order implements Serializable {
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
-	
-	
-	
-	
 
+	public String getMobile() {
+		return mobile;
+	}
 
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	
+	
+	
+	
 }

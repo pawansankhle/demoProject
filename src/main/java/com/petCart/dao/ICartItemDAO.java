@@ -13,6 +13,7 @@ public interface ICartItemDAO extends IGenericDao<CartItem>  {
 
 	CartItem findItembyItemId(Cart cart,Product itemId);
     List<CartItem> findItemsbyCatId(Cart cart);
+	
     
 	
 

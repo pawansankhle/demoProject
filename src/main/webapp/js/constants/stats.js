@@ -19,7 +19,11 @@ app.constant('STATS', {
   checkoutPayment: 'checkout.payment',
 
   dashboard: 'dashboard',
-  dashboardViewUser: 'dashboard.viewUser',
+  dashboardUM: 'dashboard.userManagement',
+  dashboardUMUsers: 'dashboard.userManagement.users',
+  dashboardUMSuppliers: 'dashboard.userManagement.suppliers',
+  dashboardViewUser: 'dashboard.userManagement.viewUser',
+  dashboardViewSupplier: 'dashboard.userManagement.viewSupplier',
   dashboardOrders: 'dashboard.orders',
   dashboardOrderView: 'dashboard.orderView',
   dashboardProducts: 'dashboard.products',

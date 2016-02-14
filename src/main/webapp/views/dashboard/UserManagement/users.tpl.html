@@ -1,0 +1,24 @@
+<div class="col-sm-12">
+   <div class="row">
+		<table class="table table-responsive table-striped">
+			<thead>
+			  	<th>User Name</th>
+			  	<th>Email</th>
+			  	
+			</thead>
+			<tbody>
+			 	<tr ng-repeat="user in users">
+			 		<td ui-sref="dashboard.userManagement.viewUser({id:user.id})">{{user.firstName + ' ' + user.lastName }}</td>
+			 		<td>{{user.email}}</td>
+			 		<td></td>
+			 		<td></td>
+			 		<td>
+			 		  <button ng-if="user.enabled" class="btn btn-danger btn-raised" ng-click="adminAction('disable',user,$index,'user')">Disable</button>
+			 			<button ng-if="!user.enabled" ng-click="adminAction('enable',user,$index,'user')" class="btn btn-success btn-raised">Enable</button>
+			 			<button class="btn btn-danger btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
+			 		</td>
+			   </tr>
+			</tbody>
+		</table>
+	</div>
+</div>

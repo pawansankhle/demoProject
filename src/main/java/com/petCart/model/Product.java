@@ -111,11 +111,11 @@ public class Product  implements Serializable{
 	@NotAudited
 	private List<Files> images;
 	
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	
+	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="supplier_id")
 	@NotAudited
-	private Supplier supplierId;
+	private Supplier supplier;
 	
     
 	public Long getId() {
@@ -232,12 +232,12 @@ public class Product  implements Serializable{
 		this.images = images;
 	}
 
-	public Supplier getSupplierId() {
-		return supplierId;
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
-	public void setSupplierId(Supplier supplierId) {
-		this.supplierId = supplierId;
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 
 	public List<Review> getReviews() {

@@ -1,23 +1,19 @@
 package com.petCart.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javassist.NotFoundException;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
-import org.apache.cxf.jaxrs.ext.search.SearchConditionVisitor;
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.jaxrs.ext.search.jpa.JPATypedQueryVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import com.petCart.dao.IProductDAO;
 import com.petCart.dao.generic.impl.GenericDaoImpl;

@@ -1,6 +1,6 @@
 package com.petCart.model;
 
-public enum Status {
+public enum OrderStatus {
    PLACED,
    CANCLED,
    CANCLED_REVERSAL,

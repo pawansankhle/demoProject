@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
+import org.springframework.security.core.Authentication;
 
 import com.petCart.model.LoginForm;
 import com.petCart.model.Product;
@@ -20,5 +21,8 @@ public interface IUserService {
 	String  updateProfile(HttpSession session, Users user);
 	List<Users> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType);
+	List<Users> getAllUsers();
+	Users changeUserState(Authentication authentication, String action, long id);
+	String deleteUser(Authentication authentication,long id);
 		
 }

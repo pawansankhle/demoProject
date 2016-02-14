@@ -114,5 +114,18 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 		return null;
 	}
 
+	@Override
+	public List<Users> findAllUsers() {
+		try{
+			Query query=getEntityManager().createNamedQuery("findAllUsers");
+			return  query.getResultList();
+		}catch(Exception ex){
+			logger.error("inside @class UserDaoimpl @method: findAllUsers cause:"+ex.toString());
+		}
+		return null;
+	}
+
+	
+
 	
 }

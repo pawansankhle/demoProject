@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -148,9 +149,10 @@ public class UserRestImpl {
 		return "{\"status\": \"success\"}";
 	}
 
+	
 	@ExceptionHandler
 	@GET
-	@Path("search")
+	@Path("/search")
 	@Produces("application/json")
 	public List<Users> search(@DefaultValue("id")@QueryParam("orderBy")String orderBy,
 			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("0")@QueryParam("lowerLimit")Integer lowerLimit,
@@ -159,6 +161,36 @@ public class UserRestImpl {
 		logger.info("inside @class UserRestImpl @method search entry.");
 		return userService.search(context,lowerLimit,upperLimit,orderBy,orderType);
 	  }
+	
+	@ExceptionHandler
+	@GET
+	@Path("/findAllUsers")
+	@Produces("application/json")
+	public List<Users> getAllUsers(){
+		logger.info("inside @class UserRestImpl @method getAllUsers entry.");
+		return userService.getAllUsers();
+		
+	}
+	
+	
+	@ExceptionHandler
+	@POST
+	@Path("/action/{action}/{id}")
+	@Produces("application/json")
+	public Users changeUserState(@PathParam("id") long id,@PathParam("action") String action){
+		logger.info("inside @class UserRestImpl @method disableUser entry.");
+		Authentication authentication  = (Authentication) getSession().getAttribute("authentication");
+		return userService.changeUserState(authentication,action,id);
+	}
+	
+	@DELETE
+	@ExceptionHandler
+	@Path("/delete/{id}")
+	public String deleteUser(@PathParam("id") long id){
+		logger.info("inside @class UserRestImpl @method deleteUser entry.");
+		Authentication authentication  = (Authentication) getSession().getAttribute("authentication");
+		return userService.deleteUser(authentication, id);
+	}
 	
 	private HttpSession getSession(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();

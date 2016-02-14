@@ -20,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -28,6 +29,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQuery(name="findRoleByName",query="Select r From Roles r where roleName=:roleName"),
 
 })
+@XmlRootElement(name="Roles")
 @Entity
 @Table(name = "roles")
 public class Roles implements Serializable{

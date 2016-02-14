@@ -1,4 +1,4 @@
-var app = angular.module("DemoApp", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination']);
+var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination']);
 app.value('count',0);
 app.value('pageUpperLimit',12);
 app.value('maxlimitofpagination',12);
@@ -9,10 +9,11 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 		{
 			$rootScope.count = count;
 			$rootScope.$on('$stateChangeStart', function (event, next) {
-			if(next.name == STATS.dashboard){
+			if(next.name == STATS.dashboard || next.name == STATS.dashboardUM || next.name == STATS.dashboardOrders || next.name == STATS.dashboardProducts){
 				var authorizedRoles = next.data.authorizedRoles;
 				if (!AuthService.isAuthorized(authorizedRoles)) {
 			         event.preventDefault();
+			         $state.go(STATS.home);
 			       if (AuthService.isAuthenticated()) {
 			        // user is not allowed
 			        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
@@ -63,7 +64,10 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			$scope.setShoppingCart = function (cart) 
 		    {    
 				$rootScope.shoppingCart = cart;
-				$rootScope.count = cart.items.length;
+				SessionSrv.saveCart(cart);
+				if(exist(cart.items)){
+					$rootScope.count = cart.items.length;
+				}
 			};
 			$scope.authModal = function(modalFor){
 			    if(modalFor == 'login')
@@ -151,13 +155,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 		   .state(STATS.dashboard, {
 			   	url: '/dashboard',
 			   	templateUrl: GLOBAL_APP.adminDashBoardTplPath,
-			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin]
-			   		 }
-           })
-           .state(STATS.dashboardViewUser, {
-			   	url: '/user',
-			   	template: '<p>this is new user</p>',
+			   	controller : 'dashBoardCtrl',
 			   	data:{
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }
@@ -189,6 +187,50 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	data:{
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }
+           })
+           .state(STATS.dashboardUM, {
+			   	url: '/usrManagement',
+			   	templateUrl: GLOBAL_APP.dashboardUMTplPath,
+			   	controller : 'UMCtrl',
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 },
+			    
+           }).state(STATS.dashboardUMUsers, {
+			   	url: '/users',
+			   	templateUrl: GLOBAL_APP.dashboardUMUsersTplPath,
+			   	controller : 'UMCtrl',
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 },
+			    
+           })
+           .state(STATS.dashboardViewUser, {
+			   	url: '/user/:id',
+			   	templateUrl: GLOBAL_APP.dashboardUMUserTplPath,
+			   	controller : 'userCtrl',
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 },
+			    
+           })
+           .state(STATS.dashboardUMSuppliers, {
+			   	url: '/suppliers',
+			   	templateUrl: GLOBAL_APP.dashboardUMSuppliersTplPath,
+			   	controller : 'UMCtrl',
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 },
+			    
+           })
+           .state(STATS.dashboardViewSupplier, {
+			   	url: '/supplier/:id',
+			   	templateUrl: GLOBAL_APP.dashboardUMSuppliersTplPath,
+			   	controller : 'supplierCtrl',
+			   	data:{
+			   			authorizedRoles: [USER_ROLES.admin]
+			   		 },
+			    
            })
            .state(STATS.cart, {
 			   	url: '/cartView',

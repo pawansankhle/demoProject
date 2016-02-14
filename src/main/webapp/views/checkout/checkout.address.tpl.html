@@ -1,19 +1,25 @@
 <div class="row">
- <h4 class="text-muted">Shipping Details</h4>
-  <div class="col-sm-3" ng-show="showShippingAddress">
-    <div class="well ps-shadow">
-	  <span class="text-muted">Address</span>
-	  <i class="fa fa-pencil pull-right col-sm-offset-9 col-sm-3" style="cursor: pointer;font-size: 20px;" ng-click="editShippingAddress()"></i>
-	  <span class="btn-link pull-right col-sm-offset-9 col-sm-3" ng-click="editShippingAddress()">edit</span>
-	  <br/>
-	  <div class="address">
-		  <b>{{ currentUser.username }}</b><br/>
-		  {{currentUser.deliveryAddress }}
-          {{ currentUser.postalCode }}
-         
-       </div>
-    </div>
-   </div>
+    <h4 class="text-muted">Shipping Details</h4>
+    <div class="col-sm-10">
+	    <div class="bs-component">
+		    <div class="panel panel-warning" ng-show="showShippingAddress">
+		        <div class="panel-heading">
+				  <span>Address</span>
+                  <span class="pull-right">
+					<i class="fa fa-pencil" style="cursor: pointer;font-size: 20px;" ng-click="editShippingAddress()"></i>
+					<span  ng-click="editShippingAddress()">edit</span>
+			      </span>
+		        </div>
+			    <div class="panel-body"> 
+			        <div class="address">
+				        <b>{{currentUser.username}}</b><br/>
+				           {{currentUser.deliveryAddress}}
+		                   {{currentUser.postalCode}}
+		            </div>
+		        </div>
+		    </div>
+	   </div>
+	</div>
    <div class="col-sm-12 bs-component">
 	  <form role="shippingDetailsForm" ng-show="isShippingAddressEdit"  style="padding: 1px 70px 0px 70px;" method="post"  ng-submit="shippingDetails(currentUser)" novalidate >
 			<div class="form-group col-sm-12" >

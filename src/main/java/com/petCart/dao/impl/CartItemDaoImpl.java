@@ -50,5 +50,23 @@ public class CartItemDaoImpl extends GenericDaoImpl<CartItem> implements ICartIt
 		}
 		return null;
 	}
+	
+	
+	
+	
+	@Override
+	public void delete(Object id) {
+		try{
+			
+			Query query=getEntityManager().createNativeQuery("delete from cart_item where id=:id").setParameter("id", id);
+			//createNamedQuery("findItemsByCartId").setParameter("cartId",cart);
+			query.executeUpdate();
+			// super.delete(id);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error("inside @class CartItemDaoImpl @method: delete cause:"+e.toString());
+		}
+	  }
 
 }

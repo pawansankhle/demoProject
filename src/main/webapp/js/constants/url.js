@@ -1,6 +1,7 @@
 app.constant('URLS', {
   baseUrl: '/rest',
   productUrl: '/products',
+  proeuctDeleteUrl: '/products/delete/',
   productSearchUrl: '/products/search',
   departmentUrl: '/dept',
   categoryUrl: '/category/:id',
@@ -10,7 +11,14 @@ app.constant('URLS', {
   cartItemDelete: '/cart/deleteItem/',
   userUrl: '/user',
   userProfileUrl: '/user/profile',
-  updateShippingDetailUrl : '/checkout/updateShippingDetail',
+  updateShippingDetailUrl : '/checkout/updateShippingDetail/',
+  findAllUsersUrl: '/user/findAllUsers/',
+  findAllSuppliersUrl: '/supplier/findAllSuppliers/',
+  userActionUrl: '/user/action/',
+  userDeleteUrl: '/user/delete/',
+  supplierActionUrl: '/supplier/action/',
+  supplierDeleteUrl: '/supplier/delete/',
+  placeOrderUrl: '/order/placeOrder/',
   
 });
 

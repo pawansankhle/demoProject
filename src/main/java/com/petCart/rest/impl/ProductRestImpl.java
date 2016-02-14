@@ -112,7 +112,7 @@ public class ProductRestImpl{
 	
 	
 	@DELETE
-	@Path("/")
+	@Path("/delete/{id}")
 	@Produces("application/json")
 	public Product Delete(@PathParam("id") Integer id){
 		return null;
@@ -120,7 +120,7 @@ public class ProductRestImpl{
 	
 	
     @PUT
-    @Path("/")
+    @Path("/update/{id}")
     @Produces("application/json")
     public Product updateProduct(Product product){
     	

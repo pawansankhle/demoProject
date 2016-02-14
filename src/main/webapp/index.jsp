@@ -11,31 +11,32 @@
 
 
 <link rel="stylesheet" href="../petCart/css/bootstrap/bootstrap.min.css">
-<link rel="stylesheet" href="../petCart/css/bootstrap/bootstrap-theme.min.css">
-<link href="../petCart/css/bootstrap/font-awesome.min.css"rel="stylesheet">
+<link rel="stylesheet" href="../petCart/css/angular/bootstrap-material-design.min.css">
+<link rel="stylesheet" href="../petCart/css/angular/ripples.min.css">
+<link href="../petCart/css/bootstrap/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../petCart/css/app/main.css">
 <link rel="stylesheet" href="../petCart/css/app/toastr.min.css">
 <link rel="stylesheet" href="../petCart/css/app/ps-animate.css">
-<link rel="stylesheet" href="../petCart/css/angular/bootstrap-material-design.min.css">
-<link rel="stylesheet" href="../petCart/css/angular/ripples.min.css">
 
 </head>
-
-<body ng-app="DemoApp" ng-controller="ApplicationController">
+<body ng-app="petCart" ng-controller="ApplicationController as App" ng-cloak>
     <div class="bs-component">
-	 <jsp:include page="views/navbar/navbar.jsp" />
-	</div>
-	
-	<div class="container-fluid">
+       <jsp:include page="views/navbar/navbar.jsp" />
+   </div>
+   <div class="container-fluid">
 		<!--row for main page -->
 		<div class="row">
-			<div class="col-sm-2 hidden-xs" id="ps-menu-col">
-			    <div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
-			</div>
-			<div class="col-sm-10 left-border col-xs-12 ui-view-container">
-				<div ui-view></div>
-		    </div>
-	    </div>
+			<div class="bs-component">
+			 	
+					<div class="col-sm-2 hidden-xs" id="ps-menu-col">
+				    	<div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
+					</div>
+					<div class="col-sm-10 left-border col-xs-12 ui-view-container">
+						<div ui-view></div>
+			        </div>
+			    
+	        </div>
+		</div>
 	</div>
 	<div class="bs-component">
 		<modal title="form" visible="toggleModal">
@@ -135,7 +136,6 @@
 	<script src="../petCart/js/lib/angular/dirPagination.js"></script>
     <script src="../petCart/js/lib/toastr.min.js"></script>
 
-
 	<!-- Modules -->
 	<script src="js/app.js"></script>
 
@@ -155,7 +155,8 @@
 	<script src="js/controllers/authController.js"></script>
 	<script src="js/controllers/cartController.js"></script>
 	<script src="js/controllers/checkoutController.js"></script>
-
+	<script src="js/controllers/dashboard/dashBoardController.js"></script>
+    <script src="js/controllers/dashboard/userManagementController.js"></script>
 	<!-- Services -->
 	<script src="js/services/userService.js"></script>
 	<script src="js/services/productService.js"></script>
@@ -166,6 +167,8 @@
 	<script src="js/services/requestInterceptor.js"></script>
 	<script src="js/services/AuthService.js"></script>
 	<script src="js/services/CartService.js"></script>
+	<script src="js/services/MenuService.js"></script>
+	<script src="js/services/OrdersService.js"></script>
 	
          
 	<!-- Directives -->

@@ -30,8 +30,9 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 
-@NamedQueries( {
+@NamedQueries({
 @NamedQuery(name="findUserByName",query="Select u From Users u where username=:username"),
+@NamedQuery(name="findAllUsers",query="Select u From Users u join u.roles r where r.roleName='ROLE_USER'"),
 })
 @XmlRootElement(name="Users")
 @Entity

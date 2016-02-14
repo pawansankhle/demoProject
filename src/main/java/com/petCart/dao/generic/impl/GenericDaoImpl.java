@@ -48,8 +48,8 @@ public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 	}
 
 	@Override
-	public void delete(Object obj) {
-		this.entityManager.remove(this.entityManager.getReference(type, obj));
+	public void delete(Object id) {
+		this.entityManager.remove(this.entityManager.getReference(type, id));
 		
 	}
 

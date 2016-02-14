@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -40,6 +41,7 @@ import com.petCart.service.IUserService;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService{
+	
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
@@ -54,7 +56,7 @@ public class UserServiceImpl implements IUserService{
 	
 	@Autowired
 	@Qualifier("authenticationManager")
-	private AuthenticationManager authenticationManager;
+	AuthenticationManager authenticationManager;
 
 
 	@Override
@@ -159,7 +161,7 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public List<Users> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
 			String orderBy, String orderType) {
-		logger.info("inside @class ProductServiceImpl  @mehod search");
+		logger.info("inside @class UserServiceImpl  @mehod search");
 		try{
 		     return userDao.search(context,lowerLimit,upperLimit,orderBy,orderType);
 		  }catch(Exception ex){
@@ -167,6 +169,69 @@ public class UserServiceImpl implements IUserService{
 			  return null;
 			  
 		  }
+	}
+
+	@Override
+	public List<Users> getAllUsers() {
+		logger.info("inside @class UserServiceImpl  @mehod getAllUsers");
+		try{
+		     return userDao.findAllUsers();
+		  }catch(Exception ex){
+			  logger.error("@class UserServiceImpl @method getAllUsers  cause: "+ex.toString());
+			  return null;
+			  
+		  }
+	}
+	
+	
+
+
+	@Override
+	public Users changeUserState(Authentication auth,String action,long id) {
+		try{
+			  Users user = userDao.find(id);
+			  if(user != null){
+				  if(action.equalsIgnoreCase("disable")){
+					  user.setEnabled(false);
+				  }else if(action.equalsIgnoreCase("enable")){
+					  user.setEnabled(true);
+				  }
+				  return userDao.update(user);
+				 }
+			  
+		}catch(EntityNotFoundException ex){
+			logger.error("@class UserServiceImpl @method disableUser  cause: "+ex.toString());
+			return null;
+			
+		}catch (Exception e) {
+			logger.error("@class UserServiceImpl @method disableUser  cause: "+e.toString());
+			return null;
+		}
+		
+		
+		return null;
+	}
+
+	@Override
+	public String deleteUser(Authentication authentication, long id) {
+		try{
+			 Users user = userDao.find(id);
+			 if(user !=null){
+				 user.setImage(null);
+				 user.setRoles(null);
+				 userDao.update(user);
+				 userDao.delete(id);
+				 return "{\"status\":\"ok\",\"msg\":\"User Deleted Successfully...\"}";
+			 }
+		}catch(EntityNotFoundException ex){
+			logger.error("@class UserServiceImpl @method deleteUser  cause: "+ex.toString());
+			return null;
+			
+		}catch (Exception e) {
+			logger.error("@class UserServiceImpl @method deleteUser  cause: "+e.toString());
+			return null;
+		}
+		return null;
 	}
 	
 }

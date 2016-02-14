@@ -1,6 +1,6 @@
 <div class="row">
-	<div class="col-sm-8 right-border" ng-controller="cartCtrl" >
-		<div class="bottom-border">
+	<div class="col-sm-8 right-border bs-component" ng-controller="cartCtrl">
+	<div class="bottom-border well">
 			<table class="table table-stripped table-responsive">
 				<thead class="">
 					<tr>
@@ -19,13 +19,24 @@
 					  <td>{{ item.itemId.offerPrice | currency:'&#8377;' }}</td>
 					  <td><h3><i class="fa fa-trash" ng-click="cartItemRemove($index,item.id)" style="cursor:pointer;"></i></h3></td>
 				  </tr>
-				  <tr class="well"><td>Total</td><td></td><td></td><td>{{ cart.total | currency:'&#8377;'}}</td><td></td></tr>
+				 <tr class=""><td>Shipping Charges</td><td></td><td></td><td>{{ shippingCharge | currency:"&#8377;"}}</td><td></td></tr>
+		         <tr><td>Total</td><td></td><td></td><td>{{ cart.total + shippingCharge | currency:"&#8377;"}}</td><td></td></tr>
 		      </tbody>
 	      </table>
       </div>
-     <h5 class="text-muted">Shipping Address<span><i class="fa fa-pencil pull-right" ui-sref="checkout.address" style="cursor: pointer;font-size: 20px;"></i></span></h5>
-     <i class="btn-link pull-right" ui-sref="checkout.address">edit</i>
-   <div class="col-sm-6">
+     <div class="panel panel-warning">
+	<div class="panel-heading">
+	   <div class="bs-component" >
+		<h5>Shipping Address
+			<spandata-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top" title="on top"  >
+			<i class="fa fa-pencil pull-right" ui-sref="checkout.address" style="cursor: pointer;font-size: 20px;"></i><i class="pull-right" ui-sref="checkout.address">edit</i><div class="ripple-container"></div>
+			</span>
+		</h5>
+	 </div>
+        
+   </div>
+   <div class="panel-body">
+	<div class="col-sm-6">
 	   <div class="address">
 			  <b>{{ currentUser.username }}</b><br/>
 			  {{currentUser.deliveryAddress }}
@@ -34,27 +45,34 @@
 	   </div>
    </div>
   </div>
+</div>
+  </div>
    <div class="form-group">
 	<div class="col-sm-4 bottom-border">
 		<h4 class="text-muted bottom-border control-label">Payment Method</h4>
-	    <form  novalidate>
-                  <div class="radio radio-warning">
+		<form  novalidate>
+                  <div class="radio radio-primary">
                     <label>
-                      <input type="radio" checked="" value="COD" id="radioCOD" name="PaymentMethod" ng-model="orderDetails.PaymentMethod"><span class="circle"></span><span class="check"></span>
+                      <input type="radio" checked="" value="COD"  name="PaymentMethod" ng-model="orderDetails.paymentMethod">
+                      <span class="circle"></span>
+                      <span class="check"></span>
                       Cash On Delivery
                     </label>
                   </div>
-                  <div class="radio radio-warning">
+                  <div class="radio radio-primary">
                     <label>
-                      <input type="radio" value="Paytm" id="radioPaytm" name="PaymentMethod" ng-model="orderDetails.PaymentMethod"><span class="circle"></span><span class="check"></span>
+                      <input type="radio" disabled checked="true" value="Paytm" id="radioPaytm" name="PaymentMethod" ng-model="orderDetails.paymentMethod"><span class="circle"></span><span class="check"></span>
                       Paytm
                     </label>
                   </div>
-                  <button  ng-click="placeOrder(orderDetails)" class="btn btn-raised btn-success">Place Order</button>
-                  <p class="text-muted well">By Placing order you will be redirect to home page and will get comformation message and email</p>
+                  <button type="button" id="place_order_id" data-loading-text="Loading..."  ng-click="placeOrder(orderDetails)" class="btn btn-raised btn-success">Place Order</button>
+                  <div class="panel panel-default">
+                     <div class="panel-body">
+                    By Placing order you will be redirect to home page and will get comformation message and email
+                    </div>
+                 </div>
 	           </div>
-                
-              </form>
+            </form>
          </div>
     </div>
 </div>

@@ -28,6 +28,7 @@ import com.petCart.model.Orders;
 import com.petCart.model.Users;
 import com.petCart.service.ICartService;
 import com.petCart.service.IOrderService;
+import com.petCart.springsecurity.security.UserInfo;
 
 @Service
 @Transactional
@@ -72,7 +73,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public String placeOrder(Integer cartId, Orders order,HttpSession  session) {
+	public Orders placeOrder(Integer cartId, Orders order,HttpSession  session) {
 		try{
 			  Users user = null;
 			  Authentication auth = (Authentication) session.getAttribute("authentication");
@@ -103,19 +104,20 @@ public class OrderServiceImpl implements IOrderService {
 					    	}
 				  }
 				  
-				  
-				return "{\"status\":\"ok\",\"orderId\":\""+order1.getId()+"\"}"; 
+				  //Users user1 = UserInfo.getCurrentUser();
+				  //System.out.println("user info: "+user1.toString());
+				//return "{\"status\":\"ok\",\"orderId\":\""+order1.getId()+"\"}";
+				 return order;
 				  
 			  }
 		}catch(EntityNotFoundException ex){
 			logger.error("@class @method placeOrder cause: "+ex.toString());
+			return null;
+		}catch(Exception ex){
+			logger.error("@class @method placeOrder cause: "+ex.toString());
+			return null;
 		}
-		
-		
-		
-		
-		
-		return "{\"status\": \"ok\"}";
+		return null;
 	}
 
 }

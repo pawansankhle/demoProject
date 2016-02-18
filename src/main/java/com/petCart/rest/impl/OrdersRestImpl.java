@@ -66,7 +66,7 @@ public class OrdersRestImpl {
 	@POST
 	@Path("/placeOrder/{cartId}")
 	@Produces("application/json")
-	public String placeOrder(@PathParam("cartId") Integer cartId,Orders order){
+	public Orders placeOrder(@PathParam("cartId") Integer cartId,Orders order){
 		logger.info("inside @class OrdersRestImpl @method placeOrder entry...cartId:"+cartId);
 		
 		return orderService.placeOrder(cartId,order,getSession());

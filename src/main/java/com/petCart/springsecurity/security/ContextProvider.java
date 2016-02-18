@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ContextProvider implements ApplicationContextAware {
 
-	private static ApplicationContext appContext = new ClassPathXmlApplicationContext("application.xml");;
+	private static ApplicationContext appContext = new ClassPathXmlApplicationContext("application.xml");
 	
 	
 	@Override

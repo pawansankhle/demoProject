@@ -3,6 +3,7 @@ package com.petCart.service.impl;
 import java.util.List;
 
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
+import org.apache.cxf.jaxrs.ext.search.SearchParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class DepartmentServiceImpl implements IDepartmentService{
 		deptDAO.create(dept);
 		
 	}
+	
+	
 
 	@Override
 	public List<Department> getAllDepartment() {
@@ -58,13 +61,31 @@ public class DepartmentServiceImpl implements IDepartmentService{
 	@Override
 	public List<Department> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("inside @class DepartmentServiceImpl  @mehod search");
+		try{
+			return deptDAO.search(context,lowerLimit,upperLimit,orderBy,orderType);
+		}catch(Exception ex){
+			logger.error("@class DepartmentServiceImpl @method search cause: "+ex.toString());
+			return null;
+		}
 	}
 
 	@Override
 	public Department findById(Long id) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Long totalCount() {
+		logger.info("inside @class DepartmentServiceimpl @method totalCount entry ");
+		try{
+			return deptDAO.countAll();
+		}catch(Exception e){
+			logger.error("@class DepartmentServiceimpl @method totalCount cause: "+e.toString());
+		}
 		return null;
 	}
 

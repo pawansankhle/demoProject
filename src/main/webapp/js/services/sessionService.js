@@ -47,13 +47,19 @@ app.service('SessionSrv', function () {
   this.saveUser = function(user){
 	  this.user = user;
  },
+ this.getUser = function(){
+      return this.user;
+ },
   this.cart = new Cart(),
   this.clearCart = function() {
     this.cart = new Cart();
-    this.cart.cartId = 1;
+    
   },
   this.saveCart = function(cart) {
 	  this.cart = cart;
+  },
+  this.getCart = function(){
+       return this.cart;
   },
   this.updateCart =  function(id,item,qwt,total) {
 	 this.cart.items.push({

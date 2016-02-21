@@ -11,8 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.envers.Audited;
 
 @Entity
@@ -38,11 +40,12 @@ public class OrderDetail implements Serializable {
 	
 	/*private Cart itemId;   many to many relationship*/ 
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="order_id")
-	private Orders orderId;
+	private Orders order;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="product_id")
 	private Product productId;
 	
@@ -66,12 +69,12 @@ public class OrderDetail implements Serializable {
 		this.id = id;
 	}
 
-	public Orders getOrderId() {
-		return orderId;
+	public Orders getOrder() {
+		return order;
 	}
 
-	public void setOrderId(Orders orderId) {
-		this.orderId = orderId;
+	public void setOrder(Orders orders) {
+		this.order = orders;
 	}
 
 	public Product getProductId() {

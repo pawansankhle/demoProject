@@ -1,5 +1,6 @@
 app.
-controller('menuCtrl', ['$scope','departmentSrv','$rootScope', function($scope, departmentSrv,$rootScope) {
+controller('menuCtrl', ['$scope','departmentSrv','$rootScope','SearchSrv','URLS',
+ function($scope, departmentSrv,$rootScope,SearchSrv,URLS) {
    
    $scope.departments =  departmentSrv.getList().$object;
    

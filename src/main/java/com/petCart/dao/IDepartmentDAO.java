@@ -10,9 +10,10 @@ import com.petCart.model.Department;
 
 
 public interface IDepartmentDAO extends IGenericDao<Department> {
-	public List<Department> findAllDepartment();
-	public List<Department> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
+	List<Department> findAllDepartment();
+	List<Department> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
 			String orderBy, String orderType);
+	Long countAll();
     
 	
 

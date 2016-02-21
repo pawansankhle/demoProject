@@ -36,10 +36,10 @@
 					 <a href="" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">hi!! {{ currentUser.username | lowercase}}<span class="caret"></span></a>
 					 <ul class="dropdown-menu">
 						<li>
-						   <a href="">Settings</a>
+						   <a ui-sref="account.setting">Settings</a>
 						</li>
 						<li>
-						   <a href="">Orders</a>
+						   <a ui-sref="account.orders">Orders</a>
 						</li>
 						<li ng-controller="authCtrl">
 						   <a ng-click="logout()">Log out</a>
@@ -58,7 +58,7 @@
 			<li class="dropdown">
 			  <a href="" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
 				<ul class="dropdown-menu" style="min-width: 320px;">
-				  <li ng-if="shoppingCart.items.length < 1"> <h4 class="text-center">No item in your Cart</h4></li>
+				  <li ng-if="shoppingCart.items.length < 1"> <h4 style="color: black;" class="text-center">No item in your Cart</h4></li>
 				<li ng-if="shoppingCart.items.length > 0">
 				  <table class="table table-responsive" style="color: black;">
 					  <thead><tr><td></td><td>Name</td><td>Qwt</td><td>Price</td></tr></thead>
@@ -74,7 +74,7 @@
 				  </table>
 				</li>
 			    <li role="separator" class="divider"></li>
-			    <li><button ui-sref="cart" class="btn btn-success btn-raised col-sm-12">View Cart</button></li>
+			    <li ng-if="shoppingCart.items.length > 0"><button ui-sref="cart" class="btn btn-success btn-raised col-sm-12">View Cart</button></li>
 			</ul>
 			</li>
 		  </ul>

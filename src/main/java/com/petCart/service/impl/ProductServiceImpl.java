@@ -70,7 +70,12 @@ public class ProductServiceImpl implements IProductService {
 	  logger.info("inside @class ProductServiceImpl  @mehod viewProduct id is: "+id);
 	    return productDAO.viewProduct(id);
 	}
-	
 
-	
-   }
+
+
+	@Override
+	public Long totalCount() {
+		logger.info("inside @class ProductServiceImpl  @mehod totalCount entry");
+	    return productDAO.countAll();
+	}
+}

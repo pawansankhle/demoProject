@@ -1,17 +1,14 @@
-<div class="row">
-<div class="col-sm-12">
-    <div id="form-container">
-     <div class="page-header text-center bottom-border">
-            <div id="status-buttons" class="text-center">
-                <a ui-sref-active="active" ui-sref=".login" ><span>1</span>login</a><i ng-if="currentUser" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
-                <a ui-sref-active="active" ui-sref=".address"><span>2</span>address</a><i ng-show="currentUser.deliveryAddress.length > 1 && currentUser.postalCode.length > 1 && currentUser.mobile.length > 1 " class="glyphicon glyphicon-ok ps-checkout-ok"></i>
-                <a ui-sref-active="active" ui-sref=".payment"><span>3</span> Payment</a><i ng-show="paymentok" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
-            </div>
+<div id="form-container">
+    <div class="page-header text-center bottom-border">
+        <div id="status-buttons" class="text-center">
+            <a ui-sref-active="active" ui-sref=".login" ><span>1</span>login</a><i ng-if="currentUser" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
+            <a ui-sref-active="active" ui-sref=".address"><span>2</span>address</a><i ng-show="currentUser.deliveryAddress.length > 1 && currentUser.postalCode.length > 1 && currentUser.mobile.length > 1 " class="glyphicon glyphicon-ok ps-checkout-ok"></i>
+            <a ui-sref-active="active" ui-sref=".payment"><span>3</span> Payment</a><i ng-show="paymentok" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
         </div>
-        <!-- use ng-submit to catch the form submission and use our Angular function -->
-        <div class="col-sm-8 col-sm-offset-2" style="margin-top: 15px;">
-                <div id="form-views" ui-view></div>
-        </div>
-     </div>
+    </div>
+    <div class="col-sm-10 col-sm-offset-2" style="margin-top: 15px;">
+        <div id="form-views" ui-view></div>
+    </div>
 </div>
-</div>
+    
+

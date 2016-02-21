@@ -6,9 +6,11 @@ import java.util.Map;
 
 import javassist.NotFoundException;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -18,8 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.petCart.model.Department;
+import com.petCart.model.Product;
 import com.petCart.service.IDepartmentService;
 
 
@@ -37,38 +41,42 @@ public class DepartmentRestImpl {
 	@Context
 	private SearchContext context;
 	
-	
-	List<Department> department = new ArrayList<Department>();
-	
-	
+	@ExceptionHandler
 	@GET
-	@Path("search")
+	@Path("/totalCount")
 	@Produces("application/json")
-	public List<Department> search(){
-		SearchCondition<Department> sc = context.getCondition(Department.class);
-		
-		if (sc == null) {
-            try {
-				throw new NotFoundException("Invalid search query.");
-			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }
-       
- 
-        List<Department> found = sc.findAll(department);
-        if (found.size() == 0) {
-            try {
-				throw new NotFoundException("No matching actor found.");
-			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }
-        return found;
-		
+	public Long getTotalCount(){
+		logger.info("inside @class DepartmentRestImpl @method totalCount entry.");
+		return DepartmentService.totalCount();
 	}
+	
+	
+	@ExceptionHandler
+	@GET
+	@Path("/search")
+	@Produces("application/json")
+	public List<Department> search(@DefaultValue("1")@QueryParam("page")Integer page,@DefaultValue("100")@QueryParam("limit")Integer limit,@QueryParam("orderBy")String orderBy,@QueryParam("orderType")String orderType
+      ){
+		logger.info("inside @class DepartmentRestImpl @method search entry.");
+		  try{
+			  if(limit > 0 && page >0){
+				  Integer Totalcount =  DepartmentService.totalCount().intValue();
+				  Integer totalPages = Totalcount/limit;
+				  Integer lowerLimit = (totalPages*(page-1)+1);
+				  Integer upperLimit = (lowerLimit -1) + limit;
+				  return DepartmentService.search(context,lowerLimit,upperLimit,orderBy,orderType);
+			   }else{
+				   return DepartmentService.search(context,0,100,orderBy,orderType);
+			   }
+			  
+		  }catch(Exception ex){
+			  ex.printStackTrace();
+			  logger.info("inside @class ProductRestImpl @method search couse: "+ex.toString());
+			  return null;
+			  
+		  }
+		}
+	
 	
 	@GET
 	@Produces("application/json")

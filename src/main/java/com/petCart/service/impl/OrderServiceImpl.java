@@ -76,6 +76,7 @@ public class OrderServiceImpl implements IOrderService {
 	public Orders placeOrder(Integer cartId, Orders order,HttpSession  session) {
 		try{
 			  Users user = null;
+			  Orders order1=null;
 			  Authentication auth = (Authentication) session.getAttribute("authentication");
 			  UserDetails udetail = (UserDetails) auth.getPrincipal();
 			  
@@ -87,35 +88,48 @@ public class OrderServiceImpl implements IOrderService {
 			  order.setStatus(OrderStatus.PLACED);
 			  order.setCustomer(user);
 			  order.setCustomer(user);
-			  Orders order1 = ordersDAO.create(order); 
 			  
-			  if(cart!=null && user!=null){
+			  if(cart!=null && user!=null && cart.getItems().size() >0){
+				  order1 = ordersDAO.create(order);
 				  for(CartItem item : cart.getItems()){
 					     if(item.getBuyNow()){
 					    	 OrderDetail orderDetail = new OrderDetail();
 					    	 orderDetail.setProductId(item.getItemId());
 					    	 orderDetail.setQuantity(item.getQuantity());
 					    	 orderDetail.setUnitCost(item.getItemId().getOfferPrice());
-					    	 orderDetail.setOrderId(order1);
+					    	 orderDetail.setOrder(order1);
 					    	 orderDetail = orderDetailDao.create(orderDetail);
 					    	 cartItemDao.delete(item.getId());
-					    	 cart.setTotal(0.0);
-					    	 cartDao.update(cart);
-					    	}
+					    }
 				  }
+				     cart.setTotal(0.0);
+			    	 cartDao.update(cart);
+				     //Users user1 = UserInfo.getCurrentUser();
 				  
-				  //Users user1 = UserInfo.getCurrentUser();
-				  //System.out.println("user info: "+user1.toString());
-				//return "{\"status\":\"ok\",\"orderId\":\""+order1.getId()+"\"}";
-				 return order;
+			        //return "{\"status\":\"ok\",\"orderId\":\""+order1.getId()+"\"}";
+			       //return order1;
+				  return ordersDAO.find(order1.getId());
 				  
 			  }
 		}catch(EntityNotFoundException ex){
-			logger.error("@class @method placeOrder cause: "+ex.toString());
+			logger.error("@class OrderServiceImpl @method placeOrder cause: "+ex.toString());
 			return null;
 		}catch(Exception ex){
-			logger.error("@class @method placeOrder cause: "+ex.toString());
+			logger.error("@class OrderServiceImpl @method placeOrder cause: "+ex.toString());
 			return null;
+		}
+		return null;
+	}
+
+	@Override
+	public List<Orders> findByUserId(long id) {
+		logger.info("@class OrderServiceImpl @method findByUserId entry userid is: "+id);
+		try{
+			 
+			 return ordersDAO.findByUserId(id);
+		}catch(Exception ex){
+			ex.printStackTrace();
+			logger.error("@class OrderServiceImpl @method findByUserId cause:"+ex.toString());
 		}
 		return null;
 	}

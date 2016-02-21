@@ -42,7 +42,11 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		return super.find(p);
 	}
 
-
+	@Override
+	public Long countAll() {
+		   return ((Long)this.getEntityManager().createQuery("select count(d) from Department d").getSingleResult());		
+		}
+	
 	public Product findById(Long id) {
 		logger.info("inside @class ProductDaoimpl @method: findById entry...");
 		try{

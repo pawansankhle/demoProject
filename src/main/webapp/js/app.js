@@ -67,6 +67,8 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 				SessionSrv.saveCart(cart);
 				if(exist(cart.items)){
 					$rootScope.count = cart.items.length;
+				}else{
+					$rootScope.count = 0;
 				}
 			};
 			$scope.authModal = function(modalFor){
@@ -121,10 +123,6 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 				 //controller: 'homeSliderController'
 			}
 			}
-		   }).state(STATS.user ,{
-			    abstract: true,
-			    url: '/user',
-			    template: '<div ui-view></div>'
 		   })
 		   .state(STATS.userLogin ,{
 			   url: '/login',
@@ -261,8 +259,32 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
               templateUrl: GLOBAL_APP.categoryTplPath,
               controller: 'productbyCategoryCtrl'
             })
-			
-    
+           .state(STATS.user ,{
+			    abstract: true,
+			    url: '/user',
+			    template: '<div ui-view></div>'
+		   })
+            .state(STATS.account ,{
+			    url: '/account',
+			    template: '<div ui-view></div>',
+			    contorller: 'accountCtrl'
+		   })
+            .state(STATS.accountOrders ,{
+			    url: '/orders',
+			    templateUrl: GLOBAL_APP.ordersTplPath,
+			    controller: 'accountOrdersCtrl'
+		   })
+            .state(STATS.accountOrderDetail ,{
+			    url: '/:id',
+			    templateUrl: GLOBAL_APP.orderDetailTplPath,
+			    controller: 'accountOrdersCtrl'
+		   })
+           .state(STATS.accountSetting, {
+               url : '/setting',
+               templateUrl: GLOBAL_APP.settingTplPath,
+               controller: 'accountSettingCtrl'
+
+           });
 }]);
 
 

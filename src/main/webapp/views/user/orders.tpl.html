@@ -1,0 +1,24 @@
+<div class="bottom-border well">
+
+	<table class="table table-responsive">
+	   <thead>
+	    <th>OrderId</th>
+	    <th>shipped on</th>
+	    <th>status</th>
+	    <th>Total Amount</th>
+	    <th></th>
+	   </thead>
+	   <tbody>
+	     <tr ng-repeat="order in orders">
+	       <td>{{order.id}}</td>
+	       <td>{{order.shippedOn | date}}</td>
+	       <td>{{order.status}}</td>
+	       <td>{{order.totalAmount}}</td>
+	       <td><button class="btn btn-raised btn-primary" ui-sref="account.orders.detail({id:order.id})">View</button></td>
+	     </tr>
+	   </tbody>
+	</table>
+</div>
+<div class="bs-componenet">
+	<ui-view></ui-view>
+</div>

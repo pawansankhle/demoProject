@@ -1,0 +1,16 @@
+  <table class="table">
+     <thead>
+      <th>itemId</th>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+     </thead>
+     <tbody>
+       <tr ng-repeat="item in order.details">
+         <td>{{item.id}}</td>
+         <td>{{item.productId.name}}</td>
+         <td>{{item.quantity}}</td>
+         <td>{{item.unitCost}}</td>
+       </tr>
+     </tbody>
+  </table>

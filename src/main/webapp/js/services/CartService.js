@@ -41,6 +41,8 @@ app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', fu
 				  .post(baseUrl+URLS.updateCartUrl,cart)
 				  .then(function(res) {
 					  toastr.success('cart Updated Successfully','Info');
+					  SessionSrv.saveCart(res.data);
+					  return res.data;
 				  })
 				      
 			   };

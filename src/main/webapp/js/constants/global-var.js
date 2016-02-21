@@ -1,5 +1,5 @@
 /* to store all global variables */
-var DROP_DOWN_LIST_CHECK=true;
+
 
 app.constant('GLOBAL_APP', {
 	homeTplPath: 'views/home.html',
@@ -30,5 +30,9 @@ app.constant('GLOBAL_APP', {
     dashboardUMSuppliersTplPath: 'views/dashboard/UserManagement/suppliers.tpl.html',
     dashboardUMUserTplPath: 'views/dashboard/UserManagement/user.tpl.html',
     dashboardUMSupplierTplPath: 'views/dashboard/UserManagement/supplier.tpl.html',
+
+    ordersTplPath: 'views/user/orders.tpl.html',
+    orderDetailTplPath: 'views/user/orders.detail.tpl.html',
+    settingTplPath: 'views/user/setting.tpl.html',
 });
 

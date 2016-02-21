@@ -7,7 +7,7 @@ import java.util.Map;
 public interface IGenericDao<T> {
 	
 	
-	long countAll(Map<String, Object> params);
+	long countAll( Map<String, Object> params);
 	
     T create(T t);
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javassist.NotFoundException;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
@@ -12,17 +13,25 @@ import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.jaxrs.ext.search.jpa.JPATypedQueryVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petCart.dao.IOrdersDAO;
+import com.petCart.dao.IUserDao;
 import com.petCart.dao.generic.impl.GenericDaoImpl;
 import com.petCart.model.Orders;
+import com.petCart.model.Product;
+import com.petCart.model.Users;
 
 @Repository
 @Transactional
 public class OrdersDaoImpl extends GenericDaoImpl<Orders> implements IOrdersDAO{
 
+	
+	@Autowired
+	IUserDao userDao;
+	
 	private final Logger logger = LoggerFactory.getLogger(OrdersDaoImpl.class);
 	@Override
 	public long countAll(Map<String, Object> params) {
@@ -59,14 +68,18 @@ public class OrdersDaoImpl extends GenericDaoImpl<Orders> implements IOrdersDAO{
 	@Override
 	public List<Orders> search(SearchContext searchContext, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
+		
 		logger.info("inside @class OrdersDaoimpl @method: search entry...");
 		try{
+			
 			SearchCondition<Orders> sc = searchContext.getCondition(Orders.class);
 			JPATypedQueryVisitor<Orders> visitor =  new JPATypedQueryVisitor<Orders>(getEntityManager(), Orders.class);
+			
 			if(sc!=null){
 				sc.accept(visitor);
 				visitor.visit(sc);
 				TypedQuery<Orders> typedQuery = visitor.getQuery();
+					 
 				if(lowerLimit>=0){
 		    		typedQuery.setFirstResult(lowerLimit);
 		    	}
@@ -86,10 +99,27 @@ public class OrdersDaoImpl extends GenericDaoImpl<Orders> implements IOrdersDAO{
 			}
 
 		}catch(Exception ex){
+			ex.printStackTrace();
 			logger.error("inside @class OrdersDaoimpl @method: search cause:"+ex.toString());
 
 		}
 
+		return null;
+	}
+
+	@Override
+	public List<Orders> findByUserId(long id) {
+		try{
+			Users user = userDao.find(id);
+			if(user !=null){
+				Query query=getEntityManager().createNamedQuery("findOrderByUserId").setParameter("user",user);
+				return  query.getResultList();
+				
+			}
+			
+		}catch(Exception ex){
+			logger.error("@class OrdersDaoimpl @method findByUserId cause: "+ex.toString());
+		}
 		return null;
 	}
 

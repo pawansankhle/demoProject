@@ -2,6 +2,7 @@ package com.petCart.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -13,10 +14,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.hibernate.envers.Audited;
 
@@ -25,6 +30,11 @@ import org.hibernate.envers.Audited;
 @Entity
 @Table(name = "orders")
 @Audited
+
+@NamedQueries
+({
+	@NamedQuery(name="findOrderByUserId",query="select o from Orders o where customer=:user"),
+})
 public class Orders implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -92,6 +102,10 @@ public class Orders implements Serializable {
 	@Column(name="delivery_date")
 	private Date deliveryDate;
 
+	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@JsonManagedReference
+	private List<OrderDetail> details;
+	
 	public long getId() {
 		return id;
 	}
@@ -218,6 +232,14 @@ public class Orders implements Serializable {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public List<OrderDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<OrderDetail> details) {
+		this.details = details;
 	}
 
 	

@@ -4,6 +4,7 @@ app.constant('URLS', {
   proeuctDeleteUrl: '/products/delete/',
   productSearchUrl: '/products/search',
   departmentUrl: '/dept',
+  departmentSearchUrl: '/dept/search',
   categoryUrl: '/category/:id',
   cartUrl: '/cart',
   addToCartUrl: '/cart/addToCart/',
@@ -19,6 +20,9 @@ app.constant('URLS', {
   supplierActionUrl: '/supplier/action/',
   supplierDeleteUrl: '/supplier/delete/',
   placeOrderUrl: '/order/placeOrder/',
+
+  orderSearchUrl: '/order/search',
+  orderByUserIdUrl: '/order/findByUserId/'
   
 });
 

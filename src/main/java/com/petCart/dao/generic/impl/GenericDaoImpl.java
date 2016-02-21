@@ -18,17 +18,17 @@ public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 	
 	private Class<T> type;
 
-    public GenericDaoImpl() {
+    public GenericDaoImpl(){
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
     }
 
+    
     @Override
     public long countAll(final Map<String, Object> params) {
-
-        final StringBuffer queryString = new StringBuffer("SELECT count(o) from ");
-        queryString.append(type.getSimpleName()).append(" o ");
+        final StringBuffer queryString = new StringBuffer("SELECT count(o) from");
+        queryString.append(type.getSimpleName()).append("o");
         queryString.append(this.getQueryClauses(params, null));
         final Query query = this.entityManager.createQuery(queryString.toString());
 

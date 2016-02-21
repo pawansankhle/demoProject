@@ -13,4 +13,5 @@ public interface IOrderService {
 	List<Orders> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
 	Orders findById(long id);
 	Orders placeOrder(Integer cartId,Orders order,HttpSession  session);
+	List<Orders> findByUserId(long id);
 }

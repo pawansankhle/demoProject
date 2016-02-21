@@ -15,6 +15,7 @@ public interface IDepartmentService {
 	public void deleteDepartment(Department dept);
 	public Department findDept(Department dept);
 	public Department findById(Long id);
+    Long totalCount();
 	public List<Department> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
 	
 }

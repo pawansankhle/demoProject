@@ -17,6 +17,12 @@ app.constant('STATS', {
   checkoutSignup: 'checkout.signup',
   checkoutAddress: 'checkout.address',
   checkoutPayment: 'checkout.payment',
+  
+  /*user account stats*/
+  account: 'account',
+  accountOrders: 'account.orders',
+  accountOrderDetail: 'account.orders.detail',
+  accountSetting: 'account.setting',
 
   dashboard: 'dashboard',
   dashboardUM: 'dashboard.userManagement',

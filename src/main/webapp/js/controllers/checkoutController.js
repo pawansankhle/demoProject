@@ -8,9 +8,14 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
 			$scope.orderDetails.totalAmount = $scope.shippingCharge + SessionSrv.cart.total;
 			
 		}
+		
 		$scope.isShippingAddressEdit = false;
 		$scope.showShippingAddress = true;
 		$scope.btnStatePayment = true;
+		$scope.paymentok = false;
+		$rootScope.$on('checkout:paymentOk',function(res){
+			$scope.paymentok = res;
+		});
 		$scope.$on(AUTH_EVENTS.loginSuccess,function(){
 			  $state.go(STATS.checkoutAddress);
 			});
@@ -54,11 +59,15 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
 				function(res){
 				   btn.button('reset');
 				   $scope.shippingCharge = 0;
+				   $scope.order = res;
+				   $scope.paymentok = !$scope.paymentok;
+				   $rootScope.$emit('checkout:paymentOk',true);
+
 				   CartSrv.getCart().then(function(cart){
 				   	  SessionSrv.saveCart(cart);
 				   	  $rootScope.$emit('setShoppingCart',{cart});
 				   });
-                   toastr.info(Msgs.PlaceOrderSuccessMsg,"Checkout")  
+                   toastr.success(Msgs.PlaceOrderSuccessMsg,"Checkout")  
 				},
 				function(res){
 				  btn.button('reset');

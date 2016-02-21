@@ -16,6 +16,7 @@ public interface  IProductDAO extends IGenericDao<Product> {
 	public List<Product> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
 			String orderBy, String orderType);
 	public Product findById(Long itemId);
+	Long countAll();
     
 	
 	

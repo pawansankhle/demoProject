@@ -41,13 +41,14 @@ public class OrdersRestImpl {
 	@Context
 	private SearchContext context;
 	
+	
 	@ExceptionHandler
 	@GET
 	@Path("search")
 	@Produces("application/json")
 	public List<Orders> search(@DefaultValue("id")@QueryParam("orderBy")String orderBy,
 			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("0")@QueryParam("lowerLimit")Integer lowerLimit,
-			@DefaultValue("0")@QueryParam("upperLimit")Integer upperLimit
+			@DefaultValue("100")@QueryParam("upperLimit")Integer upperLimit
       ){
 		logger.info("inside @class OrdersRestImpl @method search entry.");
 		return orderService.search(context,lowerLimit,upperLimit,orderBy,orderType);
@@ -57,9 +58,19 @@ public class OrdersRestImpl {
 	@GET
 	@Path("/findById/{id}")
 	@Produces("application/json")
-	public Orders findById(@PathParam("id") Long id){
+	public Orders findById(@PathParam("id") long id){
 		logger.info("inside @class ProductRestImpl @method findById entry...id:"+id);
 		return orderService.findById(id);
+    }
+	
+	
+	@ExceptionHandler
+	@GET
+	@Path("/findByUserId/{id}")
+	@Produces("application/json")
+	public List<Orders> findByUserId(@PathParam("id") long id){
+		logger.info("inside @class ProductRestImpl @method findByUserId entry...id:"+id);
+		return orderService.findByUserId(id);
     }
 		
 	@ExceptionHandler

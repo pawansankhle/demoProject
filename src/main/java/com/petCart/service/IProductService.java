@@ -8,13 +8,14 @@ import com.petCart.model.Product;
 
 public interface IProductService {
 
-	public  void  addProduct(Product product);
-    public List<Product> getAllProduct();
-	public void deleteProduct(Product product);
-	public Product getProduct();
-	public Product findById(Long id);
-	public Product viewProduct(Long id);
-	public List<Product> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
+    void  addProduct(Product product);
+    List<Product> getAllProduct();
+	void deleteProduct(Product product);
+	Product getProduct();
+	Product findById(Long id);
+	Product viewProduct(Long id);
+	List<Product> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
+    Long totalCount();
 	
 	
 }

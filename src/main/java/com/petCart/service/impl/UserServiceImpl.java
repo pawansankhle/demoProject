@@ -27,12 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.petCart.dao.IPermissionDao;
 import com.petCart.dao.IRolesDAO;
+import com.petCart.dao.ISupplierDao;
 import com.petCart.dao.IUserDao;
 import com.petCart.model.Files;
 import com.petCart.model.LoginForm;
 import com.petCart.model.Permissions;
 import com.petCart.model.Product;
 import com.petCart.model.Roles;
+import com.petCart.model.Supplier;
 import com.petCart.model.Users;
 import com.petCart.model.userPermission;
 import com.petCart.model.userRoles;
@@ -41,7 +43,7 @@ import com.petCart.service.IUserService;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService{
-	
+
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
@@ -49,11 +51,14 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	IUserDao userDao;
-	
+
 	@Autowired
 	IRolesDAO rolesDao;
-	
-	
+
+	@Autowired
+	ISupplierDao supplierDao;
+
+
 	@Autowired
 	@Qualifier("authenticationManager")
 	AuthenticationManager authenticationManager;
@@ -68,7 +73,7 @@ public class UserServiceImpl implements IUserService{
 			Roles role = rolesDao.findRoleByName(userRoles.ROLE_USER);
 			System.out.println("role is:"+role.toString());
 			if(user1 == null){
-                
+
 				Files file = new Files();
 				file.setFile(null);
 				String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -77,12 +82,12 @@ public class UserServiceImpl implements IUserService{
 				permission.setDescription("permssion for user who is new");
 				Set<Permissions> permissions = new HashSet<Permissions>();
 				permissions.add(permission);
-*/
+				 */
 				/*Roles role = new Roles();
 				role.setDescription("normal user");
 				role.setRollName(userRoles.ROLE_USER);
 				role.setPermissions(permissions);
-*/
+				 */
 				Set<Roles> roles = new HashSet<Roles>();
 				roles.add(role);
 				System.out.println("roles is: "+roles.toString());
@@ -93,7 +98,7 @@ public class UserServiceImpl implements IUserService{
 				user.setImage(file);
 				return userDao.create(user);
 			}else{
-				
+
 				return null;
 			}
 		}catch(Exception e){
@@ -108,31 +113,31 @@ public class UserServiceImpl implements IUserService{
 
 		Authentication token = new UsernamePasswordAuthenticationToken(j_username, j_password);
 		try{
-
+			logger.info("inside @class userServiceImpl @method customlogin token is: "+token.toString());
 			Authentication authentication = authenticationManager.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			session.setAttribute("authentication",authentication);
 			String username = authentication.getName();
 			Users user = userDao.findUserByName(username);
 			if(user!=null && authentication!=null)
-			    return user;
-			}catch(org.springframework.security.core.AuthenticationException ex){
+				return user;
+		}catch(org.springframework.security.core.AuthenticationException ex){
 			ex.printStackTrace();
 			logger.error("@class UserServiceImpl @method Customlogin  cause: "+ex.toString());
 			return null;
-		  }
+		}
 		return null;
 	}
 
 	@Override
 	public void customLogout(HttpServletRequest request,HttpSession session) {
 		logger.info("inside @class UserServiceImpl @method customLogout entry...");
-   
+
 		try{
 			Authentication authentication = (Authentication) session.getAttribute("authentication");
 			if (authentication != null){ 
 				new SecurityContextLogoutHandler().logout(request,null,authentication);
-			  }
+			}
 			SecurityContextHolder.getContext().setAuthentication(null);
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -145,95 +150,112 @@ public class UserServiceImpl implements IUserService{
 	public Users findByName(String username) {
 		logger.info("inside @class UserServiceImpl @method findByName entry...");
 		try{
-			  return userDao.findUserByName(username);
+			return userDao.findUserByName(username);
 		}catch(Exception ex){
 			logger.error("@class UserServiceImpl @method findByName  cause: "+ex.toString());
 			return null;
 		}
-     }
+	}
 
 	@Override
 	public String updateProfile(HttpSession session, Users user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
- 
+
 	@Override
 	public List<Users> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
 			String orderBy, String orderType) {
 		logger.info("inside @class UserServiceImpl  @mehod search");
 		try{
-		     return userDao.search(context,lowerLimit,upperLimit,orderBy,orderType);
-		  }catch(Exception ex){
-			  logger.error("@class UserServiceImpl @method search  cause: "+ex.toString());
-			  return null;
-			  
-		  }
+			return userDao.search(context,lowerLimit,upperLimit,orderBy,orderType);
+		}catch(Exception ex){
+			logger.error("@class UserServiceImpl @method search  cause: "+ex.toString());
+			return null;
+
+		}
 	}
 
 	@Override
 	public List<Users> getAllUsers() {
 		logger.info("inside @class UserServiceImpl  @mehod getAllUsers");
 		try{
-		     return userDao.findAllUsers();
-		  }catch(Exception ex){
-			  logger.error("@class UserServiceImpl @method getAllUsers  cause: "+ex.toString());
-			  return null;
-			  
-		  }
+			return userDao.findAllUsers();
+		}catch(Exception ex){
+			logger.error("@class UserServiceImpl @method getAllUsers  cause: "+ex.toString());
+			return null;
+
+		}
 	}
-	
-	
+
+
 
 
 	@Override
 	public Users changeUserState(Authentication auth,String action,long id) {
 		try{
-			  Users user = userDao.find(id);
-			  if(user != null){
-				  if(action.equalsIgnoreCase("disable")){
-					  user.setEnabled(false);
-				  }else if(action.equalsIgnoreCase("enable")){
-					  user.setEnabled(true);
-				  }
-				  return userDao.update(user);
-				 }
-			  
+			Users user = userDao.find(id);
+			if(user != null){
+				if(action.equalsIgnoreCase("disable")){
+					user.setEnabled(false);
+				}else if(action.equalsIgnoreCase("enable")){
+					user.setEnabled(true);
+				}
+				return userDao.update(user);
+			}
+
 		}catch(EntityNotFoundException ex){
 			logger.error("@class UserServiceImpl @method disableUser  cause: "+ex.toString());
 			return null;
-			
+
 		}catch (Exception e) {
 			logger.error("@class UserServiceImpl @method disableUser  cause: "+e.toString());
 			return null;
 		}
-		
-		
+
+
 		return null;
 	}
 
 	@Override
 	public String deleteUser(Authentication authentication, long id) {
+		logger.info("inside @class UserService @method deleteUser id is: "+id);
 		try{
-			 Users user = userDao.find(id);
-			 if(user !=null){
-				 user.setImage(null);
-				 user.setRoles(null);
-				 userDao.update(user);
-				 userDao.delete(id);
-				 return "{\"status\":\"ok\",\"msg\":\"User Deleted Successfully...\"}";
-			 }
+			Users user = userDao.find(id);
+			for(Roles role : user.getRoles()){
+				logger.info("user role is: "+role);
+
+				if(user !=null && role.getRoleName().equals(userRoles.ROLE_USER)){
+					user.setImage(null);
+					user.setRoles(null);
+					userDao.update(user);
+					userDao.delete(id);
+				}else if(user !=null && role.getRoleName().equals(userRoles.ROLE_SUPPLIER)){
+					Supplier supplier = supplierDao.findSupplierByDetailId(user);
+					if(supplier!=null){
+						supplier.setDeleted(true);
+						user.setEnabled(false);
+						userDao.update(user);
+						supplierDao.update(supplier);
+					}
+				}
+			}
+
+			return "{\"status\":\"ok\",\"msg\":\"User Deleted Successfully...\"}";
+
 		}catch(EntityNotFoundException ex){
 			logger.error("@class UserServiceImpl @method deleteUser  cause: "+ex.toString());
 			return null;
-			
+
 		}catch (Exception e) {
 			logger.error("@class UserServiceImpl @method deleteUser  cause: "+e.toString());
 			return null;
 		}
-		return null;
 	}
-	
+
+
+
+
 }
 
 

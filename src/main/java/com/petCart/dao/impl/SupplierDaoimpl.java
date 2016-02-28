@@ -105,5 +105,20 @@ public class SupplierDaoimpl extends GenericDaoImpl<Supplier>  implements ISuppl
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public Supplier findSupplierByDetailId(Users user) {
+		logger.info("inside @class SupplierDaoimpl @method findsupplierbyDetailid user role is: "+user.getRoles().toString());
+		try{
+			Query query=getEntityManager().createNamedQuery("findSupplierByDetailId").setParameter("detail",user);
+			return  (Supplier) query.getSingleResult();
+		}catch(Exception ex){
+			logger.error("inside @class SupplierDaoimpl @method: findsupplierbyDetailid cause:"+ex.toString());
+		}
+		return null;
+	}
+	
+	
 
 }

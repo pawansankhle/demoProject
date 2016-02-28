@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petCart.dao.ISupplierDao;
+import com.petCart.dao.IUserDao;
 import com.petCart.model.Supplier;
 import com.petCart.model.Users;
 import com.petCart.service.ISupplierService;
@@ -23,6 +24,9 @@ public class SupplierServiceImpl implements ISupplierService{
    
 	@Autowired
 	ISupplierDao supplierDao;
+	
+	@Autowired
+	IUserDao userDao;
 	
 	private Logger logger = LoggerFactory.getLogger(SupplierServiceImpl.class);
 	@Override
@@ -51,39 +55,18 @@ public class SupplierServiceImpl implements ISupplierService{
 		  }
 	}
 	
-	@Override
-	public Supplier changeSupplierState(Authentication auth,String action,long id) {
-		try{
-			  Supplier suppier = supplierDao.find(id);
-			  if(suppier != null){
-				  if(action.equalsIgnoreCase("disable")){
-					  suppier.setEnabled(false);
-				  }else if(action.equalsIgnoreCase("enable")){
-					  suppier.setEnabled(true);
-				  }
-				  return supplierDao.update(suppier);
-				 }
-			  
-		}catch(EntityNotFoundException ex){
-			logger.error("@class SupplierServiceImpl @method changeSupplierState  cause: "+ex.toString());
-			return null;
-			
-		}catch (Exception e) {
-			logger.error("@class SupplierServiceImpl @method changeSupplierState  cause: "+e.toString());
-			return null;
-		}
-		
-		
-		return null;
-	}
+	
 
 	@Override
 	public String deleteSupplier(Authentication authentication, long id) {
 		try{
-			 Supplier suppier = supplierDao.find(id);
-			 if(suppier !=null){
-				 suppier.setDeleted(true);
-				 supplierDao.update(suppier);
+			 Supplier supplier = supplierDao.find(id);
+			 Users user = userDao.find(supplier.getDetail().getId());
+			 if(supplier !=null){
+				 supplier.setDeleted(true);
+				 user.setEnabled(false);
+				 supplierDao.update(supplier);
+				 userDao.update(user);
 				 return "{\"status\":\"ok\",\"msg\":\"Supplier Deleted Successfully...\"}";
 			 }
 		}catch(EntityNotFoundException ex){
@@ -94,6 +77,14 @@ public class SupplierServiceImpl implements ISupplierService{
 			logger.error("@class SupplierServiceImpl @method deleteSupplier  cause: "+e.toString());
 			return null;
 		}
+		return null;
+	}
+
+
+	@Override
+	public Supplier changeSupplierState(Authentication auth, String action,
+			long id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

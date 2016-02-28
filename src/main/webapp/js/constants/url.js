@@ -11,6 +11,7 @@ app.constant('URLS', {
   updateCartUrl: '/cart/update/',
   cartItemDelete: '/cart/deleteItem/',
   userUrl: '/user',
+  userSearch: '/user/search',
   userProfileUrl: '/user/profile',
   updateShippingDetailUrl : '/checkout/updateShippingDetail/',
   findAllUsersUrl: '/user/findAllUsers/',

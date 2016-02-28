@@ -15,7 +15,7 @@
 			 		<td>
 			 		  <button ng-if="user.enabled" class="btn btn-danger btn-raised" ng-click="adminAction('disable',user,$index,'user')">Disable</button>
 			 			<button ng-if="!user.enabled" ng-click="adminAction('enable',user,$index,'user')" class="btn btn-success btn-raised">Enable</button>
-			 			<button class="btn btn-danger btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
+			 			<button class="btn btn-danger btn-raised" ng-click="adminAction('delete',user,$index,'user')">Delete</button>
 			 		</td>
 			   </tr>
 			</tbody>

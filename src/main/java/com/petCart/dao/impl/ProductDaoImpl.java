@@ -6,6 +6,9 @@ import javassist.NotFoundException;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
@@ -77,16 +80,18 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 	}
 
 
-	@Override
+	/*@Override
 	public List<Product> search(SearchContext searchContext, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
-		logger.info("inside @class ProductDaoimpl @method: search entry...");
+		logger.info("GenericDaoImpl-search method start With param maxLimit : "+upperLimit+" , minLimit:"+lowerLimit+", orderby : "+orderBy+" ,orderType : "+orderType);
+
 		try{
 			SearchCondition<Product> sc = searchContext.getCondition(Product.class);
 			JPATypedQueryVisitor<Product> visitor =  new JPATypedQueryVisitor<Product>(getEntityManager(), Product.class);
 			if(sc!=null){
 				sc.accept(visitor);
 				visitor.visit(sc);
+			
 				TypedQuery<Product> typedQuery = visitor.getQuery();
 				if(lowerLimit>=0){
 		    		typedQuery.setFirstResult(lowerLimit);
@@ -94,27 +99,51 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		    	if(upperLimit>=0){
 		    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
 		    	}
+		    	
 				return typedQuery.getResultList();
 			 
 
 			}else{
-				try {
-					throw new NotFoundException("Invalid search query.");
-				} catch (NotFoundException e) {
-					logger.error("inside @class ProductDaoimpl @method: search cause:"+e.toString());
-					e.printStackTrace();
+				final CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+			    final CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(getType());
+			    final Root<Product> root = criteriaQuery.from(getType());
+			    criteriaQuery.select(root).orderBy(criteriaBuilder.desc(root.get("id")));
+			    
+			    TypedQuery<Product> typedQuery = getEntityManager().createQuery(criteriaQuery);
+				if(lowerLimit>=0){
+					typedQuery.setFirstResult(lowerLimit);
 				}
+				if(upperLimit>=0){
+					typedQuery.setMaxResults(upperLimit-lowerLimit+1);
+				}
+				logger.info("Inside  @class :"+this.getClass().getName()+" @Method :searchSiteForIssue @Return: ");
+				return typedQuery.getResultList();
+			
 			}
 
 		}catch(Exception ex){
-			logger.error("inside @class ProductDaoimpl @method: search cause:"+ex.toString());
-
+			try {
+				throw new NotFoundException("Invalid search query.");
+			} catch (NotFoundException e) {
+				logger.error("inside @class GenericDaoImpl @method: search cause:"+e.toString());
+				e.printStackTrace();
+				return null;
+			}
 		}
 
-		return null;
+		
+	}*/
+	
+	@Override
+	public List<Product> search(SearchContext searchContext,
+			Integer lowerLimit, Integer upperLimit, String orderBy,
+			String orderType) {
+		// TODO Auto-generated method stub
+		return super.search(searchContext, lowerLimit, upperLimit, orderBy, orderType);
 	}
-
-
+	
+	
+	
 	@Override
 	public Product viewProduct(Long id) {
 		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
@@ -129,5 +158,7 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		return null;
 	}
 
+
+	
 
 }

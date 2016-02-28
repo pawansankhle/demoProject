@@ -42,12 +42,20 @@ public class OrderDetailDaoImpl extends GenericDaoImpl<OrderDetail>  implements 
 		return super.find(id);
 	}
 	
-	
 	@Override
-	public List<Orders> search(SearchContext context, Integer lowerLimit,
-			Integer upperLimit, String orderBy, String orderType) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderDetail> search(SearchContext ctx, Integer upperLimit,
+			Integer lowerLimit, String orderby, String orderType) {
+		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
+		try{
+			return super.search(ctx, upperLimit, lowerLimit, orderby, orderType);
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error("inside @class OrderDetailDaoimpl @method: search cause:"+e.toString());
+			return null;
+		}
+		
 	}
+	
+	
 
 }

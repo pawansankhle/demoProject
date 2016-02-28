@@ -11,6 +11,7 @@
 			<thead>
 			  	<th>Supplier Name</th>
 			  	<th>Email</th>
+			  	<th>Deleted</th>
 
 			  	
 			</thead>
@@ -19,12 +20,13 @@
 			 	<tr ng-repeat="supplier in suppliers" ui-sref="dashboard.userManagement.({id:supplier.id})">
 			 	    <td>{{supplier.detail.firstName +" "+supplier.detail.lastName }}</td>
 			 		<td>{{supplier.detail.email}}</td>
-			 		<td></td>
+			 		<td ng-if="supplier.deleted">Yes</td>
+			 		<td ng-if="!supplier.deleted">No</td>
 			 		<td></td>
 			 		<td>
 			 		    
 			 			<button ng-if="supplier.enabled" class="btn btn-danger btn-raised" ng-click="adminAction('disable',supplier,$index,'supplier')">Disable</button>
-			 			<button ng-if="!supplier.enabled" ng-click="adminAction('enable',supplier,$index,'supplier')" class="btn btn-success btn-raised">Enable</button>{{supplier.detail}}
+			 			<button ng-if="!supplier.enabled" ng-click="adminAction('enable',supplier,$index,'supplier')" class="btn btn-success btn-raised">Enable</button>
 			 			<button class="btn btn-danger btn-raised" ng-click="adminAction('delete',supplier,$index,'supplier')">Delete</button>
 			 		</td>
 			   </tr>

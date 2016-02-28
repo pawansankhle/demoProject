@@ -212,7 +212,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   		 },
 			    
            })
-           .state(STATS.dashboardUMSuppliers, {
+           /*.state(STATS.dashboardUMSuppliers, {
 			   	url: '/suppliers',
 			   	templateUrl: GLOBAL_APP.dashboardUMSuppliersTplPath,
 			   	controller : 'UMCtrl',
@@ -220,8 +220,8 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 },
 			    
-           })
-           .state(STATS.dashboardViewSupplier, {
+           })*/
+           /*.state(STATS.dashboardViewSupplier, {
 			   	url: '/supplier/:id',
 			   	templateUrl: GLOBAL_APP.dashboardUMSuppliersTplPath,
 			   	controller : 'supplierCtrl',
@@ -229,7 +229,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 },
 			    
-           })
+           })*/
            .state(STATS.cart, {
 			   	url: '/cartView',
 			   	templateUrl: GLOBAL_APP.cartViewTplPath,

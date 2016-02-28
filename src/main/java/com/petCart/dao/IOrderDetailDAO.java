@@ -10,7 +10,6 @@ import com.petCart.model.Orders;
 
 public interface IOrderDetailDAO extends IGenericDao<OrderDetail> {
 
-	List<Orders> search(SearchContext context, Integer lowerLimit,
-			Integer upperLimit, String orderBy, String orderType);
+	
     
 }

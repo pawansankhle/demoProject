@@ -77,7 +77,7 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 		
 	}
 	
-	@Override
+	/*@Override
 	public List<Users> search(SearchContext searchContext, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
 		logger.info("inside @class UserDaoimpl @method: search entry...");
@@ -95,9 +95,7 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 		    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
 		    	}
 				return typedQuery.getResultList();
-			 
-
-			}else{
+			  }else{
 				try {
 					throw new NotFoundException("Invalid search query.");
 				} catch (NotFoundException e) {
@@ -112,6 +110,18 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 		}
 
 		return null;
+	}*/
+	
+	@Override
+	public List<Users> search(SearchContext searchContext, Integer lowerLimit,
+			Integer upperLimit, String orderBy, String orderType) {
+		try{
+			return super.search(searchContext, lowerLimit, upperLimit, orderBy, orderType);
+		}catch(Exception ex){
+			logger.error("inside @class Userdaoimpl cause:"+ex.toString());
+			return null;
+		}
+		
 	}
 
 	@Override

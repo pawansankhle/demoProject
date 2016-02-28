@@ -68,7 +68,7 @@ public class ProductRestImpl{
 	
 	@POST
 	@Consumes("application/json")
-	@Path("{id}")
+	@Path("add/{id}")
 	public Response addProduct(Product p){
 		logger.info("inside @class ProductRestImpl @method addProduct entry...");
 		try{

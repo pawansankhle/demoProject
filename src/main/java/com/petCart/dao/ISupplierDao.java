@@ -13,4 +13,5 @@ public interface ISupplierDao extends IGenericDao<Supplier>{
 	List<Supplier> search(SearchContext searchContext, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType);
 	List<Supplier> findAllSuppliers();
+	Supplier findSupplierByDetailId(Users user);
 }

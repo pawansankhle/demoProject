@@ -68,7 +68,7 @@ public class SupplierRestImpl {
 	}
 	
 	
-	@ExceptionHandler
+	/*@ExceptionHandler
 	@POST
 	@Path("/action/{action}/{id}")
 	@Produces("application/json")
@@ -76,7 +76,7 @@ public class SupplierRestImpl {
 		logger.info("inside @class SuppliersRestImpl @method changeSupplierState entry.");
 		Authentication authentication  = (Authentication) getSession().getAttribute("authentication");
 		return supplierService.changeSupplierState(authentication,action,id);
-	}
+	}*/
 	
 	@DELETE
 	@ExceptionHandler

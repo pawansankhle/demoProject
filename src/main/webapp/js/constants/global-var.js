@@ -27,9 +27,9 @@ app.constant('GLOBAL_APP', {
     dashboardPrductViewTplPath: 'views/dashboard/product.tpl.html',
     dashboardUMTplPath: 'views/dashboard/UserManagement/user_management.tpl.html',
     dashboardUMUsersTplPath: 'views/dashboard/UserManagement/users.tpl.html',
-    dashboardUMSuppliersTplPath: 'views/dashboard/UserManagement/suppliers.tpl.html',
+    //dashboardUMSuppliersTplPath: 'views/dashboard/UserManagement/suppliers.tpl.html',
     dashboardUMUserTplPath: 'views/dashboard/UserManagement/user.tpl.html',
-    dashboardUMSupplierTplPath: 'views/dashboard/UserManagement/supplier.tpl.html',
+    //dashboardUMSupplierTplPath: 'views/dashboard/UserManagement/supplier.tpl.html',
 
     ordersTplPath: 'views/user/orders.tpl.html',
     orderDetailTplPath: 'views/user/orders.detail.tpl.html',

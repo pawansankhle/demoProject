@@ -32,6 +32,7 @@ import org.hibernate.envers.NotAudited;
 
 @NamedQueries({
 @NamedQuery(name="findUserByName",query="Select u From Users u where username=:username"),
+@NamedQuery(name="findUserById",query="Select u From Users u where id=:id"),
 @NamedQuery(name="findAllUsers",query="Select u From Users u join u.roles r where r.roleName='ROLE_USER'"),
 })
 @XmlRootElement(name="Users")
@@ -65,14 +66,14 @@ public class Users implements Serializable{
 	@Column
 	@GeneratedValue
 	@Id
-    private long id;
+    private Integer id;
 	
 	@Basic 
 	@Column(name="username")
 	private String username;
 	
 	
-	@JsonIgnore
+	
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 	
@@ -153,11 +154,11 @@ public class Users implements Serializable{
 		this.enabled = enabled;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

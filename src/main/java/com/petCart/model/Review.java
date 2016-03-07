@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,11 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 
 
 @Entity
 @Table(name="review")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Review  implements Serializable{
 
 	public Review() {
@@ -30,17 +34,18 @@ public class Review  implements Serializable{
 	@Column
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
-	private long id;
+	private Integer id;
+	
+	
 	
 	@ManyToOne
-	@JoinColumn(name="pid")
 	@JsonBackReference("review-product")
+	@JoinColumn(name="pid")
 	private Product product;
 	
-	
-	
-	@Column(name="product_id")
-	private String ProductId;
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Users customer;
 	
 	@Column(name="review", columnDefinition = "TEXT")
 	private String review;
@@ -51,11 +56,11 @@ public class Review  implements Serializable{
 	@Column(name="created_on")
 	private Date createdOn;
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -69,13 +74,6 @@ public class Review  implements Serializable{
 
 	
 
-	public String getProductId() {
-		return ProductId;
-	}
-
-	public void setProductId(String productId) {
-		ProductId = productId;
-	}
 
 	public String getReview() {
 		return review;
@@ -100,13 +98,14 @@ public class Review  implements Serializable{
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public Users getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Users customer) {
+		this.customer = customer;
+	}
+
+		
 }

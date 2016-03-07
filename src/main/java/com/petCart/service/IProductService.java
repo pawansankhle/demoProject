@@ -12,8 +12,8 @@ public interface IProductService {
     List<Product> getAllProduct();
 	void deleteProduct(Product product);
 	Product getProduct();
-	Product findById(Long id);
-	Product viewProduct(Long id);
+	Product findById(Integer id);
+	Product viewProduct(Integer id);
 	List<Product> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
     Long totalCount();
 	

@@ -1,0 +1,76 @@
+<div class="bs-component">
+    <div class="panel panel-primary">
+        	<div class="panel-heading" ng-init="isEdit = true;">
+        	    Personal Information
+                <button  ng-show="isEdit" ng-click="isEdit = !isEdit;" class="btn btn-default pull-right" style="margin-top: -7px;color: white;">Edit</button>
+                <button  ng-show="!isEdit" ng-click="isEdit = !isEdit;" class="btn btn-default pull-right" style="margin-top: -7px;color: white;">Cancle</button>
+                <button  ng-show="!isEdit"  ng-click="isEdit = !isEdit;submitUserForm(currentUser)" class="btn btn-default pull-right" style="margin-top: -7px;color: white;">Save</button>
+            
+            </div>
+
+        	<div class="panel-body">
+        	  <form name="userEditForm" >
+	        	    <div class="form-group is-empty col-sm-6">
+							<label  class="control-label">User Name</label>
+							<input type="text" class="form-control" ng-model="currentUser.username" ng-show="!isEdit">
+                            <input type="text" class="form-control" ng-model="currentUser.username" disabled ng-show="isEdit">
+				    </div>
+				     <div class="form-group is-empty col-sm-6">
+							<label  class="control-label">Email</label> 
+							<input type="text" class="form-control" ng-model="currentUser.email" ng-show="isEdit" disabled>
+							<input type="text" class="form-control" ng-model="currentUser.email" ng-show="!isEdit">
+				    </div>
+				    <div class="form-group is-empty col-sm-6">
+							<label  class="control-label">Mobile</label> 
+							<input type="text" class="form-control" ng-model="currentUser.mobile" ng-show="isEdit" disabled>
+				            <input type="text" class="form-control" ng-model="currentUser.mobile"ng-show="!isEdit">
+				   
+				    </div>
+				    <div class="form-group is-empty col-sm-6">
+							<label  class="control-label">Pincode</label> 
+							<input type="text" class="form-control" ng-model="currentUser.postalCode" ng-show="isEdit" disabled>
+							<input type="text" class="form-control" ng-model="currentUser.postalCode" ng-show="!isEdit">
+				    </div>
+				    <div class="form-group is-empty col-sm-6">
+							<label  class="control-label">City</label> 
+							<input type="text" class="form-control" ng-model="currentUser.city" ng-show="isEdit" disabled>
+							<input type="text" class="form-control" ng-model="currentUser.city" ng-show="!isEdit">
+				    </div>
+				    
+				    <div class="form-group is-empty col-sm-6">
+							<label  class="control-label">Adress</label> 
+							<input type="text" class="form-control" ng-model="currentUser.deliveryAddress" ng-show="isEdit" disabled>
+							<input type="text" class="form-control" ng-model="currentUser.deliveryAddress" ng-show="!isEdit">
+				    </div>
+			   </form>
+        	  </div>
+        	</div>
+        	<div class="panel panel-primary" ng-init="isEditPassword = true">
+                <div class="panel-heading">
+                   Change Password
+                   <button  ng-show="isEditPassword" ng-click="isEditPassword = !isEditPassword;" class="btn btn-default pull-right" style="margin-top: -7px;color: white;">Change</button>
+                   <button  ng-show="!isEditPassword" ng-click="isEditPassword = !isEditPassword;" class="btn btn-default pull-right" style="margin-top: -7px;color: white;">Cancle</button>
+                   <button  ng-show="!isEditPassword"  ng-click="isEditPassword = !isEditPassword;submitUserPasswordForm(passwordForm)" class="btn btn-default pull-right" style="margin-top: -7px;color: white;">Save</button>
+            
+                </div>
+                <div class="panel-body">
+                  <form name="userPasswordEditForm" ng-show="!isEditPassword">
+	        	    <div class="form-group is-empty col-sm-12">
+							<label  class="control-label">Old Password</label>
+							<input type="t" class="form-control" ng-model="passwordForm.oldPassword">
+                    </div>
+				    <div class="form-group is-empty col-sm-12">
+							<label  class="control-label">New Password</label>
+							<input type="text" class="form-control" ng-model="passwordForm.newPassword">
+                            
+				    </div>
+				    <div class="form-group is-empty col-sm-12">
+							<label  class="control-label">Re-Password</label>
+							<input type="text" class="form-control" ng-model="passwordForm.newPassword1">
+                            
+				    </div>
+				  </form>
+                </div>
+        	</div>
+    </div>
+</div>

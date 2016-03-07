@@ -12,8 +12,8 @@ import com.petCart.model.Product;
 public interface  IProductDAO extends IGenericDao<Product> {
 
 	public List<Product> findAllProduct();
-	public Product viewProduct(Long id);
-	public Product findById(Long itemId);
+	public Product viewProduct(Integer id);
+	public Product findById(Integer itemId);
 	Long countAll();
     
 	

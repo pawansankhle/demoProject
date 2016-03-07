@@ -18,12 +18,16 @@ app.constant('URLS', {
   findAllSuppliersUrl: '/supplier/findAllSuppliers/',
   userActionUrl: '/user/action/',
   userDeleteUrl: '/user/delete/',
+  userUpdateUrl: '/user/update',
+  userChangePasswordUrl: '/user/changePassword/',
   supplierActionUrl: '/supplier/action/',
   supplierDeleteUrl: '/supplier/delete/',
   placeOrderUrl: '/order/placeOrder/',
 
   orderSearchUrl: '/order/search',
-  orderByUserIdUrl: '/order/findByUserId/'
+  orderByUserIdUrl: '/order/findByUserId/',
+
+  reviewSearchUrl: "review/search",
   
 });
 

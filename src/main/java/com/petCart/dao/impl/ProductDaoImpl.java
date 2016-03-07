@@ -50,7 +50,7 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		   return ((Long)this.getEntityManager().createQuery("select count(d) from Department d").getSingleResult());		
 		}
 	
-	public Product findById(Long id) {
+	public Product findById(Integer id) {
 		logger.info("inside @class ProductDaoimpl @method: findById entry...");
 		try{
 			Query query=getEntityManager().createNamedQuery("findProductById").setParameter("id", id);
@@ -145,7 +145,7 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 	
 	
 	@Override
-	public Product viewProduct(Long id) {
+	public Product viewProduct(Integer id) {
 		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
 		try{
 			Query query=getEntityManager().createNamedQuery("viewProduct").setParameter("id",id);

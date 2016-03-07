@@ -10,8 +10,18 @@ app
 
 
 }])
-.controller('productViewCtrl',['$scope', '$stateParams', 'productSrv', function($scope, $stateParams, productSrv){
-	$scope.product =  productSrv.get($stateParams.id).$object;
+.controller('productViewCtrl',['$scope', '$stateParams', 'productSrv','SearchSrv','URLS',
+	function($scope, $stateParams, productSrv,SearchSrv,URLS){
+	var fiql = "?_s=id=="+$stateParams.id;
+	SearchSrv.fiqlSearch(URLS.productSearchUrl+fiql).getList().then(
+       function(res){
+       	$scope.product = res[0];
+       }
+		); 
+	//productSrv.get($stateParams.id).$object;
+	var reviwFiql = "?_s=product.id=="+$stateParams.id;
+	$scope.reivews = SearchSrv.fiqlSearch(URLS.reviewSearchUrl,reviwFiql).getList().$object;
+
 	$scope.showAvailabe = function(qwt){if(qwt!=0){return true;}};
 	$scope.showOfferPrice = function(o,p){if(o!=p){return true;}};
 

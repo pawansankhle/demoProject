@@ -60,7 +60,6 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 
 	@Override
 	public Users update(Users t) {
-		// TODO Auto-generated method stub
 		return super.update(t);
 	}
 
@@ -72,6 +71,20 @@ public class UserDaoImpl extends GenericDaoImpl<Users> implements IUserDao{
 			return  (Users) query.getSingleResult();
 		  }catch(Exception ex){
 			logger.error("Exception occured @class: UserDaoimpl @method: findUserByName @cause: "+ex.getMessage());
+		}
+		return null;
+		
+	}
+	
+	
+	@Override
+	public Users findUserById(Integer id) {
+		logger.info("inside @class UserDaoimpl @method: findUserById entry...");
+		try{
+			Query query=getEntityManager().createNamedQuery("findUserById").setParameter("id",id);
+			return  (Users) query.getSingleResult();
+		  }catch(Exception ex){
+			logger.error("Exception occured @class: UserDaoimpl @method: findUserById @cause: "+ex.getMessage());
 		}
 		return null;
 		

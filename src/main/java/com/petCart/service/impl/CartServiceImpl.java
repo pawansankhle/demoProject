@@ -43,7 +43,7 @@ public class CartServiceImpl implements ICartService{
 
 
 	@Override
-	public Cart addToCart(HttpSession session,Long itemId) {
+	public Cart addToCart(HttpSession session,Integer itemId) {
 
 		logger.info("@class CartServiceimpl @method addToCart entry item id is: "+itemId);
 		try{

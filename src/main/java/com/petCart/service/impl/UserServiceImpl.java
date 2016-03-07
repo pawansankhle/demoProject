@@ -192,7 +192,7 @@ public class UserServiceImpl implements IUserService{
 
 
 	@Override
-	public Users changeUserState(Authentication auth,String action,long id) {
+	public Users changeUserState(Authentication auth,String action,Integer id) {
 		try{
 			Users user = userDao.find(id);
 			if(user != null){
@@ -218,7 +218,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public String deleteUser(Authentication authentication, long id) {
+	public String deleteUser(Authentication authentication, Integer id) {
 		logger.info("inside @class UserService @method deleteUser id is: "+id);
 		try{
 			Users user = userDao.find(id);
@@ -253,8 +253,46 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
+	@Override
+	public Users updateUser(Users user) {
+		try{
+			logger.info("@class @method entry userid id"+user.getId());
+			Users user1 = userDao.findUserById(user.getId());
+			if(user1!=null){
+				user.setRoles(user1.getRoles());
+				user.setPassword(user1.getPassword());
+				return userDao.update(user);
+			}
+			
+			
+		}catch(Exception ex){
+			logger.error("@class @method cause: "+ex.toString());
+			return null;
+		}
+		return null;
+	}
+
+	@Override
+	public String changePassword(String username,String oldPassword, String newPassword) {
+		try{
+			Users user = userDao.findUserByName(username);
+			//String oldpwd = passwordEncoder.encode(oldPassword);
+			if(user !=null){
+				user.setPassword(passwordEncoder.encode(newPassword));
+			    userDao.update(user);
+				
+			}
+			return "{\"status\": \"success\"}";
+			
+		}catch(Exception ex){
+			logger.error("@class userService @method changePassword cause: "+ex.toString());
+			return null;
+		}
+		
+}
 
 
+    
 
 }
 

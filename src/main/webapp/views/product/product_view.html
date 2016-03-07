@@ -34,12 +34,16 @@
 					in Stock</span><span class="text-primary" ng-if="!showAvailabe(product.quantity)" >
 					Out Of Stock</span>&nbsp;<span ng-if="showAvailabe(product.quantity)" class="text-primary">({{product.quantity}} left)</span></p>
 				</div>
+				<div class="col-sm-12" ng-controller="AddToCartCtrl">
+				   <button class="btn btn-raised btn-success" ng-click="buyNow(product)">Buy Now</button>
+				   <button class="btn btn-raised btn-success" ng-click="addToCart(product)">Add to Cart</button>
+				</div>
 			   </div>
 			</div><!--  /single-product-desc -->
 		</div><!--  /.product-view-row -->
-		<div class="row bottom-border"><!--  .other-product-row -->
+		<div class="row"><!--  .other-product-row -->
 			<h3 class="bottom-border">Customer Who bought this also bought</h3>
-			<div class="col-sm-12">
+			<div class="col-sm-12" style="min-height: 100px;">
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				<!-- Wrapper for slides -->
 			   <div class="carousel-inner" role="listbox">
@@ -148,6 +152,28 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-			</div><!--  /.other-product-row -->
+</div><!--  /.other-product-row -->
+<div class="" style="margin-top: 10px;">
+	<div class="bottom-border">
+		<h4>Reviews</h4>
+	</div>
+	<div class="bs-component">
+				<div class="list-group" ng-repeat="review in reivews">
+					<div class="list-group-item">
+						<div class="row-action-primary">
+						<i class="material-icons">folder</i>
+						</div>
+						<div class="row-content">
+						<div class="least-content">{{review.createdOn | date}}</div>
+						<h4 class="list-group-item-heading">{{review.customer.firstName +" " +review.customer.lastName}}</h4>
+						<p class="list-group-item-text">{{review.review}}</p>
+						</div>
+					</div>
+					<div class="list-group-separator"></div>
+				</div>
+	</div>
+</div>
+
+
 	
 

@@ -17,5 +17,7 @@ public interface IUserDao extends IGenericDao<Users>{
 			Integer upperLimit, String orderBy, String orderType);
 
 	List<Users> findAllUsers();
+
+	Users findUserById(Integer id);
 	
 }

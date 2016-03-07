@@ -60,7 +60,7 @@ public class CartRestImpl {
 	@ExceptionHandler
 	@POST
 	@Path("addToCart/{id}")
-	public Cart addToCart(@PathParam("id") Long pid){
+	public Cart addToCart(@PathParam("id") Integer pid){
 		Message message = PhaseInterceptorChain.getCurrentMessage();
 		HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);
 		HttpSession  session = request.getSession(true);

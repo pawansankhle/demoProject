@@ -21,7 +21,7 @@ app.constant('STATS', {
   /*user account stats*/
   account: 'account',
   accountOrders: 'account.orders',
-  accountOrderDetail: 'account.orders.detail',
+  accountOrderDetail: 'account.order',
   accountSetting: 'account.setting',
 
   dashboard: 'dashboard',

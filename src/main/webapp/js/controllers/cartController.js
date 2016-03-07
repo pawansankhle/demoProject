@@ -41,11 +41,17 @@ app.controller('cartCtrl',['$rootScope', '$scope', 'SessionSrv','CartSrv',functi
 
 	
 }])
- .controller('AddToCartCtrl', ['$rootScope', '$scope','$stateParams','CartSrv','SessionSrv' ,function($rootScope,$scope, $stateParams, CartSrv, SessionSrv) {
+ .controller('AddToCartCtrl', ['$rootScope', '$scope','$stateParams','CartSrv','STATS','$state',function($rootScope,$scope, $stateParams, CartSrv, STATS,$state) {
 	
 	$scope.addToCart = function(product){
 		CartSrv.addToCart(product).then(function(cart){
 			$rootScope.$emit('setShoppingCart',{cart});
 			},function(){}
 		);} 
+
+	$scope.buyNow = function(product){
+		$scope.addToCart(product);
+		$state.go(STATS.checkoutLogin);
+
+	}
 }]);

@@ -1,3 +1,6 @@
+<div  class="well">
+   <div class="bs-component">
+   <button type="button" ui-sref="account.orders" class="btn btn-primary">back</button><i class="fa fa-home"></i>
   <table class="table">
      <thead>
       <th>itemId</th>
@@ -6,7 +9,7 @@
       <th>Unit Price</th>
      </thead>
      <tbody>
-       <tr ng-repeat="item in order.details">
+       <tr ng-repeat="item in order[0].details">
          <td>{{item.id}}</td>
          <td>{{item.productId.name}}</td>
          <td>{{item.quantity}}</td>
@@ -14,3 +17,5 @@
        </tr>
      </tbody>
   </table>
+  </div>
+</div>

@@ -65,50 +65,17 @@ public class OrdersDaoImpl extends GenericDaoImpl<Orders> implements IOrdersDAO{
 		return null;
 	}
 
+	
 	@Override
 	public List<Orders> search(SearchContext searchContext, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
-		
-		logger.info("inside @class OrdersDaoimpl @method: search entry...");
-		try{
-			
-			SearchCondition<Orders> sc = searchContext.getCondition(Orders.class);
-			JPATypedQueryVisitor<Orders> visitor =  new JPATypedQueryVisitor<Orders>(getEntityManager(), Orders.class);
-			
-			if(sc!=null){
-				sc.accept(visitor);
-				visitor.visit(sc);
-				TypedQuery<Orders> typedQuery = visitor.getQuery();
-					 
-				if(lowerLimit>=0){
-		    		typedQuery.setFirstResult(lowerLimit);
-		    	}
-		    	if(upperLimit>=0){
-		    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
-		    	}
-				return typedQuery.getResultList();
-			 
-
-			}else{
-				try {
-					throw new NotFoundException("Invalid search query.");
-				} catch (NotFoundException e) {
-					logger.error("inside @class OrdersDaoimpl @method: search cause:"+e.toString());
-					e.printStackTrace();
-				}
-			}
-
-		}catch(Exception ex){
-			ex.printStackTrace();
-			logger.error("inside @class OrdersDaoimpl @method: search cause:"+ex.toString());
-
-		}
-
-		return null;
+	   
+		return super.search(searchContext, lowerLimit, upperLimit, orderBy, orderType);
 	}
+	
 
 	@Override
-	public List<Orders> findByUserId(long id) {
+	public List<Orders> findByUserId(Integer id) {
 		try{
 			Users user = userDao.find(id);
 			if(user !=null){

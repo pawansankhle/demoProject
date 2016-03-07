@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -36,6 +37,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @Entity
 @Table(name="product")
 @Audited
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -48,7 +50,7 @@ public class Product  implements Serializable{
 	@Column
 	@GeneratedValue 
 	@Id
-    private Long id;
+    private Integer id;
 	
 	@Basic
 	@Column(name="name")
@@ -101,6 +103,7 @@ public class Product  implements Serializable{
 	@JoinColumn(name = "cat_id")
 	private Category category;
 
+	
 	@JsonIgnore
 	@NotAudited
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -118,11 +121,11 @@ public class Product  implements Serializable{
 	private Supplier supplier;
 	
     
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

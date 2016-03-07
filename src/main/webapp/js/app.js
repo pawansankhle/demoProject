@@ -57,6 +57,8 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 				    $rootScope.currentUser = user;
 		      }else{
 			  	$rootScope.currentUser = null;
+			  	$state.go(STATS.home);
+			  	
 			  }
             };
 			

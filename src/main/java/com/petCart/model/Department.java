@@ -38,7 +38,7 @@ public class Department implements Serializable {
 	@Id
     @GeneratedValue
 	@Column
-	private long id;
+	private Integer id;
 	
 	@Basic
 	@Column(name="name")
@@ -53,11 +53,11 @@ public class Department implements Serializable {
 		super();
 	}
 	
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

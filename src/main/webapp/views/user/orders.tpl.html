@@ -14,11 +14,9 @@
 	       <td>{{order.shippedOn | date}}</td>
 	       <td>{{order.status}}</td>
 	       <td>{{order.totalAmount}}</td>
-	       <td><button class="btn btn-raised btn-primary" ui-sref="account.orders.detail({id:order.id})">View</button></td>
+	       <td><button class="btn btn-raised btn-primary" ui-sref="account.order({id:order.id})">View</button></td>
 	     </tr>
 	   </tbody>
 	</table>
 </div>
-<div class="bs-componenet">
-	<ui-view></ui-view>
-</div>
+

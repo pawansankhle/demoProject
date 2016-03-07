@@ -10,8 +10,7 @@ public interface IOrdersDAO extends IGenericDao<Orders> {
 	 List<Orders> findAllOrders();
 	 List<Orders> search(SearchContext context,Integer lowerLimit, Integer upperLimit,
 			String orderBy, String orderType);
-	 
-	List<Orders> findByUserId(long id);
+	List<Orders> findByUserId(Integer id);
     
 	
 }

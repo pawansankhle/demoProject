@@ -58,7 +58,7 @@ public class OrdersRestImpl {
 	@GET
 	@Path("/findById/{id}")
 	@Produces("application/json")
-	public Orders findById(@PathParam("id") long id){
+	public Orders findById(@PathParam("id") Integer id){
 		logger.info("inside @class ProductRestImpl @method findById entry...id:"+id);
 		return orderService.findById(id);
     }
@@ -68,7 +68,7 @@ public class OrdersRestImpl {
 	@GET
 	@Path("/findByUserId/{id}")
 	@Produces("application/json")
-	public List<Orders> findByUserId(@PathParam("id") long id){
+	public List<Orders> findByUserId(@PathParam("id") Integer id){
 		logger.info("inside @class ProductRestImpl @method findByUserId entry...id:"+id);
 		return orderService.findByUserId(id);
     }

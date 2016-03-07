@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.hibernate.envers.Audited;
@@ -41,8 +42,9 @@ public class Orders implements Serializable {
 
 	@Column
 	@GeneratedValue @Id
-	private long id;
+	private Integer id;
 	
+	@JsonIgnore
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="customer_id")
 	private Users customer;
@@ -106,11 +108,11 @@ public class Orders implements Serializable {
 	@JsonManagedReference
 	private List<OrderDetail> details;
 	
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

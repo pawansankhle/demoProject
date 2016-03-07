@@ -61,7 +61,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public Orders findById(long id) {
+	public Orders findById(Integer id) {
 		logger.info("inside @class OrderServiceImpl  @mehod findById");
 		try{
 			return ordersDAO.find(id);
@@ -122,7 +122,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public List<Orders> findByUserId(long id) {
+	public List<Orders> findByUserId(Integer id) {
 		logger.info("@class OrderServiceImpl @method findByUserId entry userid is: "+id);
 		try{
 			 

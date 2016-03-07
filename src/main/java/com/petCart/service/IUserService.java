@@ -15,6 +15,7 @@ import com.petCart.model.Users;
 public interface IUserService {
 
 	Users createUser(Users user);
+	Users updateUser(Users user);
     Users Customlogin(String j_username,String j_password,HttpSession session);
     void customLogout(HttpServletRequest request, HttpSession session);
     Users findByName(String username);
@@ -22,7 +23,8 @@ public interface IUserService {
 	List<Users> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType);
 	List<Users> getAllUsers();
-	Users changeUserState(Authentication authentication, String action, long id);
-	String deleteUser(Authentication authentication,long id);
+	Users changeUserState(Authentication authentication, String action, Integer id);
+	String deleteUser(Authentication authentication,Integer id);
+	String changePassword(String username, String oldPassword, String newPassword);
 		
 }

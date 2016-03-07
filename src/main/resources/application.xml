@@ -82,6 +82,10 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	   <property name="dataSource" ref="dataSource" />
 	
 	</bean> -->
+	<bean id="jdbcUserService" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+	   <property name="dataSource" ref="dataSource"/>
+	   <property name="authenticationManager" ref="authenticationManager" />
+	</bean>
     
 	<jaxrs:server address="/"> 
         <jaxrs:providers>
@@ -97,6 +101,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
     	 	<bean class="com.petCart.rest.impl.CheckoutRestImpl" />
     	 	<bean class="com.petCart.rest.impl.SupplierRestImpl" />
     	 	<bean class="com.petCart.rest.impl.OrdersRestImpl" />
+    	 	<bean class="com.petCart.rest.impl.ReviewRestImpl" />
     	 	
     	</jaxrs:serviceBeans>
     </jaxrs:server>

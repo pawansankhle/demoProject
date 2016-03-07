@@ -111,6 +111,9 @@ public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 			SearchCondition<T> sc = searchContext.getCondition(getType());
 			JPATypedQueryVisitor<T> visitor =  new JPATypedQueryVisitor<T>(getEntityManager(), getType());
 			if(sc!=null){
+				
+				logger.info("search condition is: "+sc.toString());
+				logger.info("search condition is: "+visitor.toString());
 				sc.accept(visitor);
 				visitor.visit(sc);
 			

@@ -84,7 +84,7 @@ public class ProductRestImpl{
 	@GET
 	@Path("{id}")
 	@Produces("application/json")
-	public Product findById(@PathParam("id") Long id){
+	public Product findById(@PathParam("id") Integer id){
 		logger.info("inside @class ProductRestImpl @method findById entry...id:"+id);
 		return productService.findById(id);
     }
@@ -93,7 +93,7 @@ public class ProductRestImpl{
 	@GET
 	@Path("view/{id}")
 	@Produces("application/json")
-	public Product veiwProduct(@PathParam("id") Long id){
+	public Product veiwProduct(@PathParam("id") Integer id){
 	    logger.info("inside @class ProductRestImpl @method veiwProduct entry...id:"+id);
 		return productService.viewProduct(id);
 	}

@@ -14,7 +14,7 @@ import com.petCart.model.Users;
 
 public interface IUserService {
 
-	Users createUser(Users user);
+	Users createUserForSignup(Users user);
 	Users updateUser(Users user);
     Users Customlogin(String j_username,String j_password,HttpSession session);
     void customLogout(HttpServletRequest request, HttpSession session);
@@ -26,5 +26,6 @@ public interface IUserService {
 	Users changeUserState(Authentication authentication, String action, Integer id);
 	String deleteUser(Authentication authentication,Integer id);
 	String changePassword(String username, String oldPassword, String newPassword);
+	Users createUser(Users user);
 		
 }

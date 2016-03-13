@@ -1,10 +1,12 @@
-<div class="row">
+<div class="row" ng-init="isAddUser = false">
   <div class="col-sm-12 bottom-border">
      <div class="bs-component">
         <div class="panel panel-warning">
            <div class="panel-heading">
-                serch as you wish...
+                <div>Search<button class="btn btn-primary pull-right" ng-click="isAddUser =! isAddUser" style="color:white;margin-top:-5px">Add User</button></div>
+                
            </div>
+
            <div class="panel-body">
            <form  ng-submit="search()">
               <div class="form-group col-sm-3 right-border" style="margin:0px">
@@ -31,18 +33,82 @@
           
       </thead>
       <tbody>
+        <tr ng-if="users.length == 0"><td md-cell colspan="5" style="text-align: center;"><b>No  Data Found</b></td></tr>
         <tr ng-repeat="user in users">
           <td ui-sref="dashboard.userManagement.viewUser({id:user.id})">{{user.firstName + " " + user.lastName }}</td>
           <td>{{user.email}}</td>
           <td></td>
           <td></td>
           <td>
-            <button ng-if="user.enabled" class="btn btn-danger btn-raised" ng-click="adminAction('disable',user,$index)">Disable</button>
-            <button ng-if="!user.enabled" ng-click="adminAction('enable',user,$index)" class="btn btn-success btn-raised">Enable</button>
-            <button  class="btn btn-danger btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
+            <button style="margin: 0px;" ng-if="user.enabled" class="btn btn-danger btn-raised" ng-click="adminAction('disable',user,$index)">Disable</button>
+            <button style="margin: 0px;" ng-if="!user.enabled" ng-click="adminAction('enable',user,$index)" class="btn btn-success btn-raised">Enable</button>
+            <button style="margin: 0px;" class="btn btn-danger btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
           </td>
          </tr>
       </tbody>
     </table>
   </div>
 </div>
+<div class="bs-component">
+  <modal title="Create User" visible="isAddUser" ng-init="disable = true">
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="bs-component" role="userForm" class="form-horizontal" style="padding: 1px 70px 0px 70px;"
+          name="userForm" 
+          ng-submit="addUser(createUserform)" novalidate>
+
+          <div class="row">
+                <div class="form-group">
+                  <div class="alert alert-danger" ng-show="errorDialog">{{ message }}</div>
+                </div>
+                <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label for="username" class="control-label">User Name</label>
+                <input id="username" name="username"  required class="form-control" ng-model="createUserform.username" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label name="firstname" class="control-label">First Name</label><input 
+                  class="form-control" name="firstname"  required ng-model="createUserform.firstName" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label name="lastname" class="control-label">Last Name</label>
+                <input class="form-control" name="lastname" required ng-model="createUserform.lastName" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label for="email" class="control-label">Email</label>
+                <input type="email" name="email" class="form-control"  required ng-model="createUserform.email" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label for="mobile" class="control-label">Mobile</label>
+                <input type="mobile" ng-maxlength=10 name="mobile" required class="form-control" ng-model="createUserform.mobile" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group label-floating is-empty">
+                <label for="selectrole"  class="control-label">Role</label>
+                <select ng-model="createUserform.roles[0].roleName" class="form-control" id="selectrole" ng-change="roleChange()">
+                      <option value=""></option>
+                      <option value="ROLE_USER">User</option>
+                      <option value="ROLE_SUPPLIER">Supplier</option>
+                </select>
+                  <span class="material-input"></span>
+              </div>
+            </div>
+          </div>
+          <!-- <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create" ng-disabled="userForm.$invalid || disable" ng-click="disable=!disable;"> -->
+          <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create">
+          
+        </form>
+      </div>
+    </div>
+    </modal>
+</div>
+

@@ -1,14 +1,21 @@
-app.factory('SearchSrv',['baseUrl','Restangular', function (baseUrl, Restangular){
+app.factory('SearchSrv',['baseUrl','$http', function (baseUrl, $http){
 	  var searchSrv = {};  
 	   
-	  searchSrv.fiqlSearch = function(baseuUrl,fiql){
+	  searchSrv.fiqlSearch = function(baseuUrl1,fiql){
 	  	  var url = '';
 	  	  if(exist(fiql)){
-              url = baseuUrl+fiql;
+              url = baseUrl+baseuUrl1+fiql;
 	  	  }else{
-	  	      url = baseuUrl;
+	  	      url = baseUrl+baseuUrl1;
 	  	  }
-		  return Restangular.all(url);
+		  return $http.get(url).then(
+		  	function(res){
+		  		return res.data;
+		  	},function(res){
+		  		console.log(res);
+		  	}
+
+		  	);
 	  }
 	 return searchSrv; 
 	}]);

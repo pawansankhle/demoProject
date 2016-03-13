@@ -7,5 +7,6 @@ app.constant('Msgs', {
 	logoutSuccessMsg: "logout Successfully",
 	logoutErrorMsg: "Could't logout",
 	PlaceOrderSuccessMsg: "your Order has been placed..",
+	userCreateSuccessMsg: "User Created Successfully...",
 	
 });

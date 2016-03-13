@@ -1,89 +1,10 @@
 app.
-controller('UMCtrl',['$scope','UserSrv','URLS','STATS','$state','pageLowerLimit','pageUpperLimit',function($scope,UserSrv,URLS,STATS,$state,pageLowerLimit,pageUpperLimit){
+controller('UMCtrl',['$scope','UserSrv','URLS','STATS','$state','pageLowerLimit','pageUpperLimit','Msgs',function($scope,UserSrv,URLS,STATS,$state,pageLowerLimit,pageUpperLimit,Msgs){
   
+  $scope.createUserform = {
+     roles : [{roleName: ''}],
+   };
   
-
-  /*$scope.users = UserSrv.getService(URLS.findAllUsersUrl).getList().$object;
-    $scope.suppliers = UserSrv.getService(URLS.findAllSuppliersUrl).getList().$object;
-  
-  $scope.adminAction = function(action,user,index,type){
-    var url = '';
-    switch(action){
-      case 'disable':
-        if(type == 'user'){
-             url = URLS.userActionUrl+action+"/"+user.id;
-        }else if(type == 'supplier'){
-            url = URLS.supplierActionUrl+action+"/"+user.id;
-        }
-        UserSrv.getService(url).post()
-         .then(
-         	function(res){
-            if(exist(res)){
-                 if(type == 'user'){
-                    $scope.users[index] = res;
-                 }else if(type == 'supplier'){
-                    $scope.suppliers[index] = res;
-                 }
-         	       toastr.success(user.firstname+' disable Successfully...','User Action');
-         	  }else 
-               toastr.info('Something went Wrong...','User Action');
-            
-         	},function(res){
-             toastr.error('Something went Wrong...','User Action');
-         	});
-         
-         break;
-      case 'enable':
-        if(type == 'user'){
-             url = URLS.userActionUrl+action+"/"+user.id;
-        }else if(type == 'supplier'){
-            url = URLS.supplierActionUrl+action+"/"+user.id;
-        }
-        UserSrv.getService(url).post()
-         .then(
-         	function(res){
-            if(exist(res)){
-                 if(type == 'user'){
-                    $scope.users[index] = res;
-                 }else if(type == 'supplier'){
-                    $scope.suppliers[index] = res;
-                 }
-         	       toastr.success(user.firstname+' enable Successfully...','User Action');
-         	  }else 
-               toastr.info('Something went Wrong...','User Action');
-            
-         	},function(res){
-             toastr.error('Something went Wrong...','User Action');
-         	});
-         break;
-      case 'delete':
-         if(type == 'user'){
-            url = URLS.userDeleteUrl+user.id;
-         }else if(type == 'supplier'){
-            url = URLS.supplierDeleteUrl+user.id;
-         }
-         UserSrv.getService(url).remove()
-         .then(
-         	function(res){
-            if(type == 'user'){
-              $scope.users = _.filter($scope.users, function(usr){ return usr.id != user.id; });
-            }else if(type == 'supplier'){
-                   $scope.suppliers = _.filter($scope.suppliers, function(sply)
-                    { return sply.id != user.id; 
-                    });
-                 }
-              toastr.success(user.firstname+' delete Successfully...','User Action');
-         	},
-         function(res){
-            console.log(res);
-         });
-         
-         break;
-    }
-  }
-  $scope.showAddSupplierModal = function(show){
-     $scope.isAddSupplier = show;
-  }*/
   $scope.users = [];
   $scope.filter = "";
   $scope.getUserList = function(lower,upper){
@@ -119,10 +40,10 @@ controller('UMCtrl',['$scope','UserSrv','URLS','STATS','$state','pageLowerLimit'
                     toastr.success(user.firstName+' disable Successfully...','User Action');
                        
                 }else 
-                    toastr.info('Something went Wrong...','User Action');
+                    toastr.info(Msgs.errorMsg,'User Action');
             },
             function(res){
-             toastr.error('Something went Wrong...','User Action');
+             toastr.error(Msgs.errorMsg,'User Action');
             });
         break;
         case 'enable':
@@ -134,10 +55,10 @@ controller('UMCtrl',['$scope','UserSrv','URLS','STATS','$state','pageLowerLimit'
                  $scope.users[index] = res;
                  toastr.success(user.firstName+' enable Successfully...','User Action');
               }else 
-               toastr.info('Something went Wrong...','User Action');
+               toastr.info(Msgs.errorMsg,'User Action');
             
             },function(res){
-             toastr.error('Something went Wrong...','User Action');
+             toastr.error(Msgs.errorMsg,'User Action');
             });
          break;
       case 'delete':
@@ -167,29 +88,32 @@ controller('UMCtrl',['$scope','UserSrv','URLS','STATS','$state','pageLowerLimit'
 
   
   $scope.search = function(){
-     var fiql= "";
+     var fiql= "?_s=";
      $scope.users = [];
-     if(exist($scope.form) && (exist($scope.form.byRole) || exist($scope.form.byName))){
-        fiql= "?_s=";
-        if(exist($scope.form.byRole)){
-            fiql+= "(roles.roleName=="+$scope.form.byRole+")";
-            if(exist($scope.form.byName)){
-                   fiql+=";"
-            }
+     if(exist($scope.form.byRole)){
+          fiql+= "(roles.roleName=="+$scope.form.byRole+");";
         }
-        if(exist($scope.form.byName)){
-            fiql+="(username=="+$scope.form.byName+")";
-            
+      if(exist($scope.form.byName)){
+            fiql+="(username=="+$scope.form.byName+");";
         }
-    }
+    if(exist(fiql)){
+           fiql = fiql.substring(0,fiql.length-1);
+       }else{
+         fiql = "";
+       }
    $scope.filter = fiql;
    $scope.getUserList(0,12)
 
 }
- 
-}])
 
-.controller('userCtrl','$scope',function($scope){
-     
+$scope.addUser = function(form){
+    UserSrv.getService(URLS.userCreateUrl).post(form).then(function(res){
+        $scope.isAddUser = !$scope.isAddUser;
+        toastr.success(Msgs.userCreateSuccessMsg,'User');
+         $scope.users.push(res);
+      },function(res){
+        toastr.error(Msgs.errorMsg,'User');
+      });
+  }
 
-});
+}]);

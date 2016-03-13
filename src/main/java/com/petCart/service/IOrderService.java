@@ -14,4 +14,5 @@ public interface IOrderService {
 	Orders placeOrder(Integer cartId,Orders order,HttpSession  session);
 	List<Orders> findByUserId(Integer id);
 	Orders findById(Integer id);
+	Orders updateOrder(Orders order);
 }

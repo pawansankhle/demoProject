@@ -13,14 +13,16 @@ app
 .controller('productViewCtrl',['$scope', '$stateParams', 'productSrv','SearchSrv','URLS',
 	function($scope, $stateParams, productSrv,SearchSrv,URLS){
 	var fiql = "?_s=id=="+$stateParams.id;
-	SearchSrv.fiqlSearch(URLS.productSearchUrl+fiql).getList().then(
+	SearchSrv.fiqlSearch(URLS.productSearchUrl+fiql).then(
        function(res){
        	$scope.product = res[0];
        }
 		); 
 	//productSrv.get($stateParams.id).$object;
 	var reviwFiql = "?_s=product.id=="+$stateParams.id;
-	$scope.reivews = SearchSrv.fiqlSearch(URLS.reviewSearchUrl,reviwFiql).getList().$object;
+	SearchSrv.fiqlSearch(URLS.reviewSearchUrl,reviwFiql).then(function(res){
+		$scope.reivews =  res;
+	});
 
 	$scope.showAvailabe = function(qwt){if(qwt!=0){return true;}};
 	$scope.showOfferPrice = function(o,p){if(o!=p){return true;}};
@@ -31,7 +33,9 @@ app
 		 function($rootScope,$scope,URLS,SearchSrv,$stateParams,pageLowerLimit,pageUpperLimit,maxlimitofpagination){
 			var fiql = "";
 			fiql="?_s=category.id=="+$stateParams.cid+"&lowerLimit="+pageLowerLimit+"&upperLimit="+pageUpperLimit
-			$scope.products = SearchSrv.fiqlSearch(URLS.productSearchUrl,fiql).getList().$object;
+			SearchSrv.fiqlSearch(URLS.productSearchUrl,fiql).then(function(res){
+				  $scope.products = res;
+			})
             
 			$(document).ready(function(){
 				$(window).scroll(function () {

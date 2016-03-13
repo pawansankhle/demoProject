@@ -6,7 +6,6 @@ app
     '$stateParams','SearchSrv','$state','STATS','UserSrv',
     function($scope,URLS,$rootScope,OrderSrv,$stateParams,SearchSrv,$state,STATS,UserSrv){
     var userid='';
-    console.log(exist($rootScope.currentUser));
     if(exist($rootScope.currentUser)){
     	userid = $rootScope.currentUser.id;
     }else{
@@ -16,7 +15,9 @@ app
     $scope.getOrderById = function(){
         var orderId = $stateParams.id;
         var fiql = "?_s=id=="+orderId
-        $scope.order = SearchSrv.fiqlSearch(URLS.orderSearchUrl,fiql).getList().$object;
+        SearchSrv.fiqlSearch(URLS.orderSearchUrl,fiql).then(function(res){
+               $scope.order = res;
+        });
     }
     //var fiql = "?_s=customer.id=="+userid+"&lowerLimit=0&upperLimit=12";
     $scope.getAllorders = function(){

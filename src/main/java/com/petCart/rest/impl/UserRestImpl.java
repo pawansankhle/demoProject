@@ -1,7 +1,5 @@
 package com.petCart.rest.impl;
 
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,21 +23,14 @@ import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.petCart.model.LoginForm;
-import com.petCart.model.Product;
 import com.petCart.model.Users;
 import com.petCart.service.IUserService;
-import com.petCart.springsecurity.security.IChangePassword;
 
 @Service("UserRestImpl")
 @Path("/user")
@@ -94,6 +85,7 @@ public class UserRestImpl {
 		HttpSession  session = getSession();
 		String j_username = user.getUsername();
 		String j_password = user.getPassword();
+		
 		Users usr = userService.createUser(user);
 		if(usr !=null){
 			usr =  userService.Customlogin(j_username,j_password,session);
@@ -204,6 +196,15 @@ public class UserRestImpl {
 		logger.info("inside @class UserRestImpl @method update entry.");
 		return userService.updateUser(user);
 	}
+	
+	@POST
+	@ExceptionHandler
+	@Path("/create")
+	public Users create(Users user){
+		logger.info("inside @class UserRestImpl @method update entry.");
+		return userService.createUser(user);
+	}
+	
 
 	private HttpSession getSession(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();

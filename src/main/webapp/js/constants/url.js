@@ -18,6 +18,7 @@ app.constant('URLS', {
   findAllSuppliersUrl: '/supplier/findAllSuppliers/',
   userActionUrl: '/user/action/',
   userDeleteUrl: '/user/delete/',
+  userCreateUrl: '/user/create',
   userUpdateUrl: '/user/update',
   userChangePasswordUrl: '/user/changePassword/',
   supplierActionUrl: '/supplier/action/',
@@ -26,6 +27,7 @@ app.constant('URLS', {
 
   orderSearchUrl: '/order/search',
   orderByUserIdUrl: '/order/findByUserId/',
+  orderUpdateUrl: '/order/update',
 
   reviewSearchUrl: "review/search",
   

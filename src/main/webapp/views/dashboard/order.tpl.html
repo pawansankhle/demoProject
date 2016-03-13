@@ -1,1 +1,125 @@
-<h1>orders</h1>
+<div class="bs-component">
+   <div class="panel panel-warning">
+    <div class="panel-heading">
+       Order Items
+    </div>
+    <div class="panel-body">
+       <table class="table table-responsive" >
+        <thead>
+          <th>Image</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Unit Cost</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr ng-if="order[0].details.length == 0"><td colspan="5" style="text-align: center;"><b>No  Data Found</b></td></tr>
+          <tr ng-repeat="detail in order[0].details">
+            <td><img ng-src="{{detail.productId.images[0].file}}" height="80" width="50"/></td>
+            <td style="vertical-align: middle;">{{detail.productId.name}}</td>
+            <td style="vertical-align: middle;">{{detail.quantity}}</td>
+            <td style="vertical-align: middle;">{{detail.unitCost}}</td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;"><b>Total</b></td>
+            <td colspan="4" style="vertical-align: middle;text-align: center;"><h5>{{order[0].totalAmount | currency:'&#8377;'}}</h5></td>
+
+          </tr>
+        </tbody>
+       </table>
+    </div>
+   </div>
+   <div class="panel panel-warning" ng-init="isEditOrderDetail = true;">
+    <div class="panel-heading">
+       Order Detail
+       <button class="btn btn-primary pull-right" ng-show="isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail" style="color:white;margin-top:-5px">Edit</button>
+       <button class="btn btn-primary pull-right" ng-show="!isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail" style="color:white;margin-top:-5px">Cancel</button>
+       <button class="btn btn-primary pull-right" ng-show="!isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail;updateOrder()" style="color:white;margin-top:-5px">Save</button>
+       
+    </div>
+    <div class="panel-body">
+       <form name="orderForm">
+        <div class="col-sm-6">
+              <div class="form-group">
+                <label  class="control-label">Created On</label>
+                <input  disabled  class="form-control" ng-model="orderDetailForm.createdOn" />
+              </div>
+        </div>
+        <div class="col-sm-6">
+              <div class="form-group is-empty">
+                <label class="control-label">Shipped On</label>
+                <input  disabled  class="form-control" ng-model="orderDetailForm.shippedOn" />
+                </div>
+         </div>
+         <div class="col-sm-6">
+              <div class="form-group is-empty">
+                <label class="control-label">Status</label>
+                <input  disabled  ng-show="isEditOrderDetail" class="form-control" ng-model="orderDetailForm.orderStatus" />
+                <select name="status" ng-show="!isEditOrderDetail" class="form-control" ng-model="orderDetailForm.orderStatus">
+                      <option value="">-Please select-</option>
+                      <option ng-repeat="st in orderStatus" value="{{st}}">{{st}}</option>
+                 </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <div class="togglebutton">
+                <label>
+                  <input type="checkbox" checked="" ng-model="orderDetailForm.notified" >
+                  <span class="toggle"></span>
+                  Cutomer Notified
+                </label>
+                </div>
+              </div>
+            </div>
+       </form>
+    </div>
+   </div>
+   
+   <div class="panel panel-warning" ng-init="isEditOrderShippingDetail = true">
+    <div class="panel-heading">
+       Shipping & Payment Details
+       <button class="btn btn-primary pull-right" ng-show="isEditOrderShippingDetail" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail" style="color:white;margin-top:-5px">Edit</button>
+       <button class="btn btn-primary pull-right" ng-show="!isEditOrderShippingDetail" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail" style="color:white;margin-top:-5px">Cancel</button>
+       <button class="btn btn-primary pull-right" ng-show="!isEditOrderShippingDetail" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail;updateOrder()" style="color:white;margin-top:-5px">Save</button>
+                
+    </div>
+    <div class="panel-body">
+      <form class="bs-component"  class="form-horizontal" style="padding: 1px 70px 0px 70px;"
+          name="OrderShippinForm" 
+           novalidate>
+
+          <div class="row">
+            <div class="form-group">
+              <div class="alert alert-danger" ng-show="errorDialog">{{ message }}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group is-empty">
+                <label  class="control-label">Shipping Address</label>
+                <input  ng-show="isEditOrderShippingDetail" disabled  class="form-control" ng-model="orderForm.deliveryAddress" />
+                <input  ng-show="!isEditOrderShippingDetail" class="form-control" ng-model="orderForm.deliveryAddress" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group is-empty">
+                <label for="shippingCharge" class="control-label">Shipping Charge</label>
+                <input  disabled  ng-show="isEditOrderShippingDetail" class="form-control" ng-model="orderForm.shippingCharge" />
+                <input ng-show="!isEditOrderShippingDetail" name="shippingCharge" class="form-control" ng-model="orderForm.shippingCharge" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group is-empty">
+                <label for="username" class="control-label">Payment Method</label>
+                 <input disabled ng-show="isEditOrderShippingDetail" class="form-control" ng-model="orderForm.paymentMethod" />
+                 <select name="paymentMethod" ng-show="!isEditOrderShippingDetail" class="form-control" ng-model="orderForm.paymentMethod">
+                      <option value="">-Please select-</option>
+                      <option ng-repeat="method in paymentMethod" value="{{method}}">{{method}}</option>
+                 </select>
+              </div>
+            </div>
+            
+          </div>
+      </form>
+    </div>
+   </div>
+</div>

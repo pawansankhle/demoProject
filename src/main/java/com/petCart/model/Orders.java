@@ -44,8 +44,8 @@ public class Orders implements Serializable {
 	@GeneratedValue @Id
 	private Integer id;
 	
-	@JsonIgnore
-	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="customer_id")
 	private Users customer;
 	
@@ -80,7 +80,7 @@ public class Orders implements Serializable {
 	
 	@Basic
 	@Column(name="shipping_charge")
-	private Double shippingCharge;
+	private Integer shippingCharge;
 	
 	@Enumerated(EnumType.STRING)
 	private PaymentMethod paymentMethod;
@@ -172,11 +172,11 @@ public class Orders implements Serializable {
 		this.shippedOn = shippedOn;
 	}
 
-	public Double getShippingCharge() {
+	public Integer getShippingCharge() {
 		return shippingCharge;
 	}
 
-	public void setShippingCharge(Double shippingCharge) {
+	public void setShippingCharge(Integer shippingCharge) {
 		this.shippingCharge = shippingCharge;
 	}
 

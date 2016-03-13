@@ -83,6 +83,15 @@ public class OrdersRestImpl {
 		return orderService.placeOrder(cartId,order,getSession());
     }
 	
+	@ExceptionHandler
+	@POST
+	@Path("/update")
+	@Produces("application/json")
+	public Orders update(Orders order){
+		logger.info("inside @class OrdersRestImpl @method update");
+		
+		return orderService.updateOrder(order);
+	}
 	
 	private HttpSession getSession(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();

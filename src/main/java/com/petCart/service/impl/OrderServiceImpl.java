@@ -104,11 +104,8 @@ public class OrderServiceImpl implements IOrderService {
 				  }
 				     cart.setTotal(0.0);
 			    	 cartDao.update(cart);
-				     //Users user1 = UserInfo.getCurrentUser();
-				  
-			        //return "{\"status\":\"ok\",\"orderId\":\""+order1.getId()+"\"}";
-			       //return order1;
-				  return ordersDAO.find(order1.getId());
+				     
+			    	 return ordersDAO.find(order1.getId());
 				  
 			  }
 		}catch(EntityNotFoundException ex){
@@ -128,10 +125,51 @@ public class OrderServiceImpl implements IOrderService {
 			 
 			 return ordersDAO.findByUserId(id);
 		}catch(Exception ex){
-			ex.printStackTrace();
 			logger.error("@class OrderServiceImpl @method findByUserId cause:"+ex.toString());
 		}
 		return null;
+	}
+
+	@Override
+	public Orders updateOrder(Orders order) {
+		try{
+			order.setUpdatedOn(new Date());
+			Orders order1 = ordersDAO.find(order.getId());
+			if(order1!=null){
+				  Users user = order1.getCustomer();
+				  user.setDeliveryAddress(order.getCustomer().getDeliveryAddress());
+				  order1.setUpdatedOn(new Date());
+				  order1.setPaymentMethod(order.getPaymentMethod());
+				  order1.setShippingCharge(order.getShippingCharge());
+				  order1.setStatus(order.getStatus());
+				  order1.setCustomerNotified(order.isCustomerNotified());
+				  order1.setCustomer(user);
+				  
+				  if(order.isCustomerNotified()){
+						if(order.getStatus().equals(OrderStatus.PROCESSING)){
+						    //notification email
+						}else if(order.getStatus().equals(OrderStatus.CANCLED_REVERSAL)){
+							 //notification email
+						}
+		                else if(order.getStatus().equals(OrderStatus.SHIPPED)){
+		                	 //notification email
+						}
+		                else if(order.getStatus().equals(OrderStatus.COMPLETE)){
+		                	 //notification email
+						}
+		                else if(order.getStatus().equals(OrderStatus.CANCLED_REVERSAL)){
+		                	 //notification email
+						}
+				    }
+				  return ordersDAO.update(order1);
+			    }
+			return null;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			logger.error("@class OrderServiceImpl @method updateOrder cause:"+ex.toString());
+		    return null;
+		}
+		
 	}
 
 }

@@ -65,32 +65,21 @@ public class UserServiceImpl implements IUserService{
 
 
 	@Override
-	public Users createUser(Users user) {
+	public Users createUserForSignup(Users user) {
 		logger.info("inside @class UserServiceImpl @method createUser entry...");
 		try{
-
+            Roles role = rolesDao.findRoleByName(userRoles.ROLE_USER);
 			Users user1 = userDao.findUserByName(user.getUsername());
-			Roles role = rolesDao.findRoleByName(userRoles.ROLE_USER);
-			System.out.println("role is:"+role.toString());
+			
+			
 			if(user1 == null){
 
 				Files file = new Files();
 				file.setFile(null);
 				String encodedPassword = passwordEncoder.encode(user.getPassword());
-				/*Permissions permission = new Permissions();
-				permission.setPermissionname(userPermission.user_permission);
-				permission.setDescription("permssion for user who is new");
-				Set<Permissions> permissions = new HashSet<Permissions>();
-				permissions.add(permission);
-				 */
-				/*Roles role = new Roles();
-				role.setDescription("normal user");
-				role.setRollName(userRoles.ROLE_USER);
-				role.setPermissions(permissions);
-				 */
 				Set<Roles> roles = new HashSet<Roles>();
 				roles.add(role);
-				System.out.println("roles is: "+roles.toString());
+				
 
 				user.setRoles(roles);
 				user.setEnabled(true);
@@ -290,6 +279,36 @@ public class UserServiceImpl implements IUserService{
 		}
 		
 }
+
+	@Override
+	public Users createUser(Users user) {
+		user.setPassword(passwordEncoder.encode("Pass_123"));
+		try{
+			Roles role = null;
+			for(Roles role1 : user.getRoles()){
+				if(role1.getRoleName().equals(userRoles.ROLE_USER)){
+					 role = rolesDao.findRoleByName(userRoles.ROLE_USER);
+				}else{
+					role = rolesDao.findRoleByName(userRoles.ROLE_SUPPLIER);
+				}
+			}
+			Set<Roles> roles = new HashSet<Roles>();
+			roles.add(role);
+			Files file = new Files();
+			file.setFile(null);
+			
+			user.setRoles(roles);
+			user.setImage(file);
+			return userDao.create(user);
+		}catch(EntityNotFoundException ex){
+			logger.error("@class userService @method createUser cause: "+ex.toString());
+			return null;
+		}catch (Exception ex) {
+			logger.error("@class userService @method createUser cause: "+ex.toString());
+			return null;
+		}
+	  
+	}
 
 
     

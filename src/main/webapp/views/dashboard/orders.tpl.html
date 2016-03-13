@@ -1,1 +1,51 @@
-<h1>orders goes here</h1>
+<div class="row" ng-init="isAddOrder = false">
+  <div class="col-sm-12 bottom-border">
+     <div class="bs-component">
+        <div class="panel panel-warning">
+           <div class="panel-heading">
+                <div>Search
+                <button class="btn btn-primary pull-right" ng-click="isAddOrder =! isAddOrder" style="color:white;margin-top:-5px">Add Order</button></div>
+            </div>
+
+           <div class="panel-body">
+	           	<form  ng-submit="search()">
+	           	  <div class="form-group col-sm-3 right-border" style="margin:0px">
+	                 <select name="status" class="form-control" ng-model="orderForm.status" ng-change="search()">
+	                    <option value="">--select--</option>
+	                    <option ng-repeat="status in orderStatus" value="{{status}}">{{status}}</option>
+
+	                 </select>
+	              </div>
+	              <div class="form-group col-sm-3" style="margin:0px">
+	                  <input type="text" class="form-control" placeholder="Search by order ID" ng-model="orderForm.byOrderId" ng-change="search()">
+	              </div>
+	            </form>
+           </div>
+        </div>
+      </div>
+     <div class="col-sm-12 well">
+		 <table class="table table-responsive">
+	      <thead>
+	          <th>Order ID</th>
+	          <th>created On</th>
+	          <th>payment Method </th>
+	          <th>total Amount</th>
+
+	          
+	      </thead>
+	      <tbody>
+	        <tr ng-if="orders.length == 0"><td md-cell colspan="5" style="text-align: center;"><b>No  Data Found</b></td></tr>
+	        <tr ng-repeat="order in orders">
+	          <td>{{order.id}}</td>
+	          <td>{{order.createdOn | date}}</td>
+	          <td>{{order.paymentMethod}}</td>
+	          <td>{{order.totalAmount }}</td>
+	          <td>
+	            <button ui-sref="dashboard.orderView({id:order.id})" style="margin: 0px;" class="btn btn-success btn-raised">View</button>
+	          </td>
+	         </tr>
+	      </tbody>
+	    </table>
+	   </div>
+  </div>
+</div>

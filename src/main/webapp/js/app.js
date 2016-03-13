@@ -1,4 +1,4 @@
-var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination']);
+var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination','ngMessages']);
 app.value('count',0);
 app.value('pageUpperLimit',12);
 app.value('maxlimitofpagination',12);
@@ -98,6 +98,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 	$urlRouterProvider.otherwise('/');
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	$httpProvider.interceptors.push(['$injector',function ($injector) { return $injector.get('AuthInterceptor');} ]);
+	$httpProvider.interceptors.push('AuthInterceptor');
 	$stateProvider
 	.state(STATS.home,{
 		url: '/',
@@ -163,6 +164,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
            .state(STATS.dashboardOrders, {
 			   	url: '/orders',
 			   	templateUrl: GLOBAL_APP.dashboardOrdersTplPath,
+			   	controller: 'ordersCtrl',
 			   	data:{
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }
@@ -170,6 +172,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
            .state(STATS.dashboardOrderView, {
 			   	url: '/order/:id',
 			   	templateUrl: GLOBAL_APP.dashboardOrderViewTplPath,
+			   	controller: 'orderViewCtrl',
 			   	data:{
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }
@@ -277,7 +280,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			    controller: 'accountOrdersCtrl'
 		   })
             .state(STATS.accountOrderDetail ,{
-			    url: '/:id',
+			    url: '/order/:id',
 			    templateUrl: GLOBAL_APP.orderDetailTplPath,
 			    controller: 'accountOrdersCtrl'
 		   })

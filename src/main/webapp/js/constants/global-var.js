@@ -34,5 +34,8 @@ app.constant('GLOBAL_APP', {
     ordersTplPath: 'views/user/orders.tpl.html',
     orderDetailTplPath: 'views/user/orders.detail.tpl.html',
     settingTplPath: 'views/user/setting.tpl.html',
+
+    ORDER_STATUS : ["PLACED","CANCLED","CANCLED_REVERSAL","CHARGE_BACK","COMPLETE","DENIED","EXPIRED","FILED","PENDING","PROCESSING","PROCESSED","REFUNDED","REVERSED","SHIPPED","VOIDED"],
+    PAYMENT_METHOD : ['COD','PAYTM','DEBIT_CARD','CREDIT_CARD'],
 });
 

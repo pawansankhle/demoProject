@@ -5,7 +5,7 @@ app.controller('ordersCtrl',['$scope','GLOBAL_APP','URLS','STATS','$state','page
 	   $scope.orders = [];
        $scope.filter = "";
 	   $scope.getOrdersList = function(lower,upper){
-    	url = '';
+    	var url = '';
     	if(exist($scope.filter)){
         	url  = URLS.orderSearchUrl+$scope.filter+"&lowerLimit="+pageLowerLimit+"&upperLimit="+pageUpperLimit;
     	}else{

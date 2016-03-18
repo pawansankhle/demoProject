@@ -19,10 +19,12 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 				$scope.message = Msgs.loginFailedMsg;
 				$scope.errorDialog = true;
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+				$scope.disable=!$scope.disable;
 				break;
 			case 200:
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 				$rootScope.setCurrentUser(res.data);
+				$scope.disable=!$scope.disable;
 				break;
 
 			}
@@ -47,10 +49,12 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 					$scope.message = Msgs.signupErrorMsg;
 					$scope.errorDialog = true;
 					$rootScope.$broadcast(AUTH_EVENTS.signupFailed);
+					$scope.disable=!$scope.disable;
 					break;
 				case 200:
 					$rootScope.$broadcast(AUTH_EVENTS.signUpSuccess);
 					$rootScope.setCurrentUser(res.data);
+					$scope.disable=!$scope.disable;
 					break;
 				}
 			});

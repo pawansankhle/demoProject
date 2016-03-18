@@ -61,30 +61,33 @@
 		<modal title="form" visible="toggleModal">
 		<div class="row">
 			<div class="col-sm-12" ng-show="showlogin">
-				<form class="bs-component" role="loginForm" class="form-horizontal" style="padding: 1px 70px 0px 70px;"
-					name="loginForm" ng-controller="authCtrl"
-					ng-submit="login(credentials)" novalidate>
+				<form class="bs-component"  name="loginForm" class="form-horizontal" ng-init="disable=false" style="padding: 1px 70px 0px 70px;"
+					 ng-controller="authCtrl"
+					ng-submit="login(credentials);disable=!disable;" novalidate>
 					<div class="bs-component">
 						<div class="alert alert-danger alert-dismissible" ng-show="errorDialog">{{
 							message }}</div>
 					</div>
 					<div class="form-group label-floating is-empty">
 						<label for="username" class="control-label">User Name</label> 
-						<input id="username"
+						<input autocomplete="off" id="username"
 							class="form-control" ng-model="credentials.username" />
 					</div>
 					<div class="form-group label-floating is-empty">
 						<label for="password" class="control-label">Password</label> 
-						<input class="form-control"
-							type="password"  required id="password"
+						<input class="form-control" name="password"
+							type="password" autocomplete="off" ng-required="true" id="password"
 							ng-model="credentials.password" />
+							<div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+                            <div ng-message="required" class="text-danger">password is required.</div>
+                        </div>
 					</div>
-					<input type="submit" class="btn btn-success  btn-raised col-sm-12"
-						value="Login">
+					<input type="submit" ng-disabled="disable || loginForm.$invalid" class="btn btn-success  btn-raised col-sm-12"
+						value="Login" >
 					<div class="form-group">
 						<button class="btn btn-link col-sm-6">Forgot Password..??</button>
 						<span class="pull-right badge ps-badge-uf"
-							ng-click="authModal('signup')">signUp</span>
+							ng-click="authModal('signup');" >signUp</span>
 					</div>
 				</form>
 			</div>
@@ -111,9 +114,10 @@
 							>
 					</div>
 					<div class="form-group label-floating is-empty">
-						<label for="userrepassword" class="control-label">Re Password</label> <input
-							type="password" class="form-control" ng-model="repassword" required
+						<label for="userrepassword" class="control-label">Re Password</label> 
+						<input type="password" class="form-control" ng-model="repassword" required
 							>
+
 					</div>
 					<div class="form-group">
 						<input type="submit" class="btn btn-success btn-raised col-sm-12"
@@ -145,7 +149,7 @@
 	<script src="http://localhost:8989/petCart/js/lib/angular/restangular.min.js"></script>
 	<script src="http://localhost:8989/petCart/js/lib/angular/angular-resource.min.js"></script>
 	<script src="http://localhost:8989/petCart/js/lib/angular/angular-sanitize.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular-animate.js"></script>
+	<script src="http://localhost:8989/petCart/js/lib/angular/angular-animate.min.js"></script>
 	<script src="http://localhost:8989/petCart/js/lib/angular/angular-ui-router.js"></script>
 	<script src="http://localhost:8989/petCart/js/lib/angular/angular-messages.min.js"></script>
 
@@ -179,6 +183,7 @@
     <script src="http://localhost:8989/petCart/js/controllers/dashboard/userManagementController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/dashboard/ordersController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/accountController.js"></script>
+   <script src="http://localhost:8989/petCart/js/controllers/dashboard/productController.js"></script>
     
 
 	<!-- Services -->

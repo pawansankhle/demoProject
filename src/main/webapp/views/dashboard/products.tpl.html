@@ -1,1 +1,51 @@
-<h1>this is products list</h1>
+<div class="row" ng-init="isAddProduct = false">
+  <div class="col-sm-12 bottom-border">
+     <div class="bs-component">
+        <div class="panel panel-inverse">
+           <div class="panel-heading">
+                <div>Search
+                <button class="btn btn-primary pull-right" ng-click="isAddProduct =! isAddProduct" style="color:white;margin-top:-5px">Add Product</button></div>
+            </div>
+
+           <div class="panel-body">
+	           	<form  ng-submit="search()">
+	           	  <div class="form-group col-sm-3 right-border" style="margin:0px">
+	                 <select name="status" class="form-control" ng-model="productForm.status" ng-change="search()">
+	                    <option value="">--select--</option>
+	                    <option ng-repeat="department in productDepartments" value="{{department.value}}">{{department.name}}</option>
+
+	                 </select>
+	              </div>
+	              <div class="form-group col-sm-3" style="margin:0px">
+	                  <input type="text" class="form-control" placeholder="Search by product ID" ng-model="productForm.byProductId" ng-change="search()">
+	              </div>
+	            </form>
+           </div>
+        </div>
+      </div>
+     <div class="col-sm-12 well">
+		 <table class="table table-responsive">
+	      <thead>
+	          <th>Product ID</th>
+	          <th>Name</th>
+	          <th>created On</th>
+	          
+
+	          
+	      </thead>
+	      <tbody>
+	        <tr ng-if="products.length == 0"><td md-cell colspan="5" style="text-align: center;"><b>No  Data Found</b></td></tr>
+	        <tr ng-repeat="product in products">
+	          <td>{{product.id}}</td>
+	          <td>{{product.name}}</td>
+	          <td>{{product.createdOn | date}}</td>
+	          
+	          <td>
+	            <button  style="margin: 0px;" class="btn btn-success btn-raised">View</button>
+	          </td>
+	         </tr>
+	      </tbody>
+	    </table>
+	   </div>
+  </div>
+</div>

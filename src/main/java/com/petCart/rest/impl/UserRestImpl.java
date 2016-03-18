@@ -1,7 +1,11 @@
 package com.petCart.rest.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -20,14 +24,17 @@ import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
+import org.apache.velocity.exception.VelocityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.inn.siteforge2.utils.ConfigUtil;
 import com.petCart.model.LoginForm;
 import com.petCart.model.Users;
 import com.petCart.service.IUserService;
@@ -205,6 +212,38 @@ public class UserRestImpl {
 		return userService.createUser(user);
 	}
 	
+	
+	/*public void sendActivationEmail(Users users)
+	{
+		    logger.debug("Sending activation mail by  an entity :"+users);
+			String activationURL=ConfigUtil.getConfigProp(ConfigUtil.APP_DEPLOY_URL);
+			String actObjClass = getObjectClassName(activationURL);
+			String objClass = getObjectClassName(users);
+		  
+		  Map model = new HashMap();
+		  model.put(objClass,users);
+		  model.put(actObjClass,activationURL);
+		  String path=ConfigUtil.ACTIVATION_TEMPALTE;
+		   String text="";
+			try {
+				text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, path,"UTF-8", model);
+			} catch (VelocityException e1) {
+				logger.error("Error Inside  @class :"+this.getClass().getName()+" @Method :sendActivationEmail()"+e1.getMessage());
+			}
+		   serviceEmail.createNotification(users.getEmail(),"application",users,"New user!!");
+		   try {
+			this.mailsender.sendMail("New user!!", text, users.getEmail(),"USER_MANAGEMENT");
+		} catch (AddressException e) {
+		    logger.error("Error Inside  @class :"+this.getClass().getName()+" @Method :sendActivationEmail()"+e.getMessage());
+			logger.error("Sending activation mail by  an entity :"+users+e.getMessage());
+			
+		} catch (MessagingException e) {
+			logger.error("Error Inside  @class :"+this.getClass().getName()+" @Method :sendActivationEmail()"+e.getMessage());
+		    logger.error(e.getMessage());
+		}  	
+		
+		
+	}*/
 
 	private HttpSession getSession(){
 		Message message = PhaseInterceptorChain.getCurrentMessage();

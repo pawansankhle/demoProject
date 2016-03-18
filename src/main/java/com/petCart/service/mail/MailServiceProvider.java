@@ -1,12 +1,14 @@
 package com.petCart.service.mail;
 
+import java.security.Security;
+import java.util.Date;
+import java.util.Properties;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.Security;
-import java.util.Date;
-import java.util.Properties;
+
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -16,6 +18,9 @@ import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+
+import com.sun.mail.smtp.SMTPTransport;
 
 import com.petCart.util.ConfigUtil;
 
@@ -28,7 +33,7 @@ final public class MailServiceProvider {
     private MailServiceProvider() {
     }
 
-    /*public static Boolean setPropertyForMail()
+    public static Boolean setPropertyForMail()
     {
     	if(ConfigUtil.getConfigProp(ConfigUtil.MAIL_SERVER_CONFIG).equalsIgnoreCase(GMAIL_MAIL_SERVER))
     	{
@@ -52,7 +57,7 @@ final public class MailServiceProvider {
     	}
     	return true;
     	
-    }*/
+    }
  	
     /**
      * sends mail by ne google account emailaddress
@@ -77,7 +82,7 @@ final public class MailServiceProvider {
                 smtpsend.java - demo program from javamail
         */
         
-        /*setPropertyForMail();
+        setPropertyForMail();
         Session session = Session.getInstance(props, null);
 
         // -- Create a new message --
@@ -135,8 +140,4 @@ final public class MailServiceProvider {
             return "JAF text/html dataSource to send e-mail only";
         }
         }
-    }*/
-    
-}
-
-}
+    }

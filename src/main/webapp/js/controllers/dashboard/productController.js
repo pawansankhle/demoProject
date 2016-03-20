@@ -1,6 +1,6 @@
 app.
-controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','productSrv','URLS'
-	,function($scope,pageLowerLimit,pageUpperLimit,productSrv,URLS){
+controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','productSrv','URLS','STATS','$state'
+	,function($scope,pageLowerLimit,pageUpperLimit,productSrv,URLS,STATS,$state){
 	$scope.products = [];
 	$scope.productDepartments = [];
 
@@ -16,9 +16,14 @@ controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','p
      $scope.search = function(){
      	 $scope.products = [];
          $scope.filter = productSrv.getFIQL($scope.productForm);
-         $scope.getProducts(pageLowerLimit,pageUpperLimit);
+         $scope.getProducts(0,12);
 
      };
+
+     $scope.viewProduct = function(product){
+          productSrv.setCurrentProduct(product);
+          $state.go(STATS.dashboardProductView);
+     }
 	 
 	 $(document).ready(function(){
                 $(window).scroll(function () {

@@ -30,7 +30,7 @@
 	          <th>created On</th>
 	          <th>payment Method </th>
 	          <th>total Amount</th>
-
+              <th></th>
 	          
 	      </thead>
 	      <tbody>
@@ -41,7 +41,7 @@
 	          <td>{{order.paymentMethod}}</td>
 	          <td>{{order.totalAmount }}</td>
 	          <td>
-	            <button ui-sref="dashboard.orderView({id:order.id})" style="margin: 0px;" class="btn btn-success btn-raised">View</button>
+	            <button ui-sref="dashboard.orderView({id:order.id})"  class="btn btn-success btn-sm btn-raised">View</button>
 	          </td>
 	         </tr>
 	      </tbody>

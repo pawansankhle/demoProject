@@ -19,9 +19,11 @@ app.factory('AuthService',['$http','baseUrl', 'SessionSrv','Msgs', function ($ht
 			    
 		});
   };
-  authService.signup = function (credentials) {
+  authService.signup = function (userForm) {
+  	userForm.address.state="Madhya Pradesh";
+  	userForm.address.city="Indore";
     return $http
-      .post(baseUrl+'/user/signup', credentials)
+      .post(baseUrl+'/user/signup', userForm)
       .then(function(res) {
 		     switch(res.status){
 				case 200:

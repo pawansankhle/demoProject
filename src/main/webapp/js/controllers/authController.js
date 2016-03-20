@@ -10,6 +10,7 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 			username: '',
 			email: '',
 			password: '',
+			address: {}
 
 	};
 	$scope.login = function (credentials) {

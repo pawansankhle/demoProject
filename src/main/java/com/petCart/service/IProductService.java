@@ -16,6 +16,7 @@ public interface IProductService {
 	Product viewProduct(Integer id);
 	List<Product> search(SearchContext context,Integer lowerLimit,Integer upperLimit, String orderBy, String orderType);
     Long totalCount();
+	Product updateProduct(Product product);
 	
 	
 }

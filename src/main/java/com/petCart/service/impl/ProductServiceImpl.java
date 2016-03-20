@@ -1,7 +1,10 @@
 package com.petCart.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.slf4j.Logger;
@@ -76,6 +79,37 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public Long totalCount() {
 		logger.info("inside @class ProductServiceImpl  @mehod totalCount entry");
-	    return productDAO.countAll();
+		try{
+			return productDAO.countAll();
+		}catch(Exception ex){
+			logger.error("@class @method cause: "+ex.toString());
+			return null;
+		}
+	    
+	}
+
+
+
+	@Override
+	public Product updateProduct(Product product) {
+		logger.info("inside @class ProductServiceImpl  @mehod updateProduct entry");
+		try{
+			
+			Product oldProduct = productDAO.find(product.getId());
+			if(oldProduct !=null){
+				oldProduct.setName(product.getName());
+				oldProduct.setModifiedtime(new Date());
+				oldProduct.setDiscount(product.getDiscount());
+				oldProduct.setPrice(product.getPrice());
+				oldProduct.setShowitem(product.getShowitem());
+				oldProduct.setQuantity(product.getQuantity());
+				return productDAO.update(oldProduct);
+			}
+		}catch(EntityNotFoundException ex){
+			logger.error("@class ProductServiceImpl @method updateProduct cause: "+ex.toString());
+		}catch (Exception e) {
+			logger.error("@class ProductServiceImpl @method updateProduct cause: "+e.toString());
+		}
+		return null;
 	}
 }

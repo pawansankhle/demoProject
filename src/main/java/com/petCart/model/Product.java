@@ -54,28 +54,24 @@ public class Product  implements Serializable{
 	
 	@Basic
 	@Column(name="name")
-	private String Name;
+	private String name;
 	
-    @Basic
-    @Column(name="mrp_price")
-	private Double MRPPrice;
-	
-    @Basic
+	@Basic
     @Column(name="price")
-	private Double Price;
+	private Double price;
 	
     @Basic
-    @Column(name="offer_price")
-	private Double OfferPrice;
+    @Column(name="discount")
+	private Double discount;
 	
     
     @Basic
 	@Column(name="quantity")
-	private Integer Quantity;
+	private Integer quantity;
 	
     @Basic
 	@Column(name="ps_show")
-	private Boolean showItem;
+	private Boolean showitem;
 	
 	
     @Basic
@@ -85,11 +81,11 @@ public class Product  implements Serializable{
     
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_time")
-	private Date CreatedTime;
+	private Date createdtime;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_time")
-	private Date ModifiedTime;
+	private Date modifiedtime;
 	
 	@JsonIgnore
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
@@ -129,51 +125,15 @@ public class Product  implements Serializable{
 		this.id = id;
 	}
 
-	
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
-	}
-
-	public Double getPrice() {
-		return Price;
-	}
-
-	public void setPrice(Double price) {
-		Price = price;
+		this.name = name;
 	}
 
 	
-	public Double getOfferPrice() {
-		return OfferPrice;
-	}
-
-	public Double getMRPPrice() {
-		return MRPPrice;
-	}
-
-	public void setMRPPrice(Double mRPPrice) {
-		MRPPrice = mRPPrice;
-	}
-
-	public Integer getQuantity() {
-		return Quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		Quantity = quantity;
-	}
-
-	public Boolean getShowItem() {
-		return showItem;
-	}
-
-	public void setShowItem(Boolean showItem) {
-		this.showItem = showItem;
-	}
 
 	public String getDescription() {
 		return description;
@@ -183,22 +143,44 @@ public class Product  implements Serializable{
 		this.description = description;
 	}
 
-	
-
-	public Date getCreatedTime() {
-		return CreatedTime;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setCreatedTime(Date createdTime) {
-		CreatedTime = createdTime;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public Date getModifiedTime() {
-		return ModifiedTime;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setModifiedTime(Date modifiedTime) {
-		ModifiedTime = modifiedTime;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Boolean getShowitem() {
+		return showitem;
+	}
+
+	public void setShowitem(Boolean showitem) {
+		this.showitem = showitem;
+	}
+
+	public Date getCreatedtime() {
+		return createdtime;
+	}
+
+	public void setCreatedtime(Date createdtime) {
+		this.createdtime = createdtime;
+	}
+
+	public Date getModifiedtime() {
+		return modifiedtime;
+	}
+
+	public void setModifiedtime(Date modifiedtime) {
+		this.modifiedtime = modifiedtime;
 	}
 
 	public Department getDepartment() {
@@ -217,16 +199,8 @@ public class Product  implements Serializable{
 		this.category = category;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public void setOfferPrice(Double offerPrice) {
-		OfferPrice = offerPrice;
-	}
-
 	
-
+	
 	public List<Files> getImages() {
 		return images;
 	}
@@ -249,6 +223,14 @@ public class Product  implements Serializable{
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public Double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 
 	

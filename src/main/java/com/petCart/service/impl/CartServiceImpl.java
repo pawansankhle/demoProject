@@ -79,7 +79,8 @@ public class CartServiceImpl implements ICartService{
 					cart.setItems(items);
 					cart.setAddedOn(new Date());
 					cart.setModifiedOn(new Date());
-					cart.setTotal(cart.getTotal()+(product.getOfferPrice()*item.getQuantity()));
+					/*price in cart shold be after calculating discount later*/
+					cart.setTotal(cart.getTotal()+(product.getPrice()*item.getQuantity()));
 					cart = cartDao.addToCart(cart);
 					session.setAttribute("cart", cart);
 					return cart;
@@ -96,7 +97,7 @@ public class CartServiceImpl implements ICartService{
 					items = new ArrayList<CartItem>(1);
 					items.add(item);
 					cart.setItems(items);
-					Double total = item.getItemId().getOfferPrice()*item.getQuantity();
+					Double total = item.getItemId().getPrice()*item.getQuantity();
 					cart.setTotal(cart.getTotal()+total);
 					session.setAttribute("cart", cart);
 					return cartDao.addToCart(cart);
@@ -121,7 +122,7 @@ public class CartServiceImpl implements ICartService{
 				for(CartItem item : cart.getItems()){
 					if(item.getQuantity() != 0){
 						item.setCartId(cart1);
-						cart1.setTotal(item.getQuantity() * item.getItemId().getOfferPrice());
+						cart1.setTotal(item.getQuantity() * item.getItemId().getPrice());
 					}else{
 						cartItemDao.delete(item.getId());
 					}

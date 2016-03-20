@@ -41,6 +41,7 @@ app
 .controller('accountSettingCtrl',['$scope','UserSrv','URLS','$rootScope','$state','STATS',
     function($scope,UserSrv,URLS,$rootScope,$state,STATS){
       
+      
       $scope.submitUserForm = function(user){
         UserSrv.getService(URLS.userUpdateUrl).post(user);
       }

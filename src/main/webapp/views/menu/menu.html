@@ -5,7 +5,7 @@
 			<span class="badge" ng-click="openSubCategory($index)" >{{(dept.categories).length }}&nbsp;
 				<span class="caret" ></span>
 		   </span>
-		   <a ui-sref="departmentCategory({did: dept.id})">{{ dept.departmentName | uppercase}}</a>
+		   <a ui-sref="departmentCategory({did: dept.id})" style="color: #999;">{{ dept.departmentName | uppercase}}</a>
 			<ul style="display:none" ng-attr-id="{{ 'ps-menu-'+$index }}" >
 				<li ui-sref="homeCategoryProduct({cid: cat.id,name: cat.name})" ng-repeat="cat in dept.categories" >{{ cat.name }}</li>
 			</ul>

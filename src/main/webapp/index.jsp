@@ -58,10 +58,10 @@
 		</div>
 	</div>
 	<div class="bs-component">
-		<modal title="form" visible="toggleModal">
+		<modal title="" visible="toggleModal">
 		<div class="row">
 			<div class="col-sm-12" ng-show="showlogin">
-				<form class="bs-component"  name="loginForm" class="form-horizontal" ng-init="disable=false" style="padding: 1px 70px 0px 70px;"
+				<form class="bs-component"  name="loginForm"  ng-init="disable=false" style="padding: 1px 70px 0px 70px;"
 					 ng-controller="authCtrl"
 					ng-submit="login(credentials);disable=!disable;" novalidate>
 					<div class="bs-component">
@@ -92,35 +92,41 @@
 				</form>
 			</div>
 			<div class="col-sm-12" ng-show="showsignup">
-				<form class="form-control" class="form-horizontal" role="form" style="padding: 1px 70px 0px 70px;"
-					ng-controller="authCtrl" name="signUpForm"
+				<form class="bs-component"  style="padding: 1px 70px 0px 70px;" ng-init="disable=false"
+					ng-controller="authCtrl" name="signupForm"
 					ng-submit="signUp(signUpForm)">
 					<div class="form-group">
 						<div class="alert alert-danger" ng-show="errorDialog">{{ message }}</div>
 					</div>
 					<div class="form-group label-floating is-empty">
-						<label  class="control-label">User Name</label> <input type="text"
-							class="form-control" ng-model="signUpForm.username"
+						<label  class="control-label">User Name</label>
+						 <input type="text" name="username" ng-required="true" class="form-control" ng-model="signUpForm.username"
 							>
+						<div ng-messages="signupForm.username.$error" ng-if="signUpForm.username.$touched"></div>
 					</div>
 					<div class="form-group  label-floating is-empty">
-						<label  class="control-label">Email address</label> <input type="email"
-							class="form-control" ng-model="signUpForm.email"
-							>
+						<label  class="control-label">Email address</label> 
+						<input type="email" class="form-control" ng-required="true" ng-model="signUpForm.email" maxlength="30">
 					</div>
 					<div class="form-group label-floating is-empty">
-						<label for="password" class="control-label">Password</label> <input type="password"
-							class="form-control" ng-model="signUpForm.password" required
+						<label for="password" class="control-label">Password</label> 
+						<input type="password" name="password"
+							class="form-control" minlength="6" ng-required="true" ng-model="signUpForm.password" required
 							>
+					    <div ng-messages="signupForm.password.$error" ng-if="signupForm.password.$touched">
+			                <div ng-message="minlength"><font color="red" >minimum length 6 required</font></div>
+			            </div>
 					</div>
 					<div class="form-group label-floating is-empty">
-						<label for="userrepassword" class="control-label">Re Password</label> 
-						<input type="password" class="form-control" ng-model="repassword" required
+						<label for="userrepassword"class="control-label">Re Password</label> 
+						<input type="password"  minlength="6"  name="repassword" class="form-control" ng-required="true" ng-model="repassword" required
 							>
-
+                        <div ng-messages="signupForm.repassword.$error" ng-if="signupForm.repassword.$touched">
+			                <div ng-message="minlength"><font color="red" >minimum length 6 required</font></div>
+			            </div>
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-success btn-raised col-sm-12"
+						<input type="submit" ng-disabled="disable || signupForm.$invalid" class="btn btn-success btn-raised col-sm-12"
 							value="SignUp">
 					</div>
 					
@@ -184,6 +190,7 @@
     <script src="http://localhost:8989/petCart/js/controllers/dashboard/ordersController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/accountController.js"></script>
    <script src="http://localhost:8989/petCart/js/controllers/dashboard/productController.js"></script>
+    <script src="http://localhost:8989/petCart/js/controllers/dashboard/productDetailController.js"></script>
     
 
 	<!-- Services -->

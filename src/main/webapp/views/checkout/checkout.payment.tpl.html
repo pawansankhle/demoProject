@@ -30,7 +30,8 @@
 	   <div class="bs-component" >
 		<h5>Shipping Address
 			<spandata-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top" title="on top"  >
-			<i class="fa fa-pencil pull-right" ui-sref="checkout.address" style="cursor: pointer;font-size: 20px;"></i><i class="pull-right" ui-sref="checkout.address">edit</i><div class="ripple-container"></div>
+			<i class="fa fa-pencil pull-right" ui-sref="checkout.address" style="cursor: pointer;font-size: 20px;"></i>
+			<i class="pull-right" ui-sref="checkout.address">edit</i><div class="ripple-container"></div>
 			</span>
 		</h5>
 	 </div>
@@ -40,8 +41,8 @@
 	<div class="col-sm-6">
 	   <div class="address">
 			  <b>{{ currentUser.username }}</b><br/>
-			  {{currentUser.deliveryAddress }}
-			  {{ currentUser.postalCode }}<br/>
+			  {{currentUser.address.shippingAddress }}
+			  {{ currentUser.address.pincode}}<br/>
 			  <span class="text-strong">Mobile.</span> {{ currentUser.mobile }}
 	   </div>
    </div>

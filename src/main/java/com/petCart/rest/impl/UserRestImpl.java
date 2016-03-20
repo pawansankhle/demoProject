@@ -1,11 +1,7 @@
 package com.petCart.rest.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -24,17 +20,14 @@ import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
-import org.apache.velocity.exception.VelocityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.inn.siteforge2.utils.ConfigUtil;
 import com.petCart.model.LoginForm;
 import com.petCart.model.Users;
 import com.petCart.service.IUserService;
@@ -93,7 +86,7 @@ public class UserRestImpl {
 		String j_username = user.getUsername();
 		String j_password = user.getPassword();
 		
-		Users usr = userService.createUser(user);
+		Users usr = userService.createUserForSignup(user);
 		if(usr !=null){
 			usr =  userService.Customlogin(j_username,j_password,session);
 			return usr;
@@ -230,7 +223,7 @@ public class UserRestImpl {
 			} catch (VelocityException e1) {
 				logger.error("Error Inside  @class :"+this.getClass().getName()+" @Method :sendActivationEmail()"+e1.getMessage());
 			}
-		   serviceEmail.createNotification(users.getEmail(),"application",users,"New user!!");
+		   //serviceEmail.createNotification(users.getEmail(),"application",users,"New user!!");
 		   try {
 			this.mailsender.sendMail("New user!!", text, users.getEmail(),"USER_MANAGEMENT");
 		} catch (AddressException e) {

@@ -186,8 +186,9 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   		 }
            })
            .state(STATS.dashboardProductView, {
-			   	url: '/product/:id',
+			   	url: '/product',
 			   	templateUrl: GLOBAL_APP.dashboardPrductViewTplPath,
+			   	controller: 'dashBoardProductViewCtrl',
 			   	data:{
 			   			authorizedRoles: [USER_ROLES.admin]
 			   		 }

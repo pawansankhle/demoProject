@@ -35,14 +35,14 @@
       <tbody>
         <tr ng-if="users.length == 0"><td md-cell colspan="5" style="text-align: center;"><b>No  Data Found</b></td></tr>
         <tr ng-repeat="user in users">
-          <td ui-sref="dashboard.userManagement.viewUser({id:user.id})">{{user.firstName + " " + user.lastName }}</td>
+          <td ui-sref="dashboard.userManagement.viewUser({id:user.id})">{{user.firstname + " " + user.lastname }}</td>
           <td>{{user.email}}</td>
           <td></td>
           <td></td>
           <td>
-            <button style="margin: 0px;" ng-if="user.enabled" class="btn btn-danger btn-raised" ng-click="adminAction('disable',user,$index)">Disable</button>
-            <button style="margin: 0px;" ng-if="!user.enabled" ng-click="adminAction('enable',user,$index)" class="btn btn-success btn-raised">Enable</button>
-            <button style="margin: 0px;" class="btn btn-danger btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
+            <button ng-if="user.enabled" class="btn btn-danger btn-sm btn-raised" ng-click="adminAction('disable',user,$index)">Disable</button>
+            <button ng-if="!user.enabled" ng-click="adminAction('enable',user,$index)" class="btn btn-sm btn-success btn-raised">Enable</button>
+            <button  class="btn btn-danger btn-sm btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
           </td>
          </tr>
       </tbody>
@@ -71,13 +71,13 @@
             <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
                 <label name="firstname" class="control-label">First Name</label><input 
-                  class="form-control" name="firstname"  required ng-model="createUserform.firstName" />
+                  class="form-control" name="firstName"  required ng-model="createUserform.firstname" />
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
                 <label name="lastname" class="control-label">Last Name</label>
-                <input class="form-control" name="lastname" required ng-model="createUserform.lastName" />
+                <input class="form-control" name="lastName" required ng-model="createUserform.lastname" />
               </div>
             </div>
             <div class="col-sm-6">

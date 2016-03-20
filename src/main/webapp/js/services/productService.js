@@ -1,6 +1,11 @@
 app.service('productSrv',['URLS', 'Restangular', 'baseUrl', function(URLS, Restangular, baseUrl) { 
         
-
+        this.setCurrentProduct = function(product){
+            this.currentProduct = product;
+        }
+        this.getCurrentProduct = function(){
+            return this.currentProduct;
+        }
         this.getAllProducts = function(){
             return Restangular.all(URLS.productUrl);
         }
@@ -35,6 +40,16 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl', function(URLS, Resta
 		       }
 		      return  fiql;
 
+        }
+
+
+        this.updateProduct = function(){
+            var product = this.getCurrentProduct();
+            product.discount = parseInt(product.discount);
+            this.getService(URLS.productUpdateUrl).post(product).then(function(res){
+                console.log(res);
+            });
+            
         }
         
     

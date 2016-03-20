@@ -1,5 +1,5 @@
 <div class="row" ng-init="isAddProduct = false">
-  <div class="col-sm-12 bottom-border">
+  <div class="col-sm-12">
      <div class="bs-component">
         <div class="panel panel-inverse">
            <div class="panel-heading">
@@ -22,30 +22,36 @@
 	            </form>
            </div>
         </div>
-      </div>
-     <div class="col-sm-12 well">
-		 <table class="table table-responsive">
+        </div>
+       <div class="well col-sm-12">
+         <div class="bs-component">
+        <table class="table table-responsive">
 	      <thead>
+	          <th>Thumbnil</th>
 	          <th>Product ID</th>
 	          <th>Name</th>
 	          <th>created On</th>
-	          
-
-	          
+	          <th>Price</th>
+	          <th>Quantity</th>
+	          <th></th>
 	      </thead>
 	      <tbody>
 	        <tr ng-if="products.length == 0"><td md-cell colspan="5" style="text-align: center;"><b>No  Data Found</b></td></tr>
 	        <tr ng-repeat="product in products">
+	          <td><img class="img img-responsive" ng-src="{{product.images[0].file}}" width="50" height="50"></img></td>
 	          <td>{{product.id}}</td>
 	          <td>{{product.name}}</td>
-	          <td>{{product.createdOn | date}}</td>
-	          
+	          <td>{{product.createdtime | date}}</td>
+	          <td>{{product.price }}</td>
+	          <td>{{product.quantity}}</td>
 	          <td>
-	            <button  style="margin: 0px;" class="btn btn-success btn-raised">View</button>
-	          </td>
+	            <button  style="margin: 0px;" class="btn btn-sm btn-success btn-raised" ng-click="viewProduct(product);">View</button>
+	            <button ng-show="!product.showItem" class="btn btn-sm btn-success btn-raised">Enable</button>
+	            <button ng-show="product.showItem" class="btn btn-sm btn-danger btn-raised">Disable</button>
+	         </td>
 	         </tr>
 	      </tbody>
 	    </table>
 	   </div>
+	 </div>
   </div>
-</div>

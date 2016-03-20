@@ -9,4 +9,5 @@
             
 		</div>
 </div>
-<p class="price">{{ product.offerPrice | currency:'&#8377;' }}</p>
+<p class="price">{{ product.price | currency:"&#8377;"}}</p>
+<p ng-if="product.discount" class="ps-discount">{{product.discount}} % off</p>

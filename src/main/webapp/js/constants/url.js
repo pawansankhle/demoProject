@@ -3,6 +3,7 @@ app.constant('URLS', {
   productUrl: '/products',
   proeuctDeleteUrl: '/products/delete/',
   productSearchUrl: '/products/search',
+  productUpdateUrl: '/products/update',
   departmentUrl: '/dept',
   departmentSearchUrl: '/dept/search',
   categoryUrl: '/category/:id',
@@ -29,7 +30,7 @@ app.constant('URLS', {
   orderByUserIdUrl: '/order/findByUserId/',
   orderUpdateUrl: '/order/update',
 
-  reviewSearchUrl: "review/search",
+  reviewSearchUrl: "/review/search",
   
 });
 

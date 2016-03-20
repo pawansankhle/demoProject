@@ -96,7 +96,7 @@ public class OrderServiceImpl implements IOrderService {
 					    	 OrderDetail orderDetail = new OrderDetail();
 					    	 orderDetail.setProductId(item.getItemId());
 					    	 orderDetail.setQuantity(item.getQuantity());
-					    	 orderDetail.setUnitCost(item.getItemId().getOfferPrice());
+					    	 orderDetail.setUnitCost(item.getItemId().getPrice());
 					    	 orderDetail.setOrder(order1);
 					    	 orderDetail = orderDetailDao.create(orderDetail);
 					    	 cartItemDao.delete(item.getId());
@@ -137,7 +137,7 @@ public class OrderServiceImpl implements IOrderService {
 			Orders order1 = ordersDAO.find(order.getId());
 			if(order1!=null){
 				  Users user = order1.getCustomer();
-				  user.setDeliveryAddress(order.getCustomer().getDeliveryAddress());
+				  user.setAddress(order.getCustomer().getAddress());
 				  order1.setUpdatedOn(new Date());
 				  order1.setPaymentMethod(order.getPaymentMethod());
 				  order1.setShippingCharge(order.getShippingCharge());

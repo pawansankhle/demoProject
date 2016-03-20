@@ -111,7 +111,6 @@ public class UserServiceImpl implements IUserService{
 			if(user!=null && authentication!=null)
 				return user;
 		}catch(org.springframework.security.core.AuthenticationException ex){
-			ex.printStackTrace();
 			logger.error("@class UserServiceImpl @method Customlogin  cause: "+ex.toString());
 			return null;
 		}

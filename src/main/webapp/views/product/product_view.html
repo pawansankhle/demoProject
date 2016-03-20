@@ -2,8 +2,8 @@
 			<div class="col-sm-6">
 				<div class="row">
 				    <div class="col-sm-2" ><!-- product-other-image-view --> 
-						<div class="row" style="height: 50px;margin-bottom: 10px;padding: 5px" ng-repeat="img in product.images">
-							<img class="img img-responsive" ng-src="{{ img.file }}" alt="" >
+						<div class="row" ng-repeat="img in product.images">
+							<img class="img img-responsive" ng-src="{{ img.file }}" height="50" width="100" >
 						</div>
 						
 				    </div><!-- /product-other-image-view --> 
@@ -16,8 +16,8 @@
 			<div class="col-sm-5"> <!--  single-product-desc -->
 			   <div class="row"> 
 				<div class="col-sm-12 bottom-border">
-				   <h5>name</h5>
-				   <span id="shop_name_span" >by :xyz</span><!-- shop-name-span -->
+				  <!-- <h5>Name : {{product.name | uppercase}}</h4>  -->
+				   <span id="shop_name_span" >By : {{product.supplier.shopname}}</span><!-- shop-name-span -->
 				   <div class="rating_div">
 					<i class="fa fa fa-star"></i>
 					<i class="fa fa fa-star"></i>
@@ -26,9 +26,9 @@
 				   </div>
 				</div>
 				<div class="col-sm-12 bottom-border">
-					<p class="text-muted">M.R.P&nbsp;:&nbsp;<span class="text-success">{{ product.mrpprice | currency:'&#8377;'}}</span></p>
 					<p class="text-muted">Price&nbsp;:&nbsp;<span class="text-success">{{ product.price | currency:'&#8377;'}}</span></p>
-					<p class="text-muted" ng-if="showOfferPrice(product.offerPrice,product.price)">Offer Price&nbsp;:&nbsp;<span class="text-success">{{ product.offerPrice | currency:'&#8377;'}}</span></p>
+					<p class="text-muted">Discount&nbsp;:&nbsp;<span class="text-success">{{ product.discount}} %</span></p>
+					<p class="text-muted" ng-if="showOfferPrice(product.offerPrice,product.price)">Offer Price&nbsp;:&nbsp;<span class="text-success">{{ (product.price - ((product.price*product.discount)/100)) | currency:'&#8377;'}}</span></p>
 					<p class="text-muted">Cash on Delivery:&nbsp;<span class="text-primary">Yes</span></p>
 					<p class="text-muted">Availability:&nbsp;<span class="text-primary" ng-if="showAvailabe(product.quantity)" >
 					in Stock</span><span class="text-primary" ng-if="!showAvailabe(product.quantity)" >

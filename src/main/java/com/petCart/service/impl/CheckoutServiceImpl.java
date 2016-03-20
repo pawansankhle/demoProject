@@ -29,8 +29,7 @@ public class CheckoutServiceImpl implements ICheckoutService {
 		      Authentication auth = (Authentication) session.getAttribute("authentication");
 		      Users oldUser = userDao.findUserByName(user.getUsername());
 		       if(auth !=null && oldUser !=null){
-		    	   oldUser.setDeliveryAddress(user.getDeliveryAddress());
-		    	   oldUser.setPostalCode(user.getPostalCode());
+		    	   oldUser.setAddress(user.getAddress());
 		    	   oldUser.setMobile(user.getMobile());
 		    	   Users Newuser = userDao.update(oldUser);
 		    		  if(Newuser !=null)

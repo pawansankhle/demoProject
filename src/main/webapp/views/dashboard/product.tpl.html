@@ -1,0 +1,63 @@
+<div class="bs-component">
+	<div class="panel panel-inverse" ng-init="isEditProductDetail = true;">
+    <div class="panel-heading">
+       Product Detail
+       <button class="btn btn-primary pull-right" ng-show="isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail" style="color:white;margin-top:-5px">Edit</button>
+       <button class="btn btn-primary pull-right" ng-show="!isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail" style="color:white;margin-top:-5px">Cancel</button>
+       <button class="btn btn-primary pull-right" ng-show="!isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail;updateProduct()" style="color:white;margin-top:-5px">Save</button>
+    </div>
+    <div class="panel-body">
+       <form name="productdetailform">
+            <div class="col-sm-6">
+	              <div class="form-group">
+	                <label  class="control-label">Name</label>
+	                <input  disabled  class="form-control" ng-show="isEditProductDetail" ng-model="currentProduct.name" />
+	                <input  maxlength="30" class="form-control" ng-show="!isEditProductDetail" ng-model="currentProduct.name" />
+	              </div>
+	        </div>
+	        <div class="col-sm-6">
+	              <div class="form-group">
+	                <label  class="control-label">Price</label>
+	                <input class="form-control" ng-model="currentProduct.price" ng-show="isEditProductDetail" disabled />
+	                <input class="form-control" maxlength="5" ng-model="currentProduct.price" ng-show="!isEditProductDetail" />
+	              </div>
+	        </div>
+	        <div class="col-sm-6">
+	              <div class="form-group">
+	                <label  class="control-label">Quantity</label>
+	                <input class="form-control" ng-model="currentProduct.quantity" ng-show="isEditProductDetail" disabled />
+	                <input type="number" maxlength="100" class="form-control" ng-model="currentProduct.quantity" ng-show="!isEditProductDetail" />
+	              </div>
+	        </div>
+	        <div class="col-sm-6">
+	              <div class="form-group">
+	                <label  class="control-label">Discount</label>
+	                <input class="form-control" ng-model="currentProduct.discount" ng-show="isEditProductDetail" disabled />
+	                <input maxlength="3" class="form-control" ng-model="currentProduct.discount" ng-show="!isEditProductDetail" />
+	              </div>
+	        </div>
+	        <div class="col-sm-6">
+                  <div class="form-group">
+	                <label  class="control-label">Created On</label>
+	                <input  ng-disabled="true"  class="form-control" ng-model="currentProduct.createdtime" />
+	              </div>
+	        </div>
+	        <div class="col-sm-6">
+                  <div class="form-group">
+	                <label  class="control-label">Modified On</label>
+	                <input  ng-disabled="true"  class="form-control" ng-model="currentProduct.modifiedtime" />
+	              </div>
+	        </div>
+	        <div class="col-sm-6">
+                  <div class="form-group">
+	                <label  class="control-label">Discription</label>
+	                <input  ng-disabled="true"  class="form-control" ng-model="currentProduct.description" ng-show="isEditProductDetail" disabled />
+	                <input ng-pattern="/a-zA-Z/" maxlength="300" class="form-control" ng-model="currentProduct.description" ng-show="!isEditProductDetail" />
+	              </div>
+	        </div>
+	        
+	    </form>
+
+
+    </div>
+</div>

@@ -13,8 +13,8 @@
 			    <div class="panel-body"> 
 			        <div class="address">
 				        <b>{{currentUser.username}}</b><br/>
-				           {{currentUser.deliveryAddress}}<br/>
-		                   {{currentUser.postalCode}}
+				           {{currentUser.address.shippingAddress}}<br/>
+		                   {{currentUser.address.pincode}}
 		            </div>
 		        </div>
 		    </div>
@@ -24,11 +24,11 @@
 	  <form role="shippingDetailsForm" ng-show="isShippingAddressEdit"  style="padding: 1px 70px 0px 70px;" method="post"  ng-submit="shippingDetails(currentUser)" novalidate >
 			<div class="form-group col-sm-12" >
 				<label for="username"  class="control-label">Shipping Address</label>
-				<input type="textarea" id="shippingAddress" class="form-control"  ng-model="currentUser.deliveryAddress" />
+				<input type="textarea" id="shippingAddress" class="form-control"  ng-model="currentUser.address.shippingAddress" />
 			</div>
 			<div class="form-group col-sm-12" >
 				<label for="username"  class="control-label">Area zip</label>
-				<input type="text" id="postalCode" class="form-control"  ng-model="currentUser.postalCode" />
+				<input type="text" id="postalCode" class="form-control"  ng-model="currentUser.address.pincode" />
 		   </div>
 			<div class="form-group col-sm-12" >
 				<label for="username"  class="control-label">Mobile No.</label>

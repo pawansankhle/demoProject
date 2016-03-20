@@ -119,12 +119,12 @@ public class ProductRestImpl{
 	}
 	
 	
-    @PUT
-    @Path("/update/{id}")
+    @POST
+    @Path("/update")
     @Produces("application/json")
     public Product updateProduct(Product product){
+    	return productService.updateProduct(product);
     	
-    	return null;
     }
 	
 

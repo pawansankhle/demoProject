@@ -82,43 +82,29 @@ public class Users implements Serializable{
 	private boolean enabled;
 	
 	@Column(name = "first_name")
-	private String firstName;
+	private String firstname;
 	
 	@Column(name = "last_name")
-	private String lastName;
+	private String lastname;
 	
 	@Column(name = "email")
 	private String email;
 	
-	@Basic 
-	@Column(name="address_line1")
-	private String addressLine1;
-	
-	@Basic 
-	@Column(name="address_line2")
-	private String addressLine2;
-	
-	
-	@Basic 
-	@Column(name="dilevery_address")
-	private String deliveryAddress;
-	
-	@Basic 
-	@Column(name="city")
-	private String city;
-	
-	@Basic 
-	@Column(name="postal_code")
-	private String postalCode;
 	
 	@Basic 
 	@Column(name="mobile")
 	private String mobile;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="image_id")
 	@NotAudited
 	private Files image;
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="address_id")
+	@NotAudited
+	private Address address;
 	
 	@ManyToMany(targetEntity=com.petCart.model.Roles.class,cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(name="userrole", joinColumns=@JoinColumn(name="userid"), inverseJoinColumns=@JoinColumn(name="roleid"))
@@ -162,20 +148,22 @@ public class Users implements Serializable{
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	
+
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getEmail() {
@@ -188,30 +176,7 @@ public class Users implements Serializable{
 
 	
 
-	public String getDeliveryAddress() {
-		return deliveryAddress;
-	}
-
-	public void setDeliveryAddress(String deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
+	
 	public String getMobile() {
 		return mobile;
 	}
@@ -228,28 +193,21 @@ public class Users implements Serializable{
 		this.image = image;
 	}
 
-	public String getAddressLine1() {
-		return addressLine1;
-	}
-
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
-	}
-
-	public String getAddressLine2() {
-		return addressLine2;
-	}
-
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
-
+	
 	public Set<Roles> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	

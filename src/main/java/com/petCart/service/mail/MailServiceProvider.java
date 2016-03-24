@@ -1,4 +1,4 @@
-package com.petCart.service.mail;
+/*package com.petCart.service.mail;
 
 import java.security.Security;
 import java.util.Date;
@@ -59,7 +59,7 @@ final public class MailServiceProvider {
     	
     }
  	
-    /**
+    *//**
      * sends mail by ne google account emailaddress
      * @param googleAppsEmailId
      * @param password
@@ -69,18 +69,18 @@ final public class MailServiceProvider {
      * @param message
      * @throws AddressException
      * @throws MessagingException
-     */
+     *//*
     public static void sendEmail(final String googleAppsEmailId, final String password, String recipientEmail, String ccEmail, String bccEmail, String title, String message) throws AddressException, MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
        
-        /*
+        
         If set to false, the QUIT command is sent and the connection is immediately closed. If set 
         to true (the default), causes the transport to wait for the response to the QUIT command.
 
         ref :   http://java.sun.com/products/javamail/javadocs/com/sun/mail/smtp/package-summary.html
                 http://forum.java.sun.com/thread.jspa?threadID=5205249
                 smtpsend.java - demo program from javamail
-        */
+        
         
         setPropertyForMail();
         Session session = Session.getInstance(props, null);
@@ -141,3 +141,4 @@ final public class MailServiceProvider {
         }
         }
     }
+*/

@@ -8,16 +8,29 @@
             </div>
 
            <div class="panel-body">
-	           	<form  ng-submit="search()">
-	           	  <div class="form-group col-sm-3 right-border" style="margin:0px">
-	                 <select name="status" class="form-control" ng-model="productForm.status" ng-change="search()">
-	                    <option value="">--select--</option>
-	                    <option ng-repeat="department in productDepartments" value="{{department.value}}">{{department.name}}</option>
+	           	<form>
+	           	  <div class="form-group col-sm-2 right-border" style="margin:0px">
+	                 <select title="Search By Department" name="status" class="form-control" ng-model="productForm.department" ng-change="getCategories(productForm.department)">
+	                    <option value="" class="text-muted">-please select-</option>
+	                    <option ng-repeat="department in productDepartments" value="{{department.id}}">{{department.departmentName | lowercase}}</option>
 
 	                 </select>
 	              </div>
-	              <div class="form-group col-sm-3" style="margin:0px">
-	                  <input type="text" class="form-control" placeholder="Search by product ID" ng-model="productForm.byProductId" ng-change="search()">
+	              <div class="form-group col-sm-2 right-border" style="margin:0px">
+	                 <select title="Search By Category" name="category" class="form-control" ng-model="productForm.category">
+	                    <option value="" class="text-muted">-please select-</option>
+	                    <option ng-repeat="category in productcategories" value="{{category.id}}">{{category.name | lowercase}}</option>
+                     </select>
+                     </div>
+	              <div class="form-group col-sm-2 right-border" style="margin:0px">
+	                  <input type="text" title="Search By ID" class="form-control" placeholder="Search by ID" ng-model="productForm.byProductId">
+	              </div>
+	              <div class="form-group col-sm-3 right-border" style="margin:0px">
+	                  <input title="Created Date" type="date" style="min-width: 150px;" class="form-control" ng-model="productForm.byCreatedTime">
+	              </div>
+	              <div class="form-group  col-sm-3" style="margin:0px">
+	              	<button title="Filter" class="btn btn-sm btn-raised btn-success" ng-click="search()"><i class="fa fa-filter"></i>Go</button>
+	                <button title="Reset Filter" class="btn btn-raised btn-warning" ng-click="reset()"><i class="fa fa-refresh pull-right"></i></button>
 	              </div>
 	            </form>
            </div>

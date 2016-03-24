@@ -1,5 +1,5 @@
-maxlimitofpagination=10;
-
+var maxlimitofpagination=10;
+var page = 1;
 /*******function to check value in given variable********/
 function exist(val)
 {

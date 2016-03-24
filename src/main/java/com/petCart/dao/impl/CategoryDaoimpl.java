@@ -70,8 +70,7 @@ public class CategoryDaoimpl extends GenericDaoImpl<Category> implements ICatego
 	@Override
 	public List<Category> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.search(context, lowerLimit, upperLimit, orderBy, orderType);
 	}
 
 	@Override

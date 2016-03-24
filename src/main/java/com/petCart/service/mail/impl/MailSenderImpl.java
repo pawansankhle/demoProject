@@ -1,4 +1,4 @@
-package com.petCart.service.mail.impl;
+/*package com.petCart.service.mail.impl;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -48,3 +48,4 @@ public class MailSenderImpl implements IMailSender{
 		}
 	}
 }
+*/

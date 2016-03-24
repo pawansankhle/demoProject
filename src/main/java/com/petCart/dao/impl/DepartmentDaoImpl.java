@@ -65,55 +65,7 @@ public class DepartmentDaoImpl extends GenericDaoImpl<Department> implements IDe
 			Integer upperLimit, String orderBy, String orderType) {
 		logger.info("inside @class DepartmentDaoimpl @method: search entry...");
 		
-			try{
-				SearchCondition<Department> sc = context.getCondition(Department.class);
-				JPATypedQueryVisitor<Department> visitor =  new JPATypedQueryVisitor<Department>(getEntityManager(), Department.class);
-				if(sc!=null){
-					sc.accept(visitor);
-					visitor.visit(sc);
-					TypedQuery<Department> typedQuery = visitor.getQuery();
-					if(lowerLimit>=0){
-			    		typedQuery.setFirstResult(lowerLimit);
-			    	}
-			    	if(upperLimit>=0){
-			    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
-			    	}
-					return typedQuery.getResultList();
-				 
-
-				}else if(orderBy !=null && orderType!=null){
-					/*here impl orderby and order type loginc*/
-				}else if(lowerLimit !=null && upperLimit!=null){
-					CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-					CriteriaQuery<Department> criteriaQuery = criteriaBuilder.createQuery(Department.class);
-					Root<Department> from = criteriaQuery.from(Department.class);
-					CriteriaQuery<Department> select = criteriaQuery.select(from);
-					TypedQuery<Department> typedQuery = getEntityManager().createQuery(select);
-					
-					if(lowerLimit>=0){
-			    		typedQuery.setFirstResult(lowerLimit);
-			    	}
-			    	if(upperLimit>=0){
-			    		typedQuery.setMaxResults(upperLimit-lowerLimit+1);
-			    	}
-			    	
-			    	return typedQuery.getResultList();
-				}else{
-					try {
-						throw new NotFoundException("Invalid search query.");
-					} catch (NotFoundException e) {
-						logger.error("inside @class DepartmentDaoimpl @method: search cause:"+e.toString());
-						e.printStackTrace();
-					}
-				}
-
-			}catch(Exception ex){
-				ex.printStackTrace();
-				logger.error("inside @class DepartmentDaoimpl @method: search cause:"+ex.toString());
-
-			}
-			
-			return null;
+			return super.search(context, lowerLimit, upperLimit, orderBy, orderType);
        }
 
 	@Override

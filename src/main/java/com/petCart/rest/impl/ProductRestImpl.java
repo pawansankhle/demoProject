@@ -31,6 +31,7 @@ import com.petCart.model.Department;
 import com.petCart.model.Product;
 import com.petCart.service.IProductService;
 import com.petCart.service.impl.ProductServiceImpl;
+import com.petCart.springsecurity.security.UserInfo;
 
 
 import javax.ws.rs.core.Context;
@@ -57,9 +58,9 @@ public class ProductRestImpl{
 	public List<Product> get(){
 		logger.info("inside @class ProductRestImpl @method getallProduct entry...");
 		try{
-			return productService.getAllProduct();
+			 return productService.getAllProduct();
 		}catch(Exception e){
-			e.printStackTrace();
+			
 			logger.error("inside @class ProductRestImpl  @method getallProduct cause:"+e.toString());
 
 			return null;
@@ -68,15 +69,14 @@ public class ProductRestImpl{
 	
 	@POST
 	@Consumes("application/json")
-	@Path("add/{id}")
-	public Response addProduct(Product p){
+	@Path("create/")
+	public Product addProduct(Product p){
 		logger.info("inside @class ProductRestImpl @method addProduct entry...");
 		try{
-			 productService.addProduct(p);
-			 return null;
+			 return productService.addProduct(p);
+			 
 		    }catch(Exception e){
-			e.printStackTrace();
-			logger.error("inside @class ProductRestImpl  @method addProduct cause:"+e.toString());
+			   logger.error("inside @class ProductRestImpl  @method addProduct cause:"+e.toString());
             return null;
 		}
 	}

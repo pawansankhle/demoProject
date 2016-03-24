@@ -185,11 +185,14 @@
 	<script src="http://localhost:8989/petCart/js/controllers/authController.js"></script>
 	<script src="http://localhost:8989/petCart/js/controllers/cartController.js"></script>
 	<script src="http://localhost:8989/petCart/js/controllers/checkoutController.js"></script>
+	<script src="http://localhost:8989/petCart/js/controllers/productViewController.js"></script>
+	<script src="http://localhost:8989/petCart/js/controllers/productbyCategoryController.js"></script>
 	<script src="http://localhost:8989/petCart/js/controllers/dashboard/dashBoardController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/dashboard/userManagementController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/dashboard/ordersController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/accountController.js"></script>
    <script src="http://localhost:8989/petCart/js/controllers/dashboard/productController.js"></script>
+   <script src="http://localhost:8989/petCart/js/controllers/dashboard/orderViewController.js"></script>
     <script src="http://localhost:8989/petCart/js/controllers/dashboard/productDetailController.js"></script>
     
 

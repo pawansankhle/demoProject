@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.petCart.model.Department;
 import com.petCart.model.Product;
 import com.petCart.service.IDepartmentService;
+import com.petCart.util.ConfigUtil;
 
 
 
@@ -55,23 +56,19 @@ public class DepartmentRestImpl {
 	@GET
 	@Path("/search")
 	@Produces("application/json")
-	public List<Department> search(@DefaultValue("1")@QueryParam("page")Integer page,@DefaultValue("100")@QueryParam("limit")Integer limit,@QueryParam("orderBy")String orderBy,@QueryParam("orderType")String orderType
+	public List<Department> search(@DefaultValue("1")@QueryParam("page")Integer page,@DefaultValue("100")@QueryParam("limit")Integer limit,@DefaultValue("id") @QueryParam("orderBy")String orderBy,@DefaultValue("desc")@QueryParam("orderType")String orderType
       ){
 		logger.info("inside @class DepartmentRestImpl @method search entry.");
 		  try{
-			  if(limit > 0 && page >0){
-				  Integer Totalcount =  DepartmentService.totalCount().intValue();
-				  Integer totalPages = Totalcount/limit;
-				  Integer lowerLimit = (totalPages*(page-1)+1);
-				  Integer upperLimit = (lowerLimit -1) + limit;
-				  return DepartmentService.search(context,lowerLimit,upperLimit,orderBy,orderType);
-			   }else{
-				   return DepartmentService.search(context,0,100,orderBy,orderType);
-			   }
+			  
+				  //Integer Totalcount =  DepartmentService.totalCount().intValue();
+				  //Integer totalPages = Totalcount/limit;
+				  Map<String,Integer> result = ConfigUtil.getUpperLowerLimit(page, limit);
+				  return DepartmentService.search(context,result.get("lowerLimit"),result.get("upperLimit"),orderBy,orderType);
+			   
 			  
 		  }catch(Exception ex){
-			  ex.printStackTrace();
-			  logger.info("inside @class ProductRestImpl @method search couse: "+ex.toString());
+			 logger.info("inside @class ProductRestImpl @method search couse: "+ex.toString());
 			  return null;
 			  
 		  }

@@ -1,6 +1,8 @@
 package com.petCart.util;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -58,5 +60,21 @@ public class ConfigUtil {
 			 logger.error(e.getMessage());
 		}
 		
+	}
+	
+	
+	public static Map<String,Integer> getUpperLowerLimit(Integer page,Integer limit){
+		Map<String,Integer> result = new HashMap<String,Integer>();
+	    
+		if(page>0 && limit >0){
+		Integer lowerLimit = (limit*(page-1));
+		Integer upperLimit = (lowerLimit -1) + limit;
+		
+		result.put("lowerLimit", lowerLimit);
+		result.put("upperLimit", upperLimit);
+		return result;
+		}else{
+			return null;
+		}
 	}
 }

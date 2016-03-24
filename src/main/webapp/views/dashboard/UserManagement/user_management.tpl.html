@@ -8,17 +8,21 @@
            </div>
 
            <div class="panel-body">
-           <form  ng-submit="search()">
+           <form >
               <div class="form-group col-sm-3 right-border" style="margin:0px">
-                 <select name="selectRole" class="form-control" ng-model="form.byRole" ng-change="search()">
+                 <select name="selectRole" class="form-control" ng-model="form.byRole">
                     <option value="">--select--</option>
                     <option value="ROLE_USER">USER</option>
                     <option value="ROLE_SUPPLIER">SUPPLIER</option>
                  </select>
               </div>
               <div class="form-group col-sm-3" style="margin:0px">
-                  <input type="text" class="form-control" placeholder="Search by Username" ng-model="form.byName" ng-change="search()">
+                  <input type="text" class="form-control" placeholder="Search by Username" ng-model="form.byName">
               </div>
+              <div class="form-group  col-sm-3" style="margin:0px">
+                  <button title="Filter" class="btn btn-sm btn-raised btn-success" ng-click="search()"><i class="fa fa-filter"></i>Go</button>
+                  <button title="Reset Filter" class="btn btn-raised btn-warning" ng-click="reset()"><i class="fa fa-refresh pull-right"></i></button>
+                </div>
             </form>
            </div>
         </div>

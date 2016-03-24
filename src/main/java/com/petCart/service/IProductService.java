@@ -8,7 +8,7 @@ import com.petCart.model.Product;
 
 public interface IProductService {
 
-    void  addProduct(Product product);
+    Product  addProduct(Product product);
     List<Product> getAllProduct();
 	void deleteProduct(Product product);
 	Product getProduct();

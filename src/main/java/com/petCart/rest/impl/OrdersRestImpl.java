@@ -1,6 +1,7 @@
 package com.petCart.rest.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.petCart.model.Orders;
 import com.petCart.model.Product;
 import com.petCart.service.IOrderService;
+import com.petCart.util.ConfigUtil;
 
 @Service("OrdersRestImpl")
 @Path("/order")
@@ -47,11 +49,12 @@ public class OrdersRestImpl {
 	@Path("search")
 	@Produces("application/json")
 	public List<Orders> search(@DefaultValue("id")@QueryParam("orderBy")String orderBy,
-			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("0")@QueryParam("lowerLimit")Integer lowerLimit,
-			@DefaultValue("100")@QueryParam("upperLimit")Integer upperLimit
+			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("1")@QueryParam("page")Integer page,
+			@DefaultValue("100")@QueryParam("limit")Integer limit
       ){
 		logger.info("inside @class OrdersRestImpl @method search entry.");
-		return orderService.search(context,lowerLimit,upperLimit,orderBy,orderType);
+		Map<String,Integer> result = ConfigUtil.getUpperLowerLimit(page, limit);
+		return orderService.search(context,result.get("lowerLimit"),result.get("upperLimit"),orderBy,orderType);
 	}
 	
 	@ExceptionHandler

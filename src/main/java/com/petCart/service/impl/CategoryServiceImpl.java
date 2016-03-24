@@ -52,8 +52,13 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public List<Category> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
-		// TODO Auto-generated method stub
-		return null;
+	  try{
+		  return categoryDAO.search(context, lowerLimit, upperLimit, orderBy, orderType); 
+	  }catch(Exception e){
+			logger.error(" inside class @class CategoryServiceimpl @method search cause: "+e.toString());
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -62,7 +67,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			 return categoryDAO.findProductByCategory(cid);
 		    
 		}catch(Exception e){
-			logger.equals(" inside class @class CategoryServiceimpl @method getProductByCategory cause: "+e.toString());
+			logger.error(" inside class @class CategoryServiceimpl @method getProductByCategory cause: "+e.toString());
 			
 		}
 		return null;

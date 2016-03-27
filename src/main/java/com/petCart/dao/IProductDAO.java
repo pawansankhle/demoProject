@@ -15,6 +15,7 @@ public interface  IProductDAO extends IGenericDao<Product> {
 	public Product viewProduct(Integer id);
 	public Product findById(Integer itemId);
 	Long countAll();
+	List<Product> findProductRecommendation(Product product);
     
 	
 	

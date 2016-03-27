@@ -23,6 +23,12 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.envers.RelationTargetAuditMode;
@@ -30,8 +36,18 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @NamedQueries({
 @NamedQuery(name="findProductById",query="Select p From Product p where id=:id"),
 @NamedQuery(name="findAllProduct",query="Select p From Product p"),
-@NamedQuery(name="viewProduct", query="select p from Product p where id=:id")
+@NamedQuery(name="viewProduct", query="select p from Product p where id=:id"),
+@NamedQuery(name="findProductForRecommendation",query="select od2 from OrderDetail od1 join OrderDetail od2 on od1.order=od2.order where od1.productId=:productId and od2.productId!=:productId group by od2.productId order by count(od2.productId) desc limit 5"),
  })
+
+@FilterDefs({
+	@FilterDef(name="getProductBySupplier",parameters={@ParamDef(name="userid", type = "java.lang.Integer")}),
+})
+
+@Filters({
+	@Filter(name = "getProductBySupplier",condition="id in (select p.id from product p inner join supplier s on s.id=p.supplier_id where s.detail_id=:userid)"),
+		
+	})
 
 
 @Entity
@@ -87,13 +103,13 @@ public class Product  implements Serializable{
 	@Column(name="modified_time")
 	private Date modifiedtime;
 	
-	@JsonIgnore
+	
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dept_id")
 	private Department department;
     
-	@JsonIgnore
+	
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cat_id")
@@ -183,18 +199,22 @@ public class Product  implements Serializable{
 		this.modifiedtime = modifiedtime;
 	}
 
+	@JsonIgnore
 	public Department getDepartment() {
 		return department;
 	}
-
+    
+	@JsonProperty
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
+	@JsonIgnore
 	public Category getCategory() {
 		return category;
 	}
 
+	@JsonProperty
 	public void setCategory(Category category) {
 		this.category = category;
 	}

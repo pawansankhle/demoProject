@@ -2,7 +2,8 @@
 	<div class="panel panel-inverse" ng-init="isEditProductDetail = true;">
     <div class="panel-heading">
        Product Detail
-       <button class="btn btn-primary pull-right" ng-show="isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail" style="color:white;margin-top:-5px">Edit</button>
+       <i title="Back" ui-sref="dashboard.products" class="fa fa-chevron-circle-left pull-left" style="font-size: 20px;"></i>
+       <button class="btn btn-primary pull-right fa fa-pencil" ng-show="isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail" style="color:white;margin-top:-5px">Edit</button>
        <button class="btn btn-primary pull-right" ng-show="!isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail" style="color:white;margin-top:-5px">Cancel</button>
        <button class="btn btn-primary pull-right" ng-show="!isEditProductDetail" ng-click="isEditProductDetail =!isEditProductDetail;updateProduct()" style="color:white;margin-top:-5px">Save</button>
     </div>
@@ -57,7 +58,28 @@
 	        </div>
 	        
 	    </form>
-
-
     </div>
+    </div>
+    <div class="panel panel-inverse" ng-init="isaddImage = true;">
+	    <div class="panel-heading">
+	       Product Images
+	       <i title="Back" ui-sref="dashboard.products" class="fa fa-chevron-circle-left pull-left" style="font-size: 20px;"></i>
+	       <button class="btn btn-primary pull-right fa fa-plus" ng-show="isaddImage" ng-click="isaddImage =!isaddImage" style="color:white;margin-top:-5px">Add More</button>
+	       <button class="btn btn-primary pull-right" ng-show="!isaddImage" ng-click="isaddImage =!isaddImage" style="color:white;margin-top:-5px">Cancel</button>
+	       <button class="btn btn-primary pull-right" ng-show="!isaddImage" ng-click="isaddImage =!isaddImage;uploadImage()" style="color:white;margin-top:-5px">Save</button>
+	    </div>
+	    <div class="panel-body">
+	         <div class="row">
+   				 <div class="col-sm-2" ng-repeat="image in currentProduct.images">
+   				   <img class="img" style="width: 150px;height: 100px;" ng-src="{{image.file}}"></img>
+                </div>
+             </div>
+             <div class="col-sm-6" ng-show="!isaddImage">
+	               <form name="productimageform">
+		              <upload-file></upload-file>
+		            </form>
+		    </div>
+	    </div>
+	  </div>
+	</div>
 </div>

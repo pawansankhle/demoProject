@@ -63,9 +63,10 @@ public class SupplierServiceImpl implements ISupplierService{
 			 Supplier supplier = supplierDao.find(id);
 			 Users user = userDao.find(supplier.getDetail().getId());
 			 if(supplier !=null){
-				 supplier.setDeleted(true);
 				 user.setEnabled(false);
-				 supplierDao.update(supplier);
+				 user.setDeleted(true);
+				 //supplier.setDetail(user);
+				 //supplierDao.update(supplier);
 				 userDao.update(user);
 				 return "{\"status\":\"ok\",\"msg\":\"Supplier Deleted Successfully...\"}";
 			 }

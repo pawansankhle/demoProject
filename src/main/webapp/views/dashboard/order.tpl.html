@@ -2,6 +2,8 @@
    <div class="panel panel-inverse">
     <div class="panel-heading">
        Order Items
+       <i title="Back" ui-sref="dashboard.orders" class="fa fa-chevron-circle-left pull-left" style="font-size: 20px;"></i>
+       
     </div>
     <div class="panel-body">
        <table class="table table-responsive" >
@@ -32,7 +34,7 @@
    <div class="panel panel-inverse" ng-init="isEditOrderDetail = true;">
     <div class="panel-heading">
        Order Detail
-       <button class="btn btn-primary pull-right" ng-show="isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail" style="color:white;margin-top:-5px">Edit</button>
+       <button class="btn btn-primary pull-right fa fa-pencil" ng-show="isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail" style="color:white;margin-top:-5px">Edit</button>
        <button class="btn btn-primary pull-right" ng-show="!isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail" style="color:white;margin-top:-5px">Cancel</button>
        <button class="btn btn-primary pull-right" ng-show="!isEditOrderDetail" ng-click="isEditOrderDetail =! isEditOrderDetail;updateOrder()" style="color:white;margin-top:-5px">Save</button>
        
@@ -61,9 +63,9 @@
                  </select>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" ng-if="isAuthorized(userRoles.admin)">
               <div class="form-group">
-                <div class="togglebutton">
+                <div class="togglebutton" ng-show="!isEditOrderDetail">
                 <label>
                   <input type="checkbox" checked="" ng-model="orderDetailForm.notified" >
                   <span class="toggle"></span>
@@ -79,7 +81,7 @@
    <div class="panel panel-inverse" ng-init="isEditOrderShippingDetail = true">
     <div class="panel-heading">
        Shipping & Payment Details
-       <button class="btn btn-primary pull-right" ng-show="isEditOrderShippingDetail" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail" style="color:white;margin-top:-5px">Edit</button>
+       <button class="btn btn-primary pull-right fa fa-pencil" ng-show="isEditOrderShippingDetail && isAuthorized(userRoles.admin)" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail" style="color:white;margin-top:-5px" >Edit</button>
        <button class="btn btn-primary pull-right" ng-show="!isEditOrderShippingDetail" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail" style="color:white;margin-top:-5px">Cancel</button>
        <button class="btn btn-primary pull-right" ng-show="!isEditOrderShippingDetail" ng-click="isEditOrderShippingDetail =! isEditOrderShippingDetail;updateOrder()" style="color:white;margin-top:-5px">Save</button>
                 

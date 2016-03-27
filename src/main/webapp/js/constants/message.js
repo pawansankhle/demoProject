@@ -8,5 +8,8 @@ app.constant('Msgs', {
 	logoutErrorMsg: "Could't logout",
 	PlaceOrderSuccessMsg: "your Order has been placed..",
 	userCreateSuccessMsg: "User Created Successfully...",
+	productCreateMsg: "Product created Successfully...",
+	productEnableMsg: "Product enable Successfully...",
+	productDisableMsg: "Product disable Successfully...",
 	
 });

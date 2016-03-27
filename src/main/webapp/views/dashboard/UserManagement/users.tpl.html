@@ -22,3 +22,15 @@
 		</table>
 	</div>
 </div>
+<script>
+ $(document).ready(function(){
+                $(window).scroll(function () {
+                    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                        pageLowerLimit= pageUpperLimit+1;
+                        pageUpperLimit= pageUpperLimit+maxlimitofpagination+1;
+                        $scope.getUserList(pageLowerLimit,pageUpperLimit);
+                    }
+                });
+            });
+
+</script>

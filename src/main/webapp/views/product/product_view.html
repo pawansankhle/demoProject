@@ -167,6 +167,30 @@
 						<div class="least-content">{{review.createdOn | date}}</div>
 						<h4 class="list-group-item-heading">{{review.customer.firstName +" " +review.customer.lastName}}</h4>
 						<p class="list-group-item-text">{{review.review}}</p>
+						<p class="rating_div" ng-if="review.rating == 4"><i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						</p>
+                        <p class="rating_div" ng-if="review.rating == 5">
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						</p>
+						<p class="rating_div" ng-if="review.rating == 3" >
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+						   <i class="fa fa fa-star"></i>
+                        </p>
+						<p class="rating_div" ng-if="review.rating == 2" >
+						  <i class="fa fa fa-star"></i>
+						  <i class="fa fa fa-star"></i>
+						</p>
+						<p class="rating_div" ng-if="review.rating == 1" >
+						   <i class="fa fa fa-star"></i>
+						</p>
 						</div>
 					</div>
 					<div class="list-group-separator"></div>

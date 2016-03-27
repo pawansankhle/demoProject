@@ -25,6 +25,8 @@ public class ConfigUtil {
     public static final String EMAIL_PASSWORD = "EMAIL_PASSWORD";
     public static final String HOST_NAME = "HOST_NAME";
 	public static final String SMTP_PORT ="SMTP_PORT";
+	public static final String APP_DIRECTORY = "APP_DIRECTORY";
+	
 	
 	private static PropertiesConfiguration config;
 	

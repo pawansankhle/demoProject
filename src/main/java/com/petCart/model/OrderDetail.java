@@ -34,7 +34,7 @@ public class OrderDetail implements Serializable {
 	@Column
 	@GeneratedValue 
 	@Id
-    private long id;
+    private Integer id;
 	
 	
 	
@@ -61,11 +61,11 @@ public class OrderDetail implements Serializable {
 	@Column(name="unit_cost")
 	private Double unitCost;
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

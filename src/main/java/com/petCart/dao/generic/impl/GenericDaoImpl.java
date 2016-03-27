@@ -20,11 +20,14 @@ import javax.persistence.criteria.Root;
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.jaxrs.ext.search.jpa.JPATypedQueryVisitor;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.petCart.dao.generic.IGenericDao;
 import com.petCart.model.Product;
+import com.petCart.model.Roles;
+import com.petCart.model.userRoles;
 
 public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 

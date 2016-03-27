@@ -1,7 +1,9 @@
-app.controller('productbyCategoryCtrl',['productSrv','$rootScope','$scope','URLS','SearchSrv','$stateParams','pageLowerLimit','pageUpperLimit','maxlimitofpagination',
-    function(productSrv,$rootScope,$scope,URLS,SearchSrv,$stateParams,pageLowerLimit,pageUpperLimit,maxlimitofpagination){
+app.controller('productbyCategoryCtrl',['productSrv','$scope','$stateParams','pageLowerLimit','pageUpperLimit',
+    function(productSrv,$scope,$stateParams,pageLowerLimit,pageUpperLimit){
 			var fiql = "";
 			$scope.products = [];
+           	
+
            
 
 			$scope.getProductByCategory = function(pageLowerLimit,pageUpperLimit)
@@ -14,16 +16,12 @@ app.controller('productbyCategoryCtrl',['productSrv','$rootScope','$scope','URLS
 			};
 			$scope.getProductByCategory(pageLowerLimit,pageUpperLimit);
 			
-            
-			$(document).ready(function(){
-				$(window).scroll(function () {
-					if($(window).scrollTop() + $(window).height() == $(document).height()) {
-						pageLowerLimit= pageUpperLimit+1;
-						pageUpperLimit= pageUpperLimit+maxlimitofpagination+1;
-						$scope.getProductByCategory(pageLowerLimit,pageUpperLimit);
-                       }
-				});
-			});
+           $scope.loadMore = function(){
+           	   $scope.loading = true;
+           	   var last = $scope.products[$scope.products.length - 1];
+           	   console.log(last);
+             }
+
 
 		}]);
 

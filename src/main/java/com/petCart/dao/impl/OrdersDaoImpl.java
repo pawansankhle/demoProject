@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.jaxrs.ext.search.jpa.JPATypedQueryVisitor;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ import com.petCart.dao.IUserDao;
 import com.petCart.dao.generic.impl.GenericDaoImpl;
 import com.petCart.model.Orders;
 import com.petCart.model.Product;
+import com.petCart.model.Roles;
 import com.petCart.model.Users;
+import com.petCart.model.userRoles;
+import com.petCart.springsecurity.security.UserInfo;
 
 @Repository
 @Transactional
@@ -70,6 +74,13 @@ public class OrdersDaoImpl extends GenericDaoImpl<Orders> implements IOrdersDAO{
 	public List<Orders> search(SearchContext searchContext, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType) {
 	   
+		Users user = UserInfo.getCurrentUser();
+		Integer userId = user.getId();
+		Roles role = null;
+		for(Roles role1 : user.getRoles()){
+			    role = role1;
+		}
+		enableFilterforOrders(userId,role);
 		return super.search(searchContext, lowerLimit, upperLimit, orderBy, orderType);
 	}
 	
@@ -88,6 +99,16 @@ public class OrdersDaoImpl extends GenericDaoImpl<Orders> implements IOrdersDAO{
 			logger.error("@class OrdersDaoimpl @method findByUserId cause: "+ex.toString());
 		}
 		return null;
+	}
+	
+	
+	private void enableFilterforOrders(Integer userId, Roles role) {
+		logger.info("Inside  @class :orderdaoimpl @Method :enableFilterforOrders @Param: userId "+userId+" ,role "+role);
+		Session session = (Session) getEntityManager().getDelegate();
+
+		if(role!=null && !role.equals("") && (role.getRoleName().equals(userRoles.ROLE_SUPPLIER))){							
+			session.enableFilter("getOrderBySupplier").setParameter("userid",userId);
+		}	
 	}
 
 }

@@ -1,4 +1,8 @@
 app.
-controller('dashBoardCtrl',['$scope','UserSrv','URLS','$state','STATS',function($scope,UserSrv,URLS,$state,STATS){
-        $state.go(STATS.dashboardUM);
+controller('dashBoardCtrl',['$scope','UserSrv','URLS','$state','STATS','$rootScope',
+	function($scope,UserSrv,URLS,$state,STATS,$rootScope){
+        
+        
+        $rootScope.$emit('reload:menu',{});
+        $state.go(STATS.dashboardProducts);
  }]);

@@ -24,7 +24,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 
 @NamedQueries( {
@@ -58,7 +60,6 @@ public class Category implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="dept_id")
-	@JsonBackReference("category-department")
 	private Department department;
 	
 	@Basic
@@ -107,11 +108,12 @@ public class Category implements Serializable {
 
 	
 	
-    
+    @JsonIgnore
 	public Department getDepartment() {
 		return this.department;
 	}
 
+    @JsonProperty
 	public void setDepartment(Department department) {
 		this.department = department;
 	}

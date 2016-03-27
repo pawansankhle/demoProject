@@ -31,20 +31,18 @@ public class CategoryDaoimpl extends GenericDaoImpl<Category> implements ICatego
 
 	@Override
 	public Category create(Category t) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.create(t);
 	}
 
 	@Override
 	public void delete(Object id) {
-		// TODO Auto-generated method stub
+		 super.delete(id);
 		
 	}
 
 	@Override
 	public Category find(Object object) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.find(object);
 	}
 
 	@Override

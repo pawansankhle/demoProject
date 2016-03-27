@@ -1,5 +1,5 @@
-app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource',
- function(URLS, Restangular, baseUrl,$resource) { 
+app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUploadSrv',
+ function(URLS, Restangular, baseUrl,$resource,fileUploadSrv) { 
         
         this.setCurrentProduct = function(product){
             this.currentProduct = product;
@@ -66,7 +66,7 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource',
 		    }
 		      return  fiql;
 
-        }
+        };
 
 
         this.updateProduct = function(){
@@ -76,13 +76,43 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource',
                 console.log(res);
             });
             
-        }
+        };
 
         this.getProductByCategoryId = function(id,lower,upper){
           var fiql="?_s=category.id=="+id+"&lowerLimit="+lower+"&upperLimit="+upper
             return this.getService(URLS.productSearchUrl+fiql).getList();
             
-        }
+        };
+
+       this.addProduct = function(form){
+         return this.getService(URLS.productCreateUrl).post(form);
+       };
+
+       this.enableDisableProduct = function(product,action){
+           var url = URLS.productUrl+"/"+product.id;
+           if(action == 'enable'){
+                url+="/enable"
+           }else{
+               url+="/disable"
+           }
+          return this.getService(url).post();
+       };
         
-    
+     this.uploadProductImage = function(filename,files)
+     {   
+         var product = this.getCurrentProduct();
+         var url = baseUrl+URLS.productUploadImage+"/"+product.id+"/"+filename
+         fileUploadSrv.uploadFile(files,url);
+     }
+
+     this.getRatedProducts = function(){
+        var url =URLS.productSearchUrl+'?_s=reviews.rating=gt=2';
+        return this.getService(url);
+     }
+
+     this.findProductRecomm = function(id)
+     {
+        return this.getService(URLS.productRecommUrl+"/"+id).getList();
+     }
+
 }]);

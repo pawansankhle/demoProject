@@ -1,6 +1,7 @@
 package com.petCart.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +20,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -81,6 +84,9 @@ public class Users implements Serializable{
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
 	
+	@Column(name = "deleted", nullable = false)
+	private boolean deleted;
+	
 	@Column(name = "first_name")
 	private String firstname;
 	
@@ -90,6 +96,9 @@ public class Users implements Serializable{
 	@Column(name = "email")
 	private String email;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "created_time")
+	private Date createdtime;
 	
 	@Basic 
 	@Column(name="mobile")
@@ -210,10 +219,21 @@ public class Users implements Serializable{
 		this.address = address;
 	}
 
-	
+	public Date getCreatedtime() {
+		return createdtime;
+	}
 
-	
+	public void setCreatedtime(Date createdtime) {
+		this.createdtime = createdtime;
+	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 	
 

@@ -8,10 +8,8 @@ app.controller('ordersCtrl',['$scope','GLOBAL_APP','URLS','STATS','$state','$win
      $scope.limit = maxlimitofpagination;
     
      $scope.$watch('page',function(newVal,oldVal){
-           console.log($scope.page);
-          if(newVal != oldVal){
-               console.log(newVal);
-               return newVal;
+           if(newVal != oldVal){
+              return newVal;
           }
      })
      $scope.getOrdersList = function(page,limit){

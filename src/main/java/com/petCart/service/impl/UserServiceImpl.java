@@ -2,6 +2,7 @@ package com.petCart.service.impl;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -83,8 +84,10 @@ public class UserServiceImpl implements IUserService{
 
 				user.setRoles(roles);
 				user.setEnabled(true);
+				user.setDeleted(false);
 				user.setPassword(encodedPassword);
 				user.setImage(file);
+				user.setCreatedtime(new Date());
 				return userDao.create(user);
 			}else{
 
@@ -219,14 +222,14 @@ public class UserServiceImpl implements IUserService{
 					userDao.update(user);
 					userDao.delete(id);
 				}else if(user !=null && role.getRoleName().equals(userRoles.ROLE_SUPPLIER)){
-					Supplier supplier = supplierDao.findSupplierByDetailId(user);
-					if(supplier!=null){
-						supplier.setDeleted(true);
+					//Supplier supplier = supplierDao.findSupplierByDetailId(user);
+					logger.info("insied this");
 						user.setEnabled(false);
+						user.setDeleted(true);
+						//supplier.setDetail(user);
 						userDao.update(user);
-						supplierDao.update(supplier);
+						//supplierDao.update(supplier);
 					}
-				}
 			}
 
 			return "{\"status\":\"ok\",\"msg\":\"User Deleted Successfully...\"}";
@@ -284,21 +287,32 @@ public class UserServiceImpl implements IUserService{
 		user.setPassword(passwordEncoder.encode("Pass_123"));
 		try{
 			Roles role = null;
+			Set<Roles> roles = new HashSet<Roles>();
+			Files file = new Files();
+			file.setFile(null);
+			user.setImage(file);
+			user.setCreatedtime(new Date());
+			user.setEnabled(true);
+			user.setDeleted(false);
 			for(Roles role1 : user.getRoles()){
 				if(role1.getRoleName().equals(userRoles.ROLE_USER)){
 					 role = rolesDao.findRoleByName(userRoles.ROLE_USER);
+					 roles.add(role);
+					 user.setRoles(roles);
+					 return userDao.create(user);
 				}else{
 					role = rolesDao.findRoleByName(userRoles.ROLE_SUPPLIER);
+					roles.add(role);
+					user.setRoles(roles);
+					Supplier supplier = new Supplier();
+					supplier.setDetail(user);
+					supplier = supplierDao.create(supplier);
+			        return supplier.getDetail();
+					
 				}
 			}
-			Set<Roles> roles = new HashSet<Roles>();
-			roles.add(role);
-			Files file = new Files();
-			file.setFile(null);
 			
-			user.setRoles(roles);
-			user.setImage(file);
-			return userDao.create(user);
+			return null;
 		}catch(EntityNotFoundException ex){
 			logger.error("@class userService @method createUser cause: "+ex.toString());
 			return null;

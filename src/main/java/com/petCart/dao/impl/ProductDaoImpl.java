@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import org.apache.cxf.jaxrs.ext.search.SearchCondition;
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.apache.cxf.jaxrs.ext.search.jpa.JPATypedQueryVisitor;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.petCart.dao.IProductDAO;
 import com.petCart.dao.generic.impl.GenericDaoImpl;
 import com.petCart.model.Product;
+import com.petCart.model.Roles;
+import com.petCart.model.Users;
+import com.petCart.model.userRoles;
+import com.petCart.springsecurity.security.UserInfo;
 
 
 @Repository
@@ -134,15 +139,22 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		
 	}*/
 	
+	
 	@Override
-	public List<Product> search(SearchContext searchContext,
-			Integer lowerLimit, Integer upperLimit, String orderBy,
-			String orderType) {
-		// TODO Auto-generated method stub
+	public List<Product> search(SearchContext searchContext, Integer lowerLimit,
+			Integer upperLimit, String orderBy, String orderType) {
+		logger.info("GenericDaoImpl-search method start With param maxLimit : "+upperLimit+" , minLimit:"+lowerLimit+", orderby : "+orderBy+" ,orderType : "+orderType);
+		Users user = UserInfo.getCurrentUser();
+		if(user !=null){
+			Integer userId = user.getId();
+			Roles role = null;
+			for(Roles role1 : user.getRoles()){
+				    role = role1;
+			}
+			enableFilterForProduct(userId,role);
+		}
 		return super.search(searchContext, lowerLimit, upperLimit, orderBy, orderType);
 	}
-	
-	
 	
 	@Override
 	public Product viewProduct(Integer id) {
@@ -157,8 +169,32 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		}
 		return null;
 	}
+	
+	
+	
+
+   
+	private void enableFilterForProduct(Integer userId, Roles role) {
+		logger.info("Inside  @class productdaoimpl @Method :enableFilterForProduct @Param: userId "+userId+" ,role "+role);
+		Session session = (Session) getEntityManager().getDelegate();
+
+		if(role!=null && !role.equals("") && (role.getRoleName().equals(userRoles.ROLE_SUPPLIER))){							
+			session.enableFilter("getProductBySupplier").setParameter("userid",userId);
+		}	
+	}
 
 
+	@Override
+	public List<Product> findProductRecommendation(Product product) {
+		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
+		try{
+			Query query=getEntityManager().createNamedQuery("findProductForRecommendation").setParameter("productId",product);
+			return query.getResultList();
+		}catch(Exception ex){
+			logger.error("inside @class ProductDaoimpl @method: viewProduct cause: "+ex.toString());
+		    return null;
+		}
+	}
 	
 
 }

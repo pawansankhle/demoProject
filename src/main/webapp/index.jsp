@@ -10,13 +10,13 @@
 <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/bootstrap/bootstrap.min.css">
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/angular/bootstrap-material-design.min.css">
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/angular/ripples.min.css">
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/bootstrap/font-awesome.min.css">
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/app/main.css">
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/app/toastr.min.css">
-<link rel="stylesheet" href="http://localhost:8989/petCart/css/app/ps-animate.css">
+<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="css/angular/bootstrap-material-design.min.css">
+<link rel="stylesheet" href="css/angular/ripples.min.css">
+<link rel="stylesheet" href="css/bootstrap/font-awesome.min.css">
+<link rel="stylesheet" href="css/app/main.css">
+<link rel="stylesheet" href="css/app/toastr.min.css">
+<link rel="stylesheet" href="css/app/ps-animate.css">
 
 <style type="text/css">
     /*** Hide when Angular is not yet loaded and initialized */
@@ -114,7 +114,9 @@
 							class="form-control" minlength="6" ng-required="true" ng-model="signUpForm.password" required
 							>
 					    <div ng-messages="signupForm.password.$error" ng-if="signupForm.password.$touched">
-			                <div ng-message="minlength"><font color="red" >minimum length 6 required</font></div>
+			                <div ng-message="minlength">
+			                  <font color="red" >minimum length 6 required</font>
+			                </div>
 			            </div>
 					</div>
 					<div class="form-group label-floating is-empty">
@@ -144,76 +146,79 @@
 
 
    <!-- Jquery and bootstrap -->
-	<script src="http://localhost:8989/petCart/js/lib/jquery-1.11.3.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/lib/jquery-1.11.3.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
 	
 
 
 	<!-- Include the core AngularJS library -->
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/underscore-min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/restangular.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular-resource.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular-sanitize.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular-animate.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular-ui-router.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/angular-messages.min.js"></script>
+	<script src="js/lib/angular/angular.min.js"></script>
+	<script src="js/lib/angular/underscore-min.js"></script>
+	<script src="js/lib/angular/restangular.min.js"></script>
+	<script src="js/lib/angular/angular-resource.min.js"></script>
+	<script src="js/lib/angular/ng-infinite-scroll.min.js"></script> 
+	<script src="js/lib/angular/angular-sanitize.js"></script>
+	<script src="js/lib/angular/angular-animate.min.js"></script>
+	<script src="js/lib/angular/angular-ui-router.js"></script>
+	<script src="js/lib/angular/angular-messages.min.js"></script>
 
 	<script src="js/app/common.js"></script>
 
-	<script src="http://localhost:8989/petCart/js/lib/angular/material.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/ripples.min.js"></script>
-	<script src="http://localhost:8989/petCart/js/lib/angular/dirPagination.js"></script>
-    <script src="http://localhost:8989/petCart/js/lib/toastr.min.js"></script>
+	<script src="js/lib/angular/material.min.js"></script>
+	<script src="js/lib/angular/ripples.min.js"></script>
+	<script src="js/lib/angular/dirPagination.js"></script>
+    <script src="js/lib/toastr.min.js"></script>
 
 	<!-- Modules -->
 	<script src="js/app.js"></script>
 
 	<!-- constants-->
-	<script src="http://localhost:8989/petCart/js/constants/url.js"></script>
-	<script src="http://localhost:8989/petCart/js/constants/global-var.js"></script>
-	<script src="http://localhost:8989/petCart/js/constants/authEvents.js"></script>
-	<script src="http://localhost:8989/petCart/js/constants/userRoles.js"></script>
-	<script src="http://localhost:8989/petCart/js/constants/stats.js"></script>
-	<script src="http://localhost:8989/petCart/js/constants/message.js"></script>
+	<script src="js/constants/url.js"></script>
+	<script src="js/constants/global-var.js"></script>
+	<script src="js/constants/authEvents.js"></script>
+	<script src="js/constants/userRoles.js"></script>
+	<script src="js/constants/stats.js"></script>
+	<script src="js/constants/message.js"></script>
 
 	<!-- Controllers -->
-	<script src="http://localhost:8989/petCart/js/controllers/productContoller.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/departmentController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/categoryController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/menuController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/authController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/cartController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/checkoutController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/productViewController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/productbyCategoryController.js"></script>
-	<script src="http://localhost:8989/petCart/js/controllers/dashboard/dashBoardController.js"></script>
-    <script src="http://localhost:8989/petCart/js/controllers/dashboard/userManagementController.js"></script>
-    <script src="http://localhost:8989/petCart/js/controllers/dashboard/ordersController.js"></script>
-    <script src="http://localhost:8989/petCart/js/controllers/accountController.js"></script>
-   <script src="http://localhost:8989/petCart/js/controllers/dashboard/productController.js"></script>
-   <script src="http://localhost:8989/petCart/js/controllers/dashboard/orderViewController.js"></script>
-    <script src="http://localhost:8989/petCart/js/controllers/dashboard/productDetailController.js"></script>
+	<script src="js/controllers/productContoller.js"></script>
+	<script src="js/controllers/departmentController.js"></script>
+	<script src="js/controllers/categoryController.js"></script>
+	<script src="js/controllers/menuController.js"></script>
+	<script src="js/controllers/authController.js"></script>
+	<script src="js/controllers/cartController.js"></script>
+	<script src="js/controllers/checkoutController.js"></script>
+	<script src="js/controllers/productViewController.js"></script>
+	<script src="js/controllers/productbyCategoryController.js"></script>
+	<script src="js/controllers/dashboard/dashBoardController.js"></script>
+    <script src="js/controllers/dashboard/userManagementController.js"></script>
+    <script src="js/controllers/dashboard/ordersController.js"></script>
+    <script src="js/controllers/accountController.js"></script>
+   <script src="js/controllers/dashboard/productController.js"></script>
+   <script src="js/controllers/dashboard/orderViewController.js"></script>
+    <script src="js/controllers/dashboard/productDetailController.js"></script>
     
 
 	<!-- Services -->
-	<script src="http://localhost:8989/petCart/js/services/userService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/productService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/departmentService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/categoryService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/searchService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/sessionService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/requestInterceptor.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/AuthService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/CartService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/MenuService.js"></script>
-	<script src="http://localhost:8989/petCart/js/services/OrdersService.js"></script>
-	
+	<script src="js/services/userService.js"></script>
+	<script src="js/services/productService.js"></script>
+	<script src="js/services/departmentService.js"></script>
+	<script src="js/services/categoryService.js"></script>
+	<script src="js/services/searchService.js"></script>
+	<script src="js/services/sessionService.js"></script>
+	<script src="js/services/requestInterceptor.js"></script>
+	<script src="js/services/AuthService.js"></script>
+	<script src="js/services/CartService.js"></script>
+	<script src="js/services/MenuService.js"></script>
+	<script src="js/services/OrdersService.js"></script>
+	<script src="js/services/fileUploadService.js"></script>
          
 	<!-- Directives -->
-	<script src="http://localhost:8989/petCart/js/directives/js/product.js"></script>
-	<script src="http://localhost:8989/petCart/js/directives/js/formAutofillFix.js"></script>
-	<script src="http://localhost:8989/petCart/js/directives/js/authDialog.js"></script>
+	<script src="js/directives/js/product.js"></script>
+	<script src="js/directives/js/formAutofillFix.js"></script>
+	<script src="js/directives/js/authDialog.js"></script>
+	<script src="js/directives/js/infiniteScroll.js"></script>
+	<script src="js/directives/js/imageUpload.js"></script>
 </body>
 <script>
  $(document).ready(function(){

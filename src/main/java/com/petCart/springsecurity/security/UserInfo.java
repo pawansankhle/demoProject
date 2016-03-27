@@ -34,9 +34,13 @@ public class UserInfo {
     		 HttpSession  session = request.getSession(true);
     		 if(session !=null){
     			 authentication =  (Authentication) session.getAttribute("authentication");
-    			 UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-    			 currentUser.put("username", userDetails.getUsername());
-        	     return currentUser;
+    			 if(authentication != null){
+    				 UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        			 currentUser.put("username", userDetails.getUsername());
+            	     return currentUser;
+    			 }
+    			 
+    			 
     		 }else{
     			 return null;
     		 }
@@ -54,9 +58,13 @@ public class UserInfo {
  	} 
      
    public static Users getCurrentUser(){
-    		
-	   IUserDao userDao =ContextProvider.getContext().getBean(IUserDao.class);
- 	   return userDao.findUserByName(getCurrentUsername()); 
+     try{
+    	 IUserDao userDao =ContextProvider.getContext().getBean(IUserDao.class);
+   	   return userDao.findUserByName(getCurrentUsername()); 
+     }catch(Exception ex){
+    	 return null;
+     }
+	    
  	}
 	
 	

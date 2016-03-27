@@ -1,4 +1,4 @@
-var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination','ngMessages']);
+var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination','ngMessages','infinite-scroll']);
 app.value('count',0);
 app.value('pageUpperLimit',12);
 app.value('maxlimitofpagination',12);
@@ -45,17 +45,24 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 	       $rootScope.$watch('$rootScope.currentUser',function(){return $rootScope.currentUser},true);
 	       $rootScope.$watch('$scope.shoppingCart',function(){return $rootScope.shoppingCart},true);
 	       $rootScope.$on('setShoppingCart',function(evnt,res){$scope.setShoppingCart(res.cart);});
-		   
+		   $rootScope.$on('reload:menu',function(ev,data){$scope.loadMenu()})
    
-           menuService.loadadminmenu().then(function(menus) {self.adminmenus = [].concat(menus);});
+           $scope.loadMenu = function(){
+           	 menuService.loadadminmenu().then(function(menus) {self.adminmenus = [].concat(menus);});
+           }
+           $scope.loadMenu();
+
            $scope.userRoles = USER_ROLES;
-		   $rootScope.setCurrentUser = function (user) 
+           $rootScope.setCurrentUser = function (user) 
 		    {  
-			  if(exist(user) && exist(user.roles))
+		      if(exist(user) && exist(user.roles))
 			  {
-				    if(user.roles[0].roleName == $scope.userRoles.admin){$state.go(STATS.dashboard)}
+			  	   if(user.roles[0].roleName == $scope.userRoles.admin || user.roles[0].roleName == $scope.userRoles.supplier)
+			  	   	{
+			  	   		$state.go(STATS.dashboard)
+			  	   	}
 				    $rootScope.currentUser = user;
-		      }else{
+			  }else{
 			  	$rootScope.currentUser = null;
 			  	$state.go(STATS.home);
 			  	
@@ -158,7 +165,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	templateUrl: GLOBAL_APP.adminDashBoardTplPath,
 			   	controller : 'dashBoardCtrl',
 			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin]
+			   			authorizedRoles: [USER_ROLES.admin,USER_ROLES.supplier]
 			   		 }
            })
            .state(STATS.dashboardOrders, {
@@ -166,7 +173,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	templateUrl: GLOBAL_APP.dashboardOrdersTplPath,
 			   	controller: 'ordersCtrl',
 			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin]
+			   			authorizedRoles: [USER_ROLES.admin,USER_ROLES.supplier]
 			   		 }
            })
            .state(STATS.dashboardOrderView, {
@@ -174,7 +181,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	templateUrl: GLOBAL_APP.dashboardOrderViewTplPath,
 			   	controller: 'orderViewCtrl',
 			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin]
+			   			authorizedRoles: [USER_ROLES.admin,USER_ROLES.supplier]
 			   		 }
            })
            .state(STATS.dashboardProducts, {
@@ -182,7 +189,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	templateUrl: GLOBAL_APP.dashboardPrductsTplPath,
 			   	controller: 'dashBoardProductCtrl',
 			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin]
+			   			authorizedRoles: [USER_ROLES.admin,USER_ROLES.supplier]
 			   		 }
            })
            .state(STATS.dashboardProductView, {
@@ -190,7 +197,7 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 			   	templateUrl: GLOBAL_APP.dashboardPrductViewTplPath,
 			   	controller: 'dashBoardProductViewCtrl',
 			   	data:{
-			   			authorizedRoles: [USER_ROLES.admin]
+			   			authorizedRoles: [USER_ROLES.admin,USER_ROLES.supplier]
 			   		 }
            })
            .state(STATS.dashboardUM, {

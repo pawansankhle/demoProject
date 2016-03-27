@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries( {
-     @NamedQuery(name="findAllSuppliers",query="Select s From Supplier s where s.deleted=false"),
-     @NamedQuery(name="findSupplierByDetailId",query="Select s From Supplier s where s.deleted=false and detail=:detail"),
+     @NamedQuery(name="findAllSuppliers",query="Select s From Supplier s"),
+     @NamedQuery(name="findSupplierByDetailId",query="select s From Supplier s where s.detail=:detail"),
 })
 
 @Entity
@@ -26,10 +26,6 @@ public class Supplier {
 	@Column
 	@GeneratedValue @Id
 	private long id;
-	
-	
-	@Basic
-	private Boolean deleted;
 	
 	@Basic
     private String shopname;
@@ -50,17 +46,7 @@ public class Supplier {
 		this.id = id;
 	}
 
-   public Boolean getDeleted() {
-		return deleted;
-	}
-
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-
-
-	public String getShopname() {
+   public String getShopname() {
 		return shopname;
 	}
 

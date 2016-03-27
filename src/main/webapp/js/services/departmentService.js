@@ -1,4 +1,5 @@
-app.service('departmentSrv',['URLS','Restangular', function(URLS,Restangular) { 
+app.service('departmentSrv',['URLS','Restangular','baseUrl','$resource'
+  ,function(URLS,Restangular,baseUrl,$resource) { 
 	 
       this.getService = function(url){
       	//URLS.departmentUrl
@@ -7,7 +8,7 @@ app.service('departmentSrv',['URLS','Restangular', function(URLS,Restangular) {
 
       this.getAllDepartments = function(){
       	var url = URLS.departmentSearchUrl
-      	return this.getService(url);
+        return $resource(baseUrl+url).query().$promise;
       }
 	 
 

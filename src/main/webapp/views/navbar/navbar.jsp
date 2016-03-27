@@ -7,27 +7,27 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a ui-sref="dashboard" ng-if="isAuthorized(userRoles.admin)" class="navbar-brand">Brand</a>
-				<a href="#" ng-if="!isAuthorized(userRoles.admin)" class="navbar-brand">Brand</a>
+				<a ui-sref="dashboard" ng-if="isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier)" class="navbar-brand">Brand</a>
+				<a href="#" ng-if="!(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))" class="navbar-brand">Brand</a>
 			</div>
 			<!-- Collection of nav links and other content for toggling -->
 			<div id="navbarCollapse" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav" ng-if="!isAuthorized(userRoles.admin)">
+				<ul class="nav navbar-nav" ng-if="!(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))">
 					<li class="active hidden-xs"><a href="#">Home</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right hidden-xs">
 				 <li ng-if="!currentUser"><a href="" ng-click="authModal('login')">Login</a></li>
-				 <li ng-if="isAuthorized(userRoles.admin)">
+				 <li ng-if="isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier)">
 				 	<a href="" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 				 	<i class="fa fa-bell"><span class="badge">2</span></i></a>
 				 	<ul class="dropdown-menu">
 				 	   <li>data for  dropdown</li>
 				 	</ul>
 				 </li>
-				 <li ng-if="isAuthorized(userRoles.admin)">
+				 <li ng-if="(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))">
 				 	<a ng-click=""><i class="fa fa-face"></i></a>
 				 </li>
-				 <li ng-if="isAuthorized(userRoles.admin)" ng-controller="authCtrl"><a ng-click="logout()">Log out</a>
+				<li ng-if="(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))" ng-controller="authCtrl"><a ng-click="logout()">Log out</a>
 				 </li>
 
 
@@ -48,7 +48,7 @@
 				</li>
 				  <!--<li ng-click="showModal('login')"><a href="">Login</a></li> -->
 				</ul>
-				<ul class="nav navbar-nav navbar-right hidden-xs" ng-if="!isAuthorized(userRoles.admin)">
+				<ul class="nav navbar-nav navbar-right hidden-xs" ng-if="!(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))">
 				  <li style="height: 1px;">
 					  <form class="navbar-form navbar-left" role="search">
 						<input type="text" class="form-control" placeholder="Search">

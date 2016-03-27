@@ -1,47 +1,25 @@
-(function() {
-  'use strict';
-
-  app.service('menuService', ['$q','STATS', MenuService]);
-
-  /**
-   * Menu DataService
-   * Uses embedded, hard-coded data model; acts asynchronously to simulate
-   * remote data service call(s).
-   *
-   * @returns {{loadAll: Function}}
-   * @constructor
-   */
-  function MenuService($q,STATS) {
-	   var adminmenu = [
-      {
-				  icon: 'fa fa-user',
-			    name:'User Management',
-			    href: STATS.dashboardUM
-			},
-			{
-				name: 'Orders',
-				icon: 'fa fa-settings',
-				href: STATS.dashboardOrders
-			},
-			{
-				name: 'Products',
-				icon: 'zmdi zmdi-settings',
-				href: STATS.dashboardProducts
-           }];
-           
-		
+app.service('menuService', ['$q','STATS','AuthService','USER_ROLES',
+    function MenuService($q,STATS,AuthService,USER_ROLES) {
+	   
     
     return {
-      /*loadmenu: function() {
-        // Simulate async nature of real remote calls
-        var deferred = $q.defer();
-        setTimeout(function() {
-          deferred.resolve(menu);
-        }, 1000);
-        return deferred.promise;
-        //return $q.when(menu);
-      },*/
       loadadminmenu: function() {
+        var adminmenu = [{
+        name: 'Products',
+        icon: 'fa fa-product-hunt',
+        href: STATS.dashboardProducts
+           },{
+        name: 'Orders',
+        icon: 'fa fa-th-list',
+        href: STATS.dashboardOrders
+      }];
+      if(AuthService.isAuthorized(USER_ROLES.admin)){
+            adminmenu.push({
+          icon: 'fa fa-users',
+          name:'User Management',
+          href: STATS.dashboardUM
+      });
+     }
         var deferred = $q.defer();
         setTimeout(function() {
           deferred.resolve(adminmenu);
@@ -49,6 +27,5 @@
         return deferred.promise;
        },
     };
-  }
+  }]);
 
-})();

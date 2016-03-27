@@ -10,12 +10,22 @@ app.controller('productViewCtrl',['$scope', '$stateParams', 'productSrv',
 
 	 $scope.getRatingById = function(id){
          productSrv.getRatingbyId($stateParams.id | id).then(function(res){
-	 	 $scope.reivews = res[0];
+	 	 $scope.reivews = res;
 	 });
+	 }
+
+	 $scope.findProductRecomm = function()
+	 {
+	 	productSrv.findProductRecomm($stateParams.id | id).then(function(res){
+	 		console.log(res);
+	 		$scope.recommendationProduct = res;
+
+	 	})
 	 }
 	 
 	 $scope.getProductById(); 
 	 $scope.getRatingById();
+	  $scope.findProductRecomm();
 	$scope.showAvailabe = function(qwt){if(qwt!=0){return true;}};
 	$scope.showOfferPrice = function(o,p){if(o!=p){return true;}};
 

@@ -3,7 +3,7 @@
      <div class="bs-component">
         <div class="panel panel-inverse">
            <div class="panel-heading">
-                <div>Search<button class="btn btn-primary pull-right" ng-click="isAddUser =! isAddUser" style="color:white;margin-top:-5px">Add User</button></div>
+                <div>Search<button class="btn btn-primary pull-right" ng-click="isAddUser =! isAddUser" style="color:white;margin-top:-5px">Add User <i class="fa fa-user-plus"></i></button></div>
                 
            </div>
 
@@ -44,9 +44,9 @@
           <td></td>
           <td></td>
           <td>
-            <button ng-if="user.enabled" class="btn btn-danger btn-sm btn-raised" ng-click="adminAction('disable',user,$index)">Disable</button>
-            <button ng-if="!user.enabled" ng-click="adminAction('enable',user,$index)" class="btn btn-sm btn-success btn-raised">Enable</button>
-            <button  class="btn btn-danger btn-sm btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
+            <button ng-if="user.enabled && !user.deleted" class="btn btn-danger btn-sm btn-raised" ng-click="adminAction('disable',user,$index)">Disable</button>
+            <button ng-if="!user.enabled && !user.deleted" ng-click="adminAction('enable',user,$index)" class="btn btn-sm btn-success btn-raised">Enable</button>
+            <button ng-if="!user.deleted" class="btn btn-danger btn-sm btn-raised" ng-click="adminAction('delete',user,$index)">Delete</button>
           </td>
          </tr>
       </tbody>
@@ -55,12 +55,12 @@
 </div>
 </div>
 <div class="bs-component">
-  <modal title="Create User" visible="isAddUser" ng-init="disable = true">
+  <modal title="Create User" visible="isAddUser" >
     <div class="row">
       <div class="col-sm-12">
-        <form class="bs-component" role="userForm" class="form-horizontal" style="padding: 1px 70px 0px 70px;"
-          name="userForm" 
-          ng-submit="addUser(createUserform)" novalidate>
+        <form class="bs-component" role="userForm"  style="padding: 1px 70px 0px 70px;"
+          name="userForm" ng-init="disable = false" 
+          ng-submit="addUser(createUserform);" novalidate>
 
           <div class="row">
                 <div class="form-group">
@@ -68,37 +68,53 @@
                 </div>
                 <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
-                <label for="username" class="control-label">User Name</label>
-                <input id="username" name="username"  required class="form-control" ng-model="createUserform.username" />
+                <label for="username" class="control-label">User Name<font color="red">*</font></label>
+                <input ng-required="true" id="username" name="username"  required class="form-control" ng-model="createUserform.username" />
+                <div ng-messages="userForm.username.$error" ng-if="userForm.username.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
-                <label name="firstname" class="control-label">First Name</label><input 
-                  class="form-control" name="firstName"  required ng-model="createUserform.firstname" />
+                <label name="firstname" class="control-label">First Name<font color="red">*</font></label>
+                <input ng-required="true" class="form-control" name="firstName"  required ng-model="createUserform.firstname" />
+                <div ng-messages="userForm.firstName.$error" ng-if="userForm.firstName.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
-                <label name="lastname" class="control-label">Last Name</label>
-                <input class="form-control" name="lastName" required ng-model="createUserform.lastname" />
+                <label name="lastname" class="control-label">Last Name<font color="red">*</font></label>
+                <input ng-required="true" class="form-control" name="lastName" required ng-model="createUserform.lastname" />
+                <div ng-messages="userForm.lastName.$error" ng-if="userForm.lastName.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
-                <label for="email" class="control-label">Email</label>
-                <input type="email" name="email" class="form-control"  required ng-model="createUserform.email" />
+                <label for="email" class="control-label">Email<font color="red">*</font></label>
+                <input  ng-required="true" type="email" name="email" class="form-control"  required ng-model="createUserform.email" />
+                <div ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group label-floating is-empty">
-                <label for="mobile" class="control-label">Mobile</label>
-                <input type="mobile" ng-maxlength=10 name="mobile" required class="form-control" ng-model="createUserform.mobile" />
+                <label for="mobile" class="control-label">Mobile<font color="red">*</font></label>
+                <input  ng-required="true" type="mobile" ng-maxlength=10 maxlength=10 name="mobile" required class="form-control" ng-model="createUserform.mobile" />
+                <div ng-messages="userForm.mobile.$error" ng-if="userForm.mobile.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+                    <div ng-message="maxlength"><font color="red" >maximum length 10</font></div>
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
-                <div class="form-group label-floating is-empty">
-                <label for="selectrole"  class="control-label">Role</label>
+                <div class="form-group is-empty label-floating">
+                <label for="selectrole"  class="control-label">Role<font color="red">*</font></label>
                 <select ng-model="createUserform.roles[0].roleName" class="form-control" id="selectrole" ng-change="roleChange()">
                       <option value=""></option>
                       <option value="ROLE_USER">User</option>
@@ -109,7 +125,7 @@
             </div>
           </div>
           <!-- <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create" ng-disabled="userForm.$invalid || disable" ng-click="disable=!disable;"> -->
-          <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create">
+          <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create" ng-disabled="userForm.$invalid || disable"> 
           
         </form>
       </div>

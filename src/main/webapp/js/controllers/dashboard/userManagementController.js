@@ -102,6 +102,8 @@ $scope.addUser = function(form){
         toastr.success(Msgs.userCreateSuccessMsg,'User');
         // $scope.users.push(res);
        $scope.reset();
+       $scope.disable = !$scope.disable;
+
       },function(res){
         toastr.error(Msgs.errorMsg,'User');
       });

@@ -24,6 +24,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.codehaus.jackson.map.annotate.JsonView;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
 import org.hibernate.envers.Audited;
 
 
@@ -36,6 +41,18 @@ import org.hibernate.envers.Audited;
 ({
 	@NamedQuery(name="findOrderByUserId",query="select o from Orders o where customer=:user"),
 })
+
+@FilterDefs
+({
+	@FilterDef(name="getOrderBySupplier",parameters={@ParamDef(name="userid", type = "java.lang.Integer")}),
+})
+
+@Filters
+({
+	@Filter(name = "getOrderBySupplier",condition="id in (select o.id from orders o inner join order_detail od on o.id=od.order_id where od.product_id in (select p.id from product p inner join supplier s on s.id=p.supplier_id where s.detail_id=:userid))"),
+
+})
+
 public class Orders implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

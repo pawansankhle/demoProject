@@ -16,6 +16,7 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd ">
 <http security="none" pattern="/index.jsp" />
 <http security="none" pattern="/views/**" />
 <http security="none" pattern="/rest/**" />
+<http security="none" pattern="/uploads/**" />
 
 <http auto-config="true"  use-expressions="true">
     <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />

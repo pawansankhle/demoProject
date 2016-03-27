@@ -2,6 +2,7 @@ package com.petCart.rest.impl;
 
 
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -9,34 +10,24 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-
-import com.petCart.dao.IProductDAO;
-import com.petCart.model.Department;
+import com.petCart.model.Files;
 import com.petCart.model.Product;
 import com.petCart.service.IProductService;
-import com.petCart.service.impl.ProductServiceImpl;
-import com.petCart.springsecurity.security.UserInfo;
-
-
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 
 
@@ -123,9 +114,38 @@ public class ProductRestImpl{
     @Path("/update")
     @Produces("application/json")
     public Product updateProduct(Product product){
+    	logger.info("inside @class ProductRestImpl @method updateProduct entry...id:"+product.getId());
     	return productService.updateProduct(product);
     	
     }
 	
+    @ExceptionHandler
+    @POST
+    @Path("/{id}/{action}")
+    @Produces("application/json")
+    public Product enableDisableProduct(@PathParam("id") Integer id,@PathParam("action") String action){
+    	return productService.enableDisable(id,action);
+    }
+    
+    
+    
+	   @POST
+	   @Path("uploadImage/{id}/{filename}")
+	   @Consumes("multipart/form-data")
+	   @Produces("text/html")
+	   @Multipart(value = "root", type = "application/octet-stream")
+		public String uploadProductImage(@Multipart(value = "filedata")InputStream in, @PathParam("id") Integer id,@PathParam("filename") String fname) throws Exception {	
+           return productService.uploadProductImage(fname,id,in);
+		   //UsersProfileImageAttach usersProfileImageAttach = usersProfileImageAttachService.addAttachment(user, fileName, in);
+	     }
+	   
+	   @ExceptionHandler
+	   @GET
+	   @Path("findProductRecomm/{id}")
+	   @Produces("application/json")
+	   public List<Product> findProductRecommendation(@PathParam("id") Integer id){
+		   return productService.findProductRecommendation(id);
+	   }
+	   
 
 }

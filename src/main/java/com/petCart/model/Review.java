@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
@@ -18,6 +20,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.envers.Audited;
 
+@NamedQueries
+({
+	@NamedQuery(name="Review.ratingbyProductId",query="select r.rating from Review r where product=:product"),
+	@NamedQuery(name="Review.byUseraAndProduct",query="select r from Review r where r.customer=:customer and r.product=:product"),
+	
+
+})
 
 @Entity
 @Table(name="review")

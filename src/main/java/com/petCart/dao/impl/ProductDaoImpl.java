@@ -188,7 +188,7 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 	public List<Product> findProductRecommendation(Product product) {
 		logger.info("inside @class ProductDaoimpl @method: viewProduct entry...");
 		try{
-			Query query=getEntityManager().createNamedQuery("findProductForRecommendation").setParameter("productId",product);
+			Query query=getEntityManager().createNativeQuery("select od2.product_id as id,p.name,p.price,p.discount,fu.file from order_detail od1 join order_detail od2 on od1.order_id=od2.order_id  join product p on od2.product_id=p.id join product_file_upload pfu on pfu.product_id=p.id join file_upload fu on fu.fileid=images_fileid where od1.product_id=:productId and od2.product_id!=:productId group by od2.product_id order by count(od2.product_id) desc limit 5").setParameter("productId", product.getId());
 			return query.getResultList();
 		}catch(Exception ex){
 			logger.error("inside @class ProductDaoimpl @method: viewProduct cause: "+ex.toString());

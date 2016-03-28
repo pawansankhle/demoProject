@@ -17,6 +17,7 @@ app.constant('URLS', {
   userUrl: '/user',
   userSearch: '/user/search',
   userProfileUrl: '/user/profile',
+  userUploadProfilePicUrl: '/user/uploadProfilePic/',
   updateShippingDetailUrl : '/checkout/updateShippingDetail/',
   findAllUsersUrl: '/user/findAllUsers/',
   findAllSuppliersUrl: '/supplier/findAllSuppliers/',
@@ -34,6 +35,7 @@ app.constant('URLS', {
   orderUpdateUrl: '/order/update',
 
   reviewSearchUrl: "/review/search",
+  reviewAddUrl: "/review/addReview",
   
 });
 

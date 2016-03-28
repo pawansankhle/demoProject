@@ -121,8 +121,8 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
                 controller: 'productCtrl'		
             },
            'homeTopRatedItem@home': {
-				templateUrl: GLOBAL_APP.topRatedProductTplPath
-				 //controller: 'homeSliderController'
+				templateUrl: GLOBAL_APP.topRatedProductTplPath,
+				 controller: 'productCtrl'
 			},
 			'homeFeaureItem@home': {
 				templateUrl: GLOBAL_APP.featuredProductTplPath

@@ -19,12 +19,14 @@ import com.petCart.dao.ICartDAO;
 import com.petCart.dao.ICartItemDAO;
 import com.petCart.dao.IOrderDetailDAO;
 import com.petCart.dao.IOrdersDAO;
+import com.petCart.dao.IProductDAO;
 import com.petCart.dao.IUserDao;
 import com.petCart.model.Cart;
 import com.petCart.model.CartItem;
 import com.petCart.model.OrderDetail;
 import com.petCart.model.OrderStatus;
 import com.petCart.model.Orders;
+import com.petCart.model.Product;
 import com.petCart.model.Users;
 import com.petCart.service.ICartService;
 import com.petCart.service.IOrderService;
@@ -50,6 +52,9 @@ public class OrderServiceImpl implements IOrderService {
 	
 	@Autowired
 	ICartItemDAO cartItemDao;
+	
+	@Autowired
+	IProductDAO productDao;
 	
 
 	@Override
@@ -80,7 +85,7 @@ public class OrderServiceImpl implements IOrderService {
 			  Authentication auth = (Authentication) session.getAttribute("authentication");
 			  UserDetails udetail = (UserDetails) auth.getPrincipal();
 			  
-			 if(udetail != null){ 
+			  if(udetail != null){ 
 			     user = userDao.findUserByName(udetail.getUsername());
 			 }
 			  Cart cart = cartDao.find(cartId);
@@ -88,23 +93,34 @@ public class OrderServiceImpl implements IOrderService {
 			  order.setStatus(OrderStatus.PLACED);
 			  order.setCustomer(user);
 			  order.setCustomer(user);
+			  if(order.getTotalAmount() < 500){
+				  order.setShippingCharge(100);
+			  }
 			  
 			  if(cart!=null && user!=null && cart.getItems().size() >0){
 				  order1 = ordersDAO.create(order);
 				  for(CartItem item : cart.getItems()){
 					     if(item.getBuyNow()){
+					    	 Product product = productDao.findById(item.getItemId().getId());
 					    	 OrderDetail orderDetail = new OrderDetail();
 					    	 orderDetail.setProductId(item.getItemId());
 					    	 orderDetail.setQuantity(item.getQuantity());
 					    	 orderDetail.setUnitCost(item.getItemId().getPrice());
 					    	 orderDetail.setOrder(order1);
-					    	 orderDetail = orderDetailDao.create(orderDetail);
+					    	 if(product !=null && product.getQuantity() != 0 && (product.getQuantity() >= item.getQuantity())){
+					    		 product.setQuantity((product.getQuantity()-item.getQuantity()));
+							     product.setModifiedtime(new Date());
+							     productDao.update(product);
+							     orderDetail = orderDetailDao.create(orderDetail);
+							    }else{
+							    	//product not availblae
+							    }
 					    	 cartItemDao.delete(item.getId());
+					    	 
 					    }
 				  }
 				     cart.setTotal(0.0);
 			    	 cartDao.update(cart);
-				     
 			    	 return ordersDAO.find(order1.getId());
 				  
 			  }

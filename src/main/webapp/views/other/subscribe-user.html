@@ -1,11 +1,14 @@
-<div class="row top-border bottom-border" id="subscribe_email_div" style="margin:0px;margin-bottom:5px;margin-top:5px;"><!-- .row -->
-					<font class="text-muted" style="font-size: 12px;"><strong>Subscribe to get latest updates</strong></font>
+<div class="row  left-border bs-componenet" id="subscribe_email_div" style="margin:0px;margin-bottom:5px;margin-top:5px;"><!-- .row -->
+	<font class="text-primary" style="font-size: 12px;"><strong>Subscribe to get latest updates</strong></font>
 				<div class="col-sm-12"><!-- .col-sm-12 -->
 					<div class="input-group" style="padding:5px;"><!-- input-group -->
-						<input type="text" id="subscribe_email" class="form-control" placeholder="Enter you Email...">
-						<span class="input-group-btn">
-							<button class="btn btn-success" type="submit" onclick="subscribeEmail()">Go!</button>
-						</span>
+					    <div class="form-group input-group">
+							<input type="text" id="subscribe_email" class="form-control" placeholder="Enter you Email...">
+							<span class="input-group-btn">
+								<button class="btn btn-success btn-raised" type="submit" ng-click="subscribeEmail()">Go!</button>
+							</span>
+							<span class="material-input"></span>
+						</div>
 					</div><!-- /input-group -->
 					<div class="alert alert-danger" style="display:none;height: 35px;" role="alert">Error...</div>
 					<div class="alert alert-success" style="display:none;height: 35px;" role="alert">Success...</div>

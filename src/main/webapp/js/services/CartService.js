@@ -40,8 +40,9 @@ app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', fu
 			     return $http
 				  .post(baseUrl+URLS.updateCartUrl,cart)
 				  .then(function(res) {
-					  toastr.success('cart Updated Successfully','Info');
-					  SessionSrv.saveCart(res.data);
+				  	  if(res.data.msg == 'ok'){
+				  	  	  toastr.success('cart Updated Successfully','Info');
+				  	  	}
 					  return res.data;
 				  })
 				      
@@ -65,8 +66,9 @@ app.factory('CartSrv',['$http', 'URLS', 'SessionSrv', 'baseUrl','$rootScope', fu
 		    cartService.updateCartTotal = function(cart){
 		      SessionSrv.cart.total = 0;
 		      cart.items.forEach(function(item){
-			  SessionSrv.cart.total+=item.itemId.offerPrice*item.quantity;
+		      SessionSrv.cart.total+=item.itemId.price*item.quantity;
              });
+		      
 		    }
 		   
 		return	cartService;

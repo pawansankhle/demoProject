@@ -2,11 +2,11 @@
     <div class="page-header text-center bottom-border">
         <div id="status-buttons" class="text-center">
             <a ui-sref-active="active" ui-sref=".login" ><span>1</span>login</a><i ng-if="currentUser" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
-            <a ui-sref-active="active" ui-sref=".address"><span>2</span>address</a><i ng-show="currentUser.deliveryAddress.length > 1 && currentUser.postalCode.length > 1 && currentUser.mobile.length > 1 " class="glyphicon glyphicon-ok ps-checkout-ok"></i>
+            <a ui-sref-active="active" ui-sref=".address"><span>2</span>address</a><i ng-show="currentUser.address.shippingAddress && currentUser.address.pincode  && currentUser.mobile" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
             <a ui-sref-active="active" ui-sref=".payment"><span>3</span> Payment</a><i ng-show="paymentok" class="glyphicon glyphicon-ok ps-checkout-ok"></i>
         </div>
     </div>
-    <div class="col-sm-10 col-sm-offset-2" style="margin-top: 15px;">
+    <div class="col-sm-8 col-sm-offset-2" style="margin-top: 15px;">
         <div id="form-views" ui-view></div>
     </div>
 </div>

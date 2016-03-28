@@ -1,21 +1,8 @@
-/**
- *	for use Attachment Directive. define this in your html as
- *  <aps-upload-file layout-gt-sm="row"></aps-upload-file>
- *  
- */
-
-app.directive('uploadFile', apsUploadFile);
-
-  function apsUploadFile() {
-    var directive = {
+app.directive('uploadFile',function apsUploadFile(fileUploadSrv) {
+    return  {
       restrict: 'E',
       templateUrl: 'js/directives/pages/imageUpload.html',
-      link: apsUploadFileLink
-    };
-    return directive;
-  }
-
-  function apsUploadFileLink(scope, element, attrs) {
+      link: function apsUploadFileLink(scope, element, attrs) {
     var input = $('#fileInput');
     var button = $('#uploadButton');
     var textInput = $('#textInput');
@@ -28,16 +15,20 @@ app.directive('uploadFile', apsUploadFile);
         input.click();
       });
     }
-
+    
+    
     input.on('change', function(e) {
       var files = e.target.files;
       scope.files = files;
+      fileUploadSrv.setCurretnFile(files);
+
       scope.errMsg = '';
       var supportedTypeArray = ['png','jpg','jpeg'];
       if (files[0]) {
         scope.fileName = '';
          for (var i = 0; i < files.length; i++) {
           scope.fileName += files[i].name;
+          fileUploadSrv.setCurretnFileName(scope.fileName);
           var elementSize =(files[i].size/1024/1024);
           if (i != (files.length - 1)) scope.fileName += ', ';
           var ext = scope.fileName.split('.').pop().toLowerCase();
@@ -59,4 +50,11 @@ app.directive('uploadFile', apsUploadFile);
       }
       scope.$apply();
     });
-  };
+  }
+    };
+    
+  });
+
+  
+
+  

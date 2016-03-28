@@ -51,6 +51,12 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
 				   }
 				});
 		      }
+
+		$scope.editAddress = function(){
+			$scope.editShippingAddress();
+			$state.go('checkout.address');
+		}
+		      
 		$scope.placeOrder = function(orderDetails){
 			var btn  = angular.element('#place_order_id');
 			btn.button('loading');

@@ -25,10 +25,16 @@ app.controller('cartCtrl',['$rootScope', '$scope', 'SessionSrv','CartSrv',functi
 		 	  
 	 }
 	$scope.updateCart = function(crt) {
-		 CartSrv.updateCart(crt).then(function(cart){
-           $rootScope.$emit('setShoppingCart',{cart});
-
-		 },function(){})
+		 CartSrv.updateCart(crt).then(function(data){
+		 	if(data.msg != 'ok'){
+		 		$scope.errMsg = data.msg;
+		 	}else{
+		 		$scope.errMsg = '';
+		 	}
+		 	CartSrv.getCart().then(function(cart){
+                   $rootScope.$emit('setShoppingCart',{cart});
+		 	    });
+		 	},function(){})
 	}
 	$scope.cartItemRemove = function(index,id){
 		SessionSrv.cart.items.pop(index);

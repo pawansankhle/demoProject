@@ -1,13 +1,14 @@
 <div class="view view-first" ng-controller="AddToCartCtrl as cartCtrl">
 	<img class="img img-thumbnil img-responsive" ng-src="{{ product.images[0].file }}" >
-    	<div class="mask">
-			<h2 class="">{{ product.name }}</h2> 
+    	<div class="mask" ng-if="product.quantity">
+			<h2>{{ product.name }}</h2> 
 			<p class="caption">{{ product.name | uppercase }}</p> 
 			<a class="info" ng-click="addToCart(product)">Add to cart</a>
             <a ui-sref="product.view({id: product.id})" class="info">view</a>
-            <a class="btn btn-link" ui-sref="product.review({id: product.id})">View Review(5)</a>
-            
-		</div>
+        </div>
+        <div class="mask" ng-if="!product.quantity">
+           <h2 style="margin-top: 140px;">Out of Stock</h2>
+        </div>
 </div>
 <p class="price">{{ product.price | currency:"&#8377;"}}</p>
 <p ng-if="product.discount" class="ps-discount">{{product.discount}} % off</p>

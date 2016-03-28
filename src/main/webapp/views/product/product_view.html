@@ -18,12 +18,7 @@
 				<div class="col-sm-12 bottom-border">
 				  <!-- <h5>Name : {{product.name | uppercase}}</h4>  -->
 				   <span id="shop_name_span" >By : {{product.supplier.shopname}}</span><!-- shop-name-span -->
-				   <div class="rating_div">
-					<i class="fa fa fa-star"></i>
-					<i class="fa fa fa-star"></i>
-					<i class="fa fa-star-o"></i>
-					<i class="fa fa-star-o"></i>
-				   </div>
+				   
 				</div>
 				<div class="col-sm-12 bottom-border">
 					<p class="text-muted">Price&nbsp;:&nbsp;<span class="text-success">{{ product.price | currency:'&#8377;'}}</span></p>
@@ -31,118 +26,49 @@
 					<p class="text-muted" ng-if="showOfferPrice(product.offerPrice,product.price)">Offer Price&nbsp;:&nbsp;<span class="text-success">{{ (product.price - ((product.price*product.discount)/100)) | currency:'&#8377;'}}</span></p>
 					<p class="text-muted">Cash on Delivery:&nbsp;<span class="text-primary">Yes</span></p>
 					<p class="text-muted">Availability:&nbsp;<span class="text-primary" ng-if="showAvailabe(product.quantity)" >
-					in Stock</span><span class="text-primary" ng-if="!showAvailabe(product.quantity)" >
-					Out Of Stock</span>&nbsp;<span ng-if="showAvailabe(product.quantity)" class="text-primary">({{product.quantity}} left)</span></p>
+					in Stock</span>
+					<span class="text-primary" ng-if="!showAvailabe(product.quantity)" >
+					Out Of Stock</span>
+					&nbsp;<span ng-if="showAvailabe(product.quantity)" class="text-primary">({{product.quantity}} left)</span></p>
 				</div>
-				<div class="col-sm-12" ng-controller="AddToCartCtrl">
-				   <button class="btn btn-raised btn-success" ng-click="buyNow(product)">Buy Now</button>
-				   <button class="btn btn-raised btn-success" ng-click="addToCart(product)">Add to Cart</button>
+				<div class="col-sm-12" ng-if="product.quantity">
+				    <div ng-controller="AddToCartCtrl">
+					   <button class="btn btn-raised btn-success" ng-click="buyNow(product)">Buy Now</button>
+					   <button class="btn btn-raised btn-success" ng-click="addToCart(product)">Add to Cart</button>
+				    </div>
 				</div>
 			   </div>
 			</div><!--  /single-product-desc -->
 		</div><!--  /.product-view-row -->
-		<div class="row"><!--  .other-product-row -->
-			<h3 class="bottom-border">Customer Who bought this also bought</h3>
+		<div class="row bottom-border" ng-if="recommProductList.length>0"><!--  .other-product-row -->
+			<h4 >Customer Who bought this also bought</h4>
 			<div class="col-sm-12" style="min-height: 100px;">
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				<!-- Wrapper for slides -->
-			   <div class="carousel-inner" role="listbox">
+			   <div class="carousel-inner" style="min-height: 274px;" role="listbox">
 				<div class="item active"> <!--  item-active-div  each contains-3 items-->
-					<div class="col-sm-3"> <!-- single product -->
+					<div class="col-sm-2 ps-single-recomm-product" ng-repeat=" product in recommProductList"> <!-- single product -->
 				<div class="row">
-					<div class="col-sm-6">
-						<a href="#">
-						 <img class="img img-responsive img-rounded" src="images/0.jpg" width="250" height="250"  alt="">
+					<div class="col-sm-12" style="min-height: 200px;">
+						<a ui-sref="product.view({id: product.id})">
+						 <img class="img img-responsive img-rounded" ng-src="{{product.image}}" width="250" height="250"  alt="">
 						</a>
-						<div class="rating_div">
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<i class="fa fa-star-o"></i>
-						</div>
-				   </div>
-				   <div class="col-sm-6 text-muted">
-					  <h5><b>name</b></h5>
+					</div>
+				   <div class="col-sm-12 text-muted">
+					  <h5><b>{{product.name}}</b></h5>
 			       </div>
-			       <div class="col-sm-6">
-					   <i class="fa fa-inr"></i>&nbsp;200
+			       <div class="col-sm-12">
+					   {{product.price | currency:"&#8377;"}}
 				   </div>
+				   <p ng-if="product.discount" class="ps-discount" style="top:1px;left:1px;">{{product.discount}} % off</p>
 				   
 				</div>
 			</div><!--/single product -->
-			<div class="col-sm-3"> <!-- single product -->
-				<div class="row">
-					<div class="col-sm-6">
-						<a href="#">
-						 <img class="img img-responsive img-rounded" src="images/2.jpg" width="250" height="250"  alt="">
-						</a>
-						<div class="rating_div">
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<i class="fa fa-star-o"></i>
-						</div>
-				   </div>
-				   <div class="col-sm-6 text-muted">
-					  <h5><b>name</b></h5>
-			       </div>
-			       <div class="col-sm-6">
-					   <i class="fa fa-inr"></i>&nbsp;200
-				   </div>
-				   <div class="col-sm-8 bottom-border" style="padding-bottom: 5px;">
-				   </div>
-				</div>
-			</div><!--/single product -->
-			<div class="col-sm-3"> <!-- single product -->
-				<div class="row">
-					<div class="col-sm-6">
-						<a href="#">
-						 <img class="img img-responsive img-rounded" src="../app1/images/2.jpg" width="250" height="250"  alt="">
-						</a>
-						<div class="rating_div">
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<i class="fa fa-star-o"></i>
-						</div>
-				   </div>
-				   <div class="col-sm-6 text-muted">
-					  <h5><b>name</b></h5>
-			       </div>
-			       <div class="col-sm-6">
-					   <i class="fa fa-inr"></i>&nbsp;200
-				   </div>
-				   
-				</div>
-			</div><!--/single product -->
-		 </div><!--  /item-active-div  -->
-	     <div class="item">
-			<div class="col-sm-3"> <!-- single product -->
-				<div class="row">
-					<div class="col-sm-6">
-						<a href="#">
-						 <img class="img img-responsive img-rounded" src="../app1/images/f.jpg" width="250" height="250"  alt="">
-						</a>
-						<div class="rating_div">
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<i class="fa fa-star-o"></i>
-						</div>
-				   </div>
-				   <div class="col-sm-6 text-muted">
-					  <h5><b>name</b></h5>
-			       </div>
-			       <div class="col-sm-6">
-					   <i class="fa fa-inr"></i>&nbsp;200
-				   </div>
-				   
-				</div>
-			</div><!--/single product -->
-		</div>
+		</div><!--  /item-active-div  -->
+	     
 	 </div>
   </div>
- <!-- Controls -->
+ <!-- Controls 
   <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -150,14 +76,18 @@
   <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
-  </a>
+  </a> -->
 </div>
 </div><!--  /.other-product-row -->
-<div class="" style="margin-top: 10px;">
-	<div class="bottom-border">
-		<h4>Reviews</h4>
+<div  style="margin-top: 10px;">
+	<div>
+		<strong class="text-muted"><font style="font-size: 15px;" class="bottom-border">Reviews<font><strong>
+		<span class="fa fa-plus pull-right btn" ng-click="isAddReview = !isAddReview" style="font-size: 12px;margin-top: 0px;">Add your Review</span>
 	</div>
-	<div class="bs-component">
+	<div class="bs-component" ng-if="reivews.length == 0">
+	  <font class="text-primary" style="font-size: 20px;">Be the First to Review this product</font>
+	</div>
+	<div class="bs-component" ng-if="reivews.length>0">
 				<div class="list-group" ng-repeat="review in reivews">
 					<div class="list-group-item">
 						<div class="row-action-primary">
@@ -167,36 +97,59 @@
 						<div class="least-content">{{review.createdOn | date}}</div>
 						<h4 class="list-group-item-heading">{{review.customer.firstName +" " +review.customer.lastName}}</h4>
 						<p class="list-group-item-text">{{review.review}}</p>
-						<p class="rating_div" ng-if="review.rating == 4"><i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
+						<p class="rating_div">
+							<i class="fa fa fa-star" ng-show="review.rating > 0 "></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 1 "></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 2"></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 3"></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 4"></i>
 						</p>
-                        <p class="rating_div" ng-if="review.rating == 5">
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						</p>
-						<p class="rating_div" ng-if="review.rating == 3" >
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-						   <i class="fa fa fa-star"></i>
-                        </p>
-						<p class="rating_div" ng-if="review.rating == 2" >
-						  <i class="fa fa fa-star"></i>
-						  <i class="fa fa fa-star"></i>
-						</p>
-						<p class="rating_div" ng-if="review.rating == 1" >
-						   <i class="fa fa fa-star"></i>
-						</p>
-						</div>
+                      </div>
 					</div>
 					<div class="list-group-separator"></div>
 				</div>
-	</div>
+	        </div>
 </div>
+<modal title="Review" visible="isAddReview">
+   <div class="bs-componenet">
+    <div class="alert alert-danger" ng-show="errMsg">
+       {{errorMsg}}
+    </div>
+    <div class="alert alert-warning" ng-show="!errMsg">
+       <ul><li>{{infoMsg}}</li></ul>
+    </div>
+    <form name="reviewform" novalidate ng-show="!isAddPrifileImage">
+	    <div class="form-group label-floating is-empty">
+				<label for="review" class="control-label">Your Review</label>
+				<textarea  class="form-control" ng-model="reviewForm.review" name="review" maxlength="300" cols="70"></textarea>
+	    </div>
+		<div class="form-group">
+				<label for="userimageFile"> Your Rating:</label>
+				<div class="rating_div">
+				  <i class="fa fa-star-o" ng-click="toggleRating(1)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(2)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(3)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(4)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(5)"></i>
+				</div>
+		   </div>
+		   <div class="form-group">
+		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal(reviewForm)">cancel</button>
+		   	<button  class="btn btn-success btn-raised" ng-click="submitReivewForm(reviewForm)">Submit</button>
+		   </div>
+		</form>
+		<form name="uploadProfilePicForm" ng-show="isAddPrifileImage">
+           <div class="form-group">
+				<label for="userimageFile">Upload Your Image</label>
+				<upload-file></upload-file>
+		    </div>
+		    <div class="form-group">
+		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal()">cancel</button>
+		   	<button  class="btn btn-success btn-raised" ng-click="addPrifileImage()">Submit</button>
+		   </div>
+		</form>
+</div>
+</modal>
 
 
 	

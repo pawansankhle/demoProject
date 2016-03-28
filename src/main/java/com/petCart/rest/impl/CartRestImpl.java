@@ -49,7 +49,7 @@ public class CartRestImpl {
 	@POST
 	@Path("update")
 	@Consumes("application/json")
-	public Cart updateCart(Cart cart){
+	public String updateCart(Cart cart){
 		logger.info("inside @class CartRestImpl @method updateCart entry..");
 		Message message = PhaseInterceptorChain.getCurrentMessage();
 		HttpServletRequest request = (HttpServletRequest)message.get(AbstractHTTPDestination.HTTP_REQUEST);

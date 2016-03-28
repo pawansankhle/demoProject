@@ -1,6 +1,10 @@
 <div class="row" ng-controller="cartCtrl">
 <div class="col-sm-2 hidden-xs"></div>
+
  <div class="col-sm-8 col-xs-12 ps-cart-table">
+    <div class="bs-component">
+      <div class="alert alert-info alert-dismissible" ng-show="errMsg">{{errMsg}}</div>
+   </div>
    <table class="table table-stripped table-responsive">
    	<thead>
    		<tr class="well">

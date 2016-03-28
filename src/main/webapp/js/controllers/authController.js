@@ -21,11 +21,13 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 				$scope.errorDialog = true;
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 				$scope.disable=!$scope.disable;
+				$scope.reset();
 				break;
 			case 200:
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 				$rootScope.setCurrentUser(res.data);
 				$scope.disable=!$scope.disable;
+				$scope.reset();
 				break;
 
 			}
@@ -38,6 +40,8 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 			
 			CartSrv.getCart().then(function(cart){ $rootScope.shoppingCart = cart; $rootScope.count = cart.items.length;});
 			$state.go(STATS.home);
+			$scope.reset();
+
 		}, function () {
 			$rootScope.$broadcast(AUTH_EVENTS.logoutFailed);
 		});
@@ -51,11 +55,13 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 					$scope.errorDialog = true;
 					$rootScope.$broadcast(AUTH_EVENTS.signupFailed);
 					$scope.disable=!$scope.disable;
+					$scope.reset();
 					break;
 				case 200:
 					$rootScope.$broadcast(AUTH_EVENTS.signUpSuccess);
 					$rootScope.setCurrentUser(res.data);
 					$scope.disable=!$scope.disable;
+					$scope.reset();
 					break;
 				}
 			});
@@ -65,6 +71,20 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 		}
 
 	};
+    $scope.reset = function(){
+            $scope.credentials = {
+			username: '',
+			password: ''
+	};
+	$scope.signUpForm = {
+			username: '',
+			email: '',
+			password: '',
+			address: {}
+
+	};
+  };
+  $scope.reset();
 }]);
 
 

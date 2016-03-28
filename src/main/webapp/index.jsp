@@ -49,7 +49,7 @@
 			 	
 					<div class="col-sm-2 hidden-xs" id="ps-menu-col">
 				    	<div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
-					</div>
+				    </div>
 					<div class="col-sm-10 left-border col-xs-12 ui-view-container">
 						<div ui-view></div>
 			        </div>
@@ -65,8 +65,7 @@
 					 ng-controller="authCtrl"
 					ng-submit="login(credentials);disable=!disable;" novalidate>
 					<div class="bs-component">
-						<div class="alert alert-danger alert-dismissible" ng-show="errorDialog">{{
-							message }}</div>
+						<div class="alert alert-danger alert-dismissible" ng-show="errorDialog">{{message }}</div>
 					</div>
 					<div class="form-group label-floating is-empty">
 						<label for="username" class="control-label">User Name</label> 

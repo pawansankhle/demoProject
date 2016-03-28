@@ -21,7 +21,7 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUplo
         }
 
         this.getRatingbyId = function(id){
-            var reviwFiql = "?_s=product.id=="+id;
+            var reviwFiql = "?_s=(product.id=="+id+")";
             return $resource(baseUrl+URLS.reviewSearchUrl+reviwFiql).query().$promise;
         }
 
@@ -110,9 +110,21 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUplo
         return this.getService(url);
      }
 
+     this.getTopRatedProducts = function(){
+        var url =URLS.productSearchUrl+'?_s=(reviews.rating=ge=4)';
+        return this.getService(url);
+     }
+
      this.findProductRecomm = function(id)
      {
-        return this.getService(URLS.productRecommUrl+"/"+id).getList();
+        return $resource(baseUrl+"/"+URLS.productRecommUrl+"/"+id).query().$promise;
+     }
+
+     this.addProductReview = function(review)
+     {   
+        review.rating = 4;
+        var product = this.getCurrentProduct();
+        return $resource(baseUrl+URLS.reviewAddUrl+"/"+product.id).save(review).$promise;
      }
 
 }]);

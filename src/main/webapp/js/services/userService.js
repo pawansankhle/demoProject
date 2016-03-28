@@ -1,4 +1,5 @@
-app.service('UserSrv',['Restangular','baseUrl','URLS','SessionSrv','$resource','$http', function (Restangular,baseUrl,URLS,SessionSrv,$resource,$http){
+app.service('UserSrv',['Restangular','baseUrl','URLS','SessionSrv','$resource','$http','fileUploadSrv',
+ function (Restangular,baseUrl,URLS,SessionSrv,$resource,$http,fileUploadSrv){
 	  var userSrv = {}; 
 	  
 	   
@@ -27,6 +28,12 @@ app.service('UserSrv',['Restangular','baseUrl','URLS','SessionSrv','$resource','
 		     return res.data;
           },function(res){});
 	  };
+
+	 this.uploadProfileImage = function(id,filename,files)
+     {   
+         var url = baseUrl+URLS.userUploadProfilePicUrl+id+"/"+filename
+         fileUploadSrv.uploadFile(files,url);
+     }
 	   
 	}]);
 

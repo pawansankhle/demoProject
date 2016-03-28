@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,12 +35,17 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
+import com.petCart.service.IProductService;
+import com.petCart.service.IReviewService;
+import com.petCart.springsecurity.security.ContextProvider;
+
+
+
 @NamedQueries({
 @NamedQuery(name="findProductById",query="Select p From Product p where id=:id"),
 @NamedQuery(name="findAllProduct",query="Select p From Product p"),
 @NamedQuery(name="viewProduct", query="select p from Product p where id=:id"),
-@NamedQuery(name="findProductForRecommendation",query="select od2 from OrderDetail od1 join OrderDetail od2 on od1.order=od2.order where od1.productId=:productId and od2.productId!=:productId group by od2.productId order by count(od2.productId) desc limit 5"),
- })
+})
 
 @FilterDefs({
 	@FilterDef(name="getProductBySupplier",parameters={@ParamDef(name="userid", type = "java.lang.Integer")}),
@@ -253,6 +260,10 @@ public class Product  implements Serializable{
 		this.discount = discount;
 	}
 
-	
+	/*public Integer getRating(){
+		IReviewService reviewService=ContextProvider.getContext().getBean(IReviewService.class);
+		return reviewService.getRatingByProductId(this.getId());
+		
+	}*/
 	
 }

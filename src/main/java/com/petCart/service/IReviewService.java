@@ -12,4 +12,7 @@ public interface IReviewService {
 	List<Review> search(SearchContext context, Integer lowerLimit,
 			Integer upperLimit, String orderBy, String orderType);
 
+	Integer getRatingByProductId(Integer id);
+	String addReview(Integer id, Review review);
+
 }

@@ -12,8 +12,7 @@
 	           	  <div class="form-group col-sm-2 right-border" style="margin:0px">
 	                 <select title="Search By Department" name="status" class="form-control" ng-model="productForm.department" ng-change="getCategories(productForm.department)">
 	                    <option ng-if="productDepartments" ng-repeat="department in productDepartments" value="{{department.id}}">{{department.name | lowercase}}</option>
-
-	                 </select>
+                   </select>
 	              </div>
 	              <div class="form-group col-sm-2 right-border" style="margin:0px">
 	                 <select title="Search By Category" name="category" class="form-control" ng-model="productForm.category">

@@ -11,5 +11,6 @@ app.constant('Msgs', {
 	productCreateMsg: "Product created Successfully...",
 	productEnableMsg: "Product enable Successfully...",
 	productDisableMsg: "Product disable Successfully...",
-	
+	reviewInfoMsg: "Only Customer Who has bought this Product and SignUp Would be able to add review",
+	reviewSuccessMsg: "Your Review Added Successfully",
 });

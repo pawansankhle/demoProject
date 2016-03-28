@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -47,5 +49,12 @@ public class ReviewRestImpl {
 		return reviewService.search(context,lowerLimit,upperLimit,orderBy,orderType);
 	  }
 	
+	@ExceptionHandler
+	@POST
+	@Path("/addReview/{pid}")
+	public String addReview(@PathParam("pid") Integer id,Review review){
+		logger.info("inside @class ReviewRestImpl @method addReview entry.");
+		return reviewService.addReview(id,review);
+	}
 	
 }

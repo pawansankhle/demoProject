@@ -1,28 +1,27 @@
-<div class="col-sm-3 col-xs-6">
-			
-				<h5 class="text-info">
-					<strong class="bottom-border" style="margin-left: 10px;">Top Rated Products</strong>
-			    </h5>
-				<div class="row" style="padding-bottom: 5px;">
-					<div class="col-sm-6">
-						<a href="#">
-							<img class="img img-responsive img-rounded" src="../app1/images/280.jpg" width="250" height="250"  alt="">
+<h5 class="text-info">
+	<strong class="bottom-border" style="margin-left: 10px;">Top Rated Products</strong>
+</h5>
+<div class="col-sm-3 col-xs-6" ng-repeat="product in topRatedProducts">
+		<div class="row" style="padding-bottom: 5px;">
+					<div class="col-sm-12" style="min-height: 200px;"">
+						<a ui-sref="product.view({id: product.id})">
+							<img class="img img-responsive img-rounded" ng-src="{{product.images[0].file}}" width="100" height="100"  alt="">
 						</a>
 					    <div class="rating_div">
 							<i class="fa fa fa-star"></i>
 							<i class="fa fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<i class="fa fa-star-o"></i>
+							<i class="fa fa fa-star"></i>
+							<i class="fa fa fa-star"></i>
+							<i class="fa fa fa-star" ng-if="product.rating == 5"></i>
 				       </div>
 					</div>
-					<div class="col-sm-6 text-muted">
-					   <h5><b>category name</b></h5>
+					<div class="col-sm-12 text-muted">
+					   <h5><b>{{product.name}}</b></h5>
 				    </div>
 					
-				   <div class="col-sm-6">
-					   <i class="fa fa-inr"></i>&nbsp;200
+				   <div class="col-sm-12">
+					   {{product.price | currency:'&#8377;'}}
 				   </div>
-				   <div class="col-sm-8 bottom-border" style="padding-bottom: 5px;">
-				   </div>
+				   
 				 </div><!-- /top rated single product-->
 </div>

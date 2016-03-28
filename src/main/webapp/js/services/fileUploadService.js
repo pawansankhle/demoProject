@@ -2,7 +2,20 @@ app.service('fileUploadSrv',['$rootScope','$q',function($rootScope,$q){
     
     var self = this;
     
+    self.setCurretnFile = function(files){
+      self.files = files;
 
+    }
+    self.getCurretnFile = function(){
+      return self.files;
+    }
+    self.setCurretnFileName = function(filesName){
+      self.filesName = filesName;
+
+    }
+    self.getCurretnFileName = function(){
+      return self.filesName;
+    }
     self.uploadFile = function(files,url){
       
         var fd = new FormData()
@@ -31,8 +44,11 @@ app.service('fileUploadSrv',['$rootScope','$q',function($rootScope,$q){
     }
 
     self.uploadComplete = function(evt) {
-      var msg = "file uploaded succesfully..";
-      toastr.success(msg,"File Upload");
+      if(evt.currentTarget.status == 200){
+           var msg = "file uploaded succesfully..";
+           toastr.success(msg,"File Upload");
+      }
+      
      
     }
 

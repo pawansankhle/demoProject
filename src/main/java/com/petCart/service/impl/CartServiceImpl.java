@@ -80,7 +80,10 @@ public class CartServiceImpl implements ICartService{
 					cart.setAddedOn(new Date());
 					cart.setModifiedOn(new Date());
 					/*price in cart shold be after calculating discount later*/
-					cart.setTotal(cart.getTotal()+(product.getPrice()*item.getQuantity()));
+				    Double offerPrice = product.getPrice() - ((product.getPrice()*product.getDiscount())/100);
+					Double total = cart.getTotal()+(offerPrice*item.getQuantity());
+					
+					cart.setTotal(total);
 					cart = cartDao.addToCart(cart);
 					session.setAttribute("cart", cart);
 					return cart;
@@ -114,36 +117,52 @@ public class CartServiceImpl implements ICartService{
 	}
 
 	@Override
-	public Cart updateCart(HttpSession session,Cart cart) {
+	public String updateCart(HttpSession session,Cart cart) {
 		logger.info("@class CartServiceimpl @method updateCart cart entry");
+		String msg = "ok";
+		Cart cart1 = null;
 		try{
-			Cart cart1 = cartDao.findById(cart.getId());
+			cart1 = cartDao.findById(cart.getId());
 			if(cart1!=null){
 				for(CartItem item : cart.getItems()){
-					if(item.getQuantity() != 0){
-						item.setCartId(cart1);
-						cart1.setTotal(item.getQuantity() * item.getItemId().getPrice());
+					Product p = productDao.findById(item.getItemId().getId());
+					if(p !=null){
+						if(item.getQuantity() != 0){
+						 if((item.getQuantity() <= p.getQuantity())){
+							 cart1.setTotal(item.getQuantity() * item.getItemId().getPrice());
+							 item.setCartId(cart1);
+						 }else{
+							 msg = "Sorry Product "+p.getName()+" quantity greater then availble ";
+							 break;
+						 }
 					}else{
 						cartItemDao.delete(item.getId());
 					}
-					
+				 }else{
+					 msg = "Sorry currently Product"+p.getName()+"not Available";
+					 break;
+				 }
+			 }
+				
+				if(cart.getItems().get(0).getCartId() !=null){
+					cart.setModifiedOn(new Date());
+					cart.setAddedOn(cart1.getAddedOn());
+					cart.setName(cart1.getName());
+					cart.setId(cart1.getId());
+					cartDao.updateCart(cart);
 				}
-				cart.setModifiedOn(new Date());
-				cart.setAddedOn(cart1.getAddedOn());
-				cart.setName(cart1.getName());
-				return cartDao.updateCart(cart);
-			}else
+			   }else
 			{
 				cart1 = createCart(session);
 				cart1.setItems(cart.getItems());
 				cart1.setAddedOn(new Date());
 				cart1.setTotal(cart.getTotal());
-				return cartDao.updateCart(cart1);
+				cartDao.updateCart(cart1);
 			}
 		}catch(Exception e){
 			logger.error("Exception @class CartServiceimpl @method updateCart cause: "+e.toString());
 		}
-		return null;
+		return "{\"status\":\"200\",\"msg\":\""+msg+"\"}";
 	}
 
 	@Override

@@ -418,4 +418,14 @@ li.ps-cart-table a:hover
     height: 40px;
     padding: 5px;
 }
+
+.ps-single-recomm-product{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.ps-single-recomm-product:hover
+{
+    border: 1px solid #ddd;
+}
 /***************************************/

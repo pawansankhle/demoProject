@@ -1,11 +1,8 @@
 app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'productSrv','Msgs','UserSrv','fileUploadSrv',
 	function($scope,$rootScope, $stateParams, productSrv,Msgs,UserSrv,fileUploadSrv){
-     $scope.isAddReview = false;
-     $scope.reviewForm = '';
-     var fileName = '';
+    var fileName = '';
      var files = '';
      $scope.errorMsg = false;
-     $scope.infoMsg = Msgs.reviewInfoMsg;
      $scope.isAddPrifileImage = false;
 
 	 $scope.getProductById = function(id){
@@ -35,22 +32,9 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
 	 	})
 	 };
 
-	 $scope.closeReviewModal = function(form){
-         $scope.isAddReview = !$scope.isAddReview;
-     }
+	
 
-      $scope.submitReivewForm = function(form){
-      	 productSrv.addProductReview(form).then(function(res){
-      	 	if(res.status == 'failed'){
-      	 		 $scope.errorMsg = res.msg;
-      	 		}else if(res.status == 'success'){
-      	 		 $scope.errorMsg = '';
-      	 		 $scope.infoMsg = Msgs.reviewSuccessMsg;
-      	 		 toastr.success(Msgs.reviewSuccessMsg,"Review");
-      	 		 $scope.isAddPrifileImage = !$scope.isAddPrifileImage;
-      	 		 }
-      	 	  });
-      	};
+      
       $scope.addPrifileImage = function(){
       	  files = fileUploadSrv.getCurretnFile();
       	  fileName = fileUploadSrv.getCurretnFileName();

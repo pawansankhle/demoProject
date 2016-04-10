@@ -1,6 +1,6 @@
 app.
-controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService','SessionSrv','$state','Msgs','CartSrv',
-                       function ($scope, $rootScope,STATS,AUTH_EVENTS, AuthService,SessionSrv,$state,Msgs,CartSrv) {
+controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService','SessionSrv','$state','Msgs','CartSrv','$uibModal','GLOBAL_APP','$uibModalStack',
+                       function ($scope, $rootScope,STATS,AUTH_EVENTS, AuthService,SessionSrv,$state,Msgs,CartSrv,$uibModal,GLOBAL_APP,	$uibModalStack) {
 	$scope.errorDialog = false;
 	$scope.credentials = {
 			username: '',
@@ -22,12 +22,14 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 				$scope.disable=!$scope.disable;
 				$scope.reset();
+				$scope.close();
 				break;
 			case 200:
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 				$rootScope.setCurrentUser(res.data);
 				$scope.disable=!$scope.disable;
 				$scope.reset();
+				$scope.close();
 				break;
 
 			}
@@ -61,6 +63,7 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 					$rootScope.$broadcast(AUTH_EVENTS.signUpSuccess);
 					$rootScope.setCurrentUser(res.data);
 					$scope.disable=!$scope.disable;
+					$scope.close();
 					$scope.reset();
 					break;
 				}
@@ -85,6 +88,42 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 	};
   };
   $scope.reset();
+  
+  $scope.authModal = function(modalFor){
+				
+			   /* if(modalFor == 'login')
+	            {
+                    //$uibModalInstance.close();
+					$scope.showlogin = true;
+					$scope.showsignup = false;
+					$scope.title="Login"
+						
+				}
+	            if(modalFor == 'signup')
+	            {
+				    //$uibModalInstance.close();
+				    $scope.showlogin = false;
+				    $scope.showsignup = true;
+				    $scope.title="Signup"
+				    
+					
+				}*/
+                
+				var modelInstance = $uibModal.open({
+      			animation: true,
+      			templateUrl: GLOBAL_APP.loginTplPath,
+      			controller: 'authCtrl',
+      			size: 'lg',
+      			
+    		});
+            
+		};
+   
+   $scope.close = function(){
+   	$uibModalStack.dismissAll();
+   	
+   }
+
 }]);
 
 

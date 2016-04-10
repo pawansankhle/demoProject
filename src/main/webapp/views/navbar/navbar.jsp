@@ -15,12 +15,12 @@
 				<ul class="nav navbar-nav" ng-if="!(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))">
 					<li class="active hidden-xs"><a href="#">Home</a></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right hidden-xs">
+				<ul class="nav navbar-nav navbar-right hidden-xs" ng-controller="authCtrl">
 				 <li ng-if="!currentUser"><a href="" ng-click="authModal('login')">Login</a></li>
 				 <li ng-if="isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier)">
-				 	<a href="" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				 	<a href=""  uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">
 				 	<i class="fa fa-bell"><span class="badge">2</span></i></a>
-				 	<ul class="dropdown-menu">
+				 	<ul uib-dropdown-menu>
 				 	   <li>data for  dropdown</li>
 				 	</ul>
 				 </li>
@@ -29,12 +29,9 @@
 				 </li>
 				<li ng-if="(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))" ng-controller="authCtrl"><a ng-click="logout()">Log out</a>
 				 </li>
-
-
-				 
-				 <li ng-if="isAuthorized(userRoles.user)" class="dropdown" >
-					 <a href="" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">hi!! {{ currentUser.username | lowercase}}<span class="caret"></span></a>
-					 <ul class="dropdown-menu">
+                 <li ng-if="isAuthorized(userRoles.user)" uib-dropdown  >
+					 <a href="" class="dropdown-toggle"  uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">hi!! {{ currentUser.username | lowercase}}<span class="caret"></span></a>
+					 <ul uib-dropdown-menu>
 						<li>
 						   <a ui-sref="account.setting">Settings</a>
 						</li>
@@ -55,9 +52,9 @@
 					    <button type="submit" class="btn btn-fab btn-fab-mini" style="margin-top: -5px;font-size: 15px;">Go</button>
 					 </form>
 				   </li>
-			<li class="dropdown">
-			  <a href="" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
-				<ul class="dropdown-menu" style="min-width: 320px;">
+			<li uib-dropdown>
+			  <a class="dropdown-toggle hidden-xs" uib-dropdown-toggle  role="button" aria-haspopup="true" aria-expanded="false">Cart <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;<span class="badge" >{{ count }}</span> <span class="caret"></span></a>
+				<ul uib-dropdown-menu style="min-width: 320px;">
 				  <li ng-if="shoppingCart.items.length < 1"> <h4 style="color: black;" class="text-center">No item in your Cart</h4></li>
 				<li ng-if="shoppingCart.items.length > 0">
 				  <table class="table table-responsive" style="color: black;">

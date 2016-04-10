@@ -1,9 +1,9 @@
-var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination','ngMessages','infinite-scroll']);
+var app = angular.module("petCart", ['ui.router','ngResource','restangular','ngAnimate','angularUtils.directives.dirPagination','ngMessages','infinite-scroll','ui.bootstrap']);
 app.value('count',0);
 app.value('pageUpperLimit',12);
 app.value('maxlimitofpagination',12);
 app.value('pageLowerLimit',0);
-app.value('baseUrl','http://localhost:8989/petCart/rest');
+app.value('baseUrl','http://pet4you-tshoopy.rhcloud.com/rest');
 app.run(['$rootScope','count','AUTH_EVENTS','STATS','AuthService','CartSrv','$state',
 function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state) 
 		{
@@ -80,27 +80,11 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 					$rootScope.count = 0;
 				}
 			};
-			$scope.authModal = function(modalFor){
-			    if(modalFor == 'login')
-	            {
-					$scope.toggleModal = !$scope.toggleModal;
-					$scope.showlogin = true;
-					$scope.showsignup = false;
-						
-				}
-	            if(modalFor == 'signup')
-	            {
-				    $scope.toggleModal = !$scope.toggleModal;
-				    $scope.showlogin = false;
-				    $scope.showsignup = true;
-				    $scope.toggleModal = !$scope.toggleModal;
-					
-				}
-			 };
+
 }])
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider','GLOBAL_APP', 'STATS', 'USER_ROLES','RestangularProvider', 
     function ($stateProvider, $urlRouterProvider, $httpProvider,GLOBAL_APP, STATS, USER_ROLES,RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost:8989/petCart/rest');
+	RestangularProvider.setBaseUrl('http://pet4you-tshoopy.rhcloud.com/rest');
 	//RestangularProvider.setDefaultHeaders({token: "x-restangular"});
 	$urlRouterProvider.otherwise('/');
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';

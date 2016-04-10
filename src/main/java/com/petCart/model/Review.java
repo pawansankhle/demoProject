@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,14 +15,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.hibernate.envers.Audited;
 
 @NamedQueries
 ({
 	@NamedQuery(name="Review.ratingbyProductId",query="select r.rating from Review r where product=:product"),
-	@NamedQuery(name="Review.byUseraAndProduct",query="select r from Review r where r.customer=:customer and r.product=:product"),
+	@NamedQuery(name="Review.byUserAndProduct",query="select r from Review r where r.customer.id=:customer and r.product.id=:product"),
 	
 
 })
@@ -114,6 +111,13 @@ public class Review  implements Serializable{
 
 	public void setCustomer(Users customer) {
 		this.customer = customer;
+	}
+
+	@Override
+	public String toString() {
+		return "Review [id=" + id + ", product=" + product + ", customer="
+				+ customer + ", review=" + review + ", rating=" + rating
+				+ ", createdOn=" + createdOn + "]";
 	}
 
 		

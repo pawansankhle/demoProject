@@ -122,7 +122,7 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUplo
 
      this.addProductReview = function(review)
      {   
-        review.rating = 4;
+        
         var product = this.getCurrentProduct();
         return $resource(baseUrl+URLS.reviewAddUrl+"/"+product.id).save(review).$promise;
      }

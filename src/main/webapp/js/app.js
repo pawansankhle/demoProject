@@ -35,7 +35,10 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 		   $rootScope.shoppingCart = null;
 		   $scope.toggleModal = false;
 		   $scope.showsignup = false;
-		   $scope.showlogin = true;
+		   $scope.showLoading = ''
+		  
+
+		    
 	       
 	       CartSrv.getCart().then(function(res){$scope.setShoppingCart(res);},function(){});
 	       UserSrv.getProfile().then(function(user){SessionSrv.saveUser(user);$rootScope.setCurrentUser(user)});
@@ -46,7 +49,14 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 	       $rootScope.$watch('$scope.shoppingCart',function(){return $rootScope.shoppingCart},true);
 	       $rootScope.$on('setShoppingCart',function(evnt,res){$scope.setShoppingCart(res.cart);});
 		   $rootScope.$on('reload:menu',function(ev,data){$scope.loadMenu()})
-   
+           $rootScope.$on('toggleLoading',function(){
+                  if(exist($scope.showLoading)){
+                  	  $scope.showLoading = ''
+                  }else{
+                  	$scope.showLoading = 'loading';
+                  }
+           });
+
            $scope.loadMenu = function(){
            	 menuService.loadadminmenu().then(function(menus) {self.adminmenus = [].concat(menus);});
            }
@@ -116,7 +126,13 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 				templateUrl: GLOBAL_APP.recentViewProductTplPath
 				 //controller: 'homeSliderController'
 			}
-			}
+			},
+		    resolve: {
+          		breadcumb: function() {
+            		return ['home'];
+          }
+        }
+
 		   })
 		   .state(STATS.userLogin ,{
 			   url: '/login',
@@ -137,11 +153,21 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
 		   .state(STATS.productView,{
 			   url: '/view/:id',
 			   templateUrl: GLOBAL_APP.viewProductTplPath,
-			   controller: 'productViewCtrl'
+			   controller: 'productViewCtrl',
+			   resolve: {
+          		breadcumb: function($stateParams) {
+            		return ['home','product',$stateParams.id];
+               }
+             }
 		   })
 		   .state(STATS.productReview,{
 			   url: '/review/:id',
 			   templateUrl: GLOBAL_APP.productreviewTplPath,
+			   resolve: {
+          		breadcumb: function($stateParams) {
+            		return ['home','review',$stateParams.id];
+               }
+           }
 			   //controller: 'productReviewCtrl'
 		   })
 		   .state(STATS.dashboard, {
@@ -231,31 +257,61 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
            .state(STATS.cart, {
 			   	url: '/cartView',
 			   	templateUrl: GLOBAL_APP.cartViewTplPath,
+			   	resolve: {
+          		breadcumb: function($stateParams) {
+            		return ['cart','view',$stateParams.id];
+               }
+             }
 			})
 			.state(STATS.checkout, {
 			   	url: '/checkout',
 			   	templateUrl: GLOBAL_APP.checkoutTplPath,
-			   	controller: 'checkoutCtrl'
+			   	controller: 'checkoutCtrl',
+			   	resolve: {
+          		breadcumb: function() {
+            		return ['checkout'];
+                  }
+                }
 			})
 			.state(STATS.checkoutLogin, {
 			   	url: '/login',
 			   	templateUrl: GLOBAL_APP.checkoutLoginTplPath,
-			   	controller: 'checkoutCtrl'
+			   	controller: 'checkoutCtrl',
+			   	resolve: {
+          		breadcumb: function() {
+            		return ['checkout','login'];
+                 }
+                }
 			 })
 			.state(STATS.checkoutAddress, {
 			   	url: '/address',
 			   	templateUrl: GLOBAL_APP.checkoutAddressTplPath,
-			   	controller: 'checkoutCtrl'
+			   	controller: 'checkoutCtrl',
+			   	resolve: {
+          		breadcumb: function() {
+            		return ['checkout','address'];
+                }
+               }
 			})
 			.state(STATS.checkoutPayment, {
 			   	url: '/payment',
 			   	templateUrl: GLOBAL_APP.checkoutPaymentTplPath,
-			   	controller: 'checkoutCtrl'
+			   	controller: 'checkoutCtrl',
+			   	resolve: {
+          		breadcumb: function() {
+            		return ['checkout','payment'];
+                }
+               }
 			})
            .state('homeCategoryProduct', {
               url: '/category/:cid',
               templateUrl: GLOBAL_APP.categoryTplPath,
-              controller: 'productbyCategoryCtrl'
+              controller: 'productbyCategoryCtrl',
+              resolve: {
+          		breadcumb: function() {
+            		return ['home','category'];
+                }
+               }
             })
            .state(STATS.user ,{
 			    abstract: true,
@@ -265,22 +321,42 @@ function ($rootScope, count, AUTH_EVENTS, STATS, AuthService,CartSrv,$state)
             .state(STATS.account ,{
 			    url: '/account',
 			    template: '<div ui-view></div>',
-			    contorller: 'accountCtrl'
+			    contorller: 'accountCtrl',
+			    resolve: {
+          		breadcumb: function() {
+            		return ['account'];
+                }
+               }
 		   })
             .state(STATS.accountOrders ,{
 			    url: '/orders',
 			    templateUrl: GLOBAL_APP.ordersTplPath,
-			    controller: 'accountOrdersCtrl'
+			    controller: 'accountOrdersCtrl',
+			    resolve: {
+          		breadcumb: function() {
+            		return ['account','orders'];
+                }
+               }
 		   })
             .state(STATS.accountOrderDetail ,{
 			    url: '/order/:id',
 			    templateUrl: GLOBAL_APP.orderDetailTplPath,
-			    controller: 'accountOrdersCtrl'
+			    controller: 'accountOrdersCtrl',
+			    resolve: {
+          		breadcumb: function($stateParams) {
+            		return ['account','order',$stateParams.id];
+                }
+               }
 		   })
            .state(STATS.accountSetting, {
                url : '/setting',
                templateUrl: GLOBAL_APP.settingTplPath,
-               controller: 'accountSettingCtrl'
+               controller: 'accountSettingCtrl',
+               resolve: {
+          		breadcumb: function($stateParams) {
+            		return ['account','setting'];
+                }
+               }
 
            });
 }]);

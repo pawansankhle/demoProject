@@ -38,7 +38,7 @@
     <div ng-message='email'>Please Enter Valid Email</div>
   </script>
 </head>
-<body ng-app="petCart" ng-controller="ApplicationController as App" ng-cloak>
+<body ng-class="showLoading" ng-app="petCart" ng-controller="ApplicationController as App" ng-cloak>
     <div class="bs-component">
        <jsp:include page="views/navbar/navbar.jsp" />
    </div>
@@ -51,6 +51,7 @@
 				    	<div ng-include="'views/menu/menu.html'" style="margin-top: 22px;"></div>
 				    </div>
 					<div class="col-sm-10 left-border col-xs-12 ui-view-container">
+					    
 						<div ui-view></div>
 			        </div>
 			</div>

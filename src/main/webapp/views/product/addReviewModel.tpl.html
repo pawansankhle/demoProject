@@ -3,7 +3,7 @@
      
 </div>
 <div>
-<div class="modal-body">
+<div class="modal-body" >
    <div class="bs-componenet">
     <div class="alert alert-danger" ng-show="errorMsg">
        {{errorMsg}}
@@ -22,10 +22,14 @@
 		   </div>
 		   <div class="form-group">
 		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal()">cancel</button>
-		   	<button  class="btn btn-success btn-raised" ng-click="submitReivewForm(reviewForm)">Submit</button>
-		   </div>
+		   	<button  class="btn btn-success btn-raised" ng-click="submitReivewForm(reviewForm)">Submit
+               <i class="fa fa-spinner fa-pulse fa-fw" ng-show="isLoading"></i>
+                <span class="sr-only" ng-show="isLoading">Loading...</span>
+             </button>
+             
+		     </div>
 		</form>
-		<form name="uploadProfilePicForm" ng-show="isAddPrifileImage">
+		<!-- <form name="uploadProfilePicForm" ng-show="isAddPrifileImage">
            <div class="form-group">
 				<label for="userimageFile">Upload Your Image</label>
 				<upload-file></upload-file>
@@ -33,7 +37,9 @@
 		    <div class="form-group">
 		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal()">cancel</button>
 		   	<button  class="btn btn-success btn-raised" ng-click="addPrifileImage()">Submit</button>
+		    
 		   </div>
 		</form>
+		-->
    </div>
 </div>

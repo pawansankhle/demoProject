@@ -58,12 +58,9 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
 		}
 		      
 		$scope.placeOrder = function(orderDetails){
-			var btn  = angular.element('#place_order_id');
-			btn.button('loading');
 			OrderSrv.getService(URLS.placeOrderUrl+SessionSrv.cart.id).post($scope.orderDetails).
 			then(
 				function(res){
-				   btn.button('reset');
 				   $scope.shippingCharge = 0;
 				   $scope.order = res;
 				   $scope.paymentok = !$scope.paymentok;
@@ -76,7 +73,6 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
                    toastr.success(Msgs.PlaceOrderSuccessMsg,"Checkout")  
 				},
 				function(res){
-				  btn.button('reset');
 				  toastr.error(Msgs.errorMsg,"checkout")
 
 			});

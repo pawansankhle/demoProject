@@ -12,8 +12,13 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
 	 });
     }
 	 
-
-	 $scope.getRatingById = function(id){
+	 $rootScope.$on('review.RefreshList',
+		function(evnt,res){
+		if(exist(res.id)){$scope.getReviewById(res.id)}
+	});
+	
+     
+	 $scope.getReviewById = function(id){
          productSrv.getRatingbyId($stateParams.id | id).then(function(res){
 	 	 $scope.reivews = res;
 	 });
@@ -45,7 +50,7 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
       }
 	 
 	 $scope.getProductById(); 
-	 $scope.getRatingById();
+	 $scope.getReviewById();
 	 $scope.findProductRecomm();
 	$scope.showAvailabe = function(qwt){if(qwt!=0){return true;}};
 	$scope.showOfferPrice = function(o,p){if(o!=p){return true;}};

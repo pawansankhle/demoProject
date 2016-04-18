@@ -31,9 +31,16 @@
 								<button class="btn btn-link col-sm-12">Forgot Password..??</button>
 								<!-- <span class="pull-right badge ps-badge-uf"
 									ng-click="authModal('signup');" >signUp</span> -->
+								 <div style="margin-left: 128px;" ng-show="isLoginLoading">	
+									<i class="fa fa-spinner fa-pulse fa-fw fa-3x"></i>
+                                    <span class="sr-only">Loading...</span>
+                                 </div>
 							</div>
 			</form>
+
 	</div>
+	
+            
 	<div class="col-sm-6 left-border">
 	        <h3 class="text-primary text-center">signup</h3>
 			<form  style="padding: 1px 40px 0px 40px;" ng-init="disable=false"
@@ -75,9 +82,12 @@
 								<input type="submit" ng-disabled="disable || signupForm.$invalid" class="btn btn-success btn-raised col-sm-12"
 									value="SignUp">
 							</div>
-							
-			</form>
-		</div>
+						</form>
+						<div style="margin-left: 178px;" ng-show="isSignupLoading">	
+							<i class="fa fa-spinner fa-pulse fa-fw fa-3x"></i>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+		            </div>
 </div>
 <div class="modal-footer"></div>
 

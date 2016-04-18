@@ -26,6 +26,7 @@ app.constant('GLOBAL_APP', {
 	dashboardOrderViewTplPath: 'views/dashboard/order.tpl.html',
 	dashboardPrductsTplPath: 'views/dashboard/products.tpl.html',
     dashboardPrductViewTplPath: 'views/dashboard/product.tpl.html',
+    dashboardaddProductTplPath : 'views/dashboard/addProductModal.tpl.html',
     dashboardUMTplPath: 'views/dashboard/UserManagement/user_management.tpl.html',
     dashboardUMUsersTplPath: 'views/dashboard/UserManagement/users.tpl.html',
     //dashboardUMSuppliersTplPath: 'views/dashboard/UserManagement/suppliers.tpl.html',

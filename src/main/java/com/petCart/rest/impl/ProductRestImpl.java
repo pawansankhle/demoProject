@@ -95,7 +95,7 @@ public class ProductRestImpl{
 	@Produces("application/json")
 	public List<Product> search(@DefaultValue("id")@QueryParam("orderBy")String orderBy,
 			@DefaultValue("asc")@QueryParam("orderType")String orderType,@DefaultValue("0")@QueryParam("lowerLimit")Integer lowerLimit,
-			@DefaultValue("0")@QueryParam("upperLimit")Integer upperLimit
+			@DefaultValue("100")@QueryParam("upperLimit")Integer upperLimit
       ){
 		logger.info("inside @class ProductRestImpl @method search entry.");
 		return productService.search(context,lowerLimit,upperLimit,orderBy,orderType);

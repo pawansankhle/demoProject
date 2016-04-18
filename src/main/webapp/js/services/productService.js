@@ -1,5 +1,5 @@
-app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUploadSrv',
- function(URLS, Restangular, baseUrl,$resource,fileUploadSrv) { 
+app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUploadSrv','$rootScope',
+ function(URLS, Restangular, baseUrl,$resource,fileUploadSrv,$rootScope) { 
         
         this.setCurrentProduct = function(product){
             this.currentProduct = product;
@@ -78,8 +78,11 @@ app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUplo
             
         };
 
-        this.getProductByCategoryId = function(id,lower,upper){
-          var fiql="?_s=category.id=="+id+"&lowerLimit="+lower+"&upperLimit="+upper
+        this.getProductByCategoryId = function(id,lower,upper,orderBy,type){
+           $rootScope.$emit('toggleLoading');
+           var fiql = "?_s=category.id=="+id;
+           
+            fiql+= "&lowerLimit="+lower+"&upperLimit="+upper+"&orderType="+type+"&orderBy="+orderBy;
             return this.getService(URLS.productSearchUrl+fiql).getList();
             
         };

@@ -2,6 +2,8 @@ app.
 controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService','SessionSrv','$state','Msgs','CartSrv','$uibModal','GLOBAL_APP','$uibModalStack',
                        function ($scope, $rootScope,STATS,AUTH_EVENTS, AuthService,SessionSrv,$state,Msgs,CartSrv,$uibModal,GLOBAL_APP,	$uibModalStack) {
 	$scope.errorDialog = false;
+	$scope.isLoginLoading = false;
+	$scope.isSignupLoading = false;
 	$scope.credentials = {
 			username: '',
 			password: ''
@@ -14,15 +16,17 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 
 	};
 	$scope.login = function (credentials) {
-		AuthService.login(credentials).then(function (res) {
-			switch(res.status){
+		$scope.isLoginLoading = true;
+	    AuthService.login(credentials).then(function (res) {
+	    	$scope.isLoginLoading = false;
+	        switch(res.status){
 			case 204:
 				$scope.message = Msgs.loginFailedMsg;
 				$scope.errorDialog = true;
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 				$scope.disable=!$scope.disable;
 				$scope.reset();
-				$scope.close();
+				//$scope.close();
 				break;
 			case 200:
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -49,8 +53,11 @@ controller('authCtrl',['$scope', '$rootScope','STATS','AUTH_EVENTS','AuthService
 		});
 	};
 	$scope.signUp = function(userForm){
+
+	    $scope.isSignupLoading = true;
 		if(userForm.password == $scope.repassword){
 			AuthService.signup(userForm).then(function(res){
+			 $scope.isSignupLoading = false;
 				switch(res.status){
 				case 204:
 					$scope.message = Msgs.signupErrorMsg;

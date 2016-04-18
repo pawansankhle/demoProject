@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="disabled=false">
 	<div class="col-sm-8 right-border bs-component" ng-controller="cartCtrl">
 	<div class="bottom-border well">
 	        <button ui-sref="home" class="btn btn-info btn-raised" ng-if="cart.items.length == 0">Continue Shopping...</button>
@@ -67,7 +67,7 @@
                       Paytm
                     </label>
                   </div>{{cart.items.length}}
-                  <button  ng-if="shoppingCart.items.length > 0" type="button" id="place_order_id" data-loading-text="Loading..."  ng-click="placeOrder(orderDetails)" class="btn btn-raised btn-success">Place Order</button>
+                  <button  ng-if="shoppingCart.items.length > 0" type="button" ng-disabled="disabled"  ng-click="placeOrder(orderDetails);disabled = !disabled;" class="btn btn-raised btn-success">Place Order</button>
                  
 	           </div>
         </form>

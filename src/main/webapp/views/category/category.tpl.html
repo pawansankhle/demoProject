@@ -1,10 +1,23 @@
 <ol class="breadcrumb" >
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Library</a></li>
-  <li class="active">Data</li>
+  <li ng-repeat="text in breadcumb">
+    <a href="#">{{text}}</a>
+  </li>
+  
 </ol>
-<div class="breadcrumb">
-   SortBy: <input class="pull-right form-input" type="text" value="by Price">
+<div class="well">
+  <div class="btn-group btn-raised pull-right" style="margin-top:-18px;" uib-dropdown>
+      <button id="split-button" type="button" class="btn btn-default btn-raised">Sort By: </button>
+      <button type="button" class="btn btn-raised btn-default" uib-dropdown-toggle>
+        <span class="caret"></span>
+        <span class="sr-only">Split button!</span>
+      </button>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+        <li role="menuitem"><a ng-click="sortBy('price','desc')">Price: higher to lower<a></li>
+        <li class="divider"></li>
+        <li role="menuitem"><a ng-click="sortBy('price','asc')">Price: lower to higher</a></li>
+        <li class="divider"></li>
+      </ul>
+    </div>
 </div>
 <div class="row">
    <div class="items-wrap" ng-init="loading = false;">
@@ -14,5 +27,6 @@
 	   </div>
 	</div>
    </div>
+   
 </div>
 

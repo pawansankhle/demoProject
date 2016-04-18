@@ -1,5 +1,5 @@
-app.controller('addRevieCtrl',['$scope','$uibModalStack','productSrv','GLOBAL_APP','$uibModal','Msgs',
-	function($scope,$uibModalStack,productSrv,GLOBAL_APP,$uibModal,Msgs){
+app.controller('addRevieCtrl',['$scope','$uibModalStack','productSrv','GLOBAL_APP','$uibModal','Msgs','$rootScope',
+	function($scope,$uibModalStack,productSrv,GLOBAL_APP,$uibModal,Msgs,$rootScope){
  
  $scope.infoMsg = Msgs.reviewInfoMsg;
  $scope.errorMsg = false;
@@ -7,6 +7,7 @@ app.controller('addRevieCtrl',['$scope','$uibModalStack','productSrv','GLOBAL_AP
  $scope.rate = 0;
  $scope.max = 5;
   $scope.isReadonly = false;
+  $scope.isLoading = false;
 
 $scope.hoveringOver = function(value) {
 
@@ -35,16 +36,21 @@ $scope.hoveringOver = function(value) {
    }
 
    $scope.submitReivewForm = function(form){
-   	     form.rating = $scope.overStar;
-   	     productSrv.addProductReview(form).then(function(res){
-
+         $scope.isLoading = true;
+   	     form.rating = $scope.rate;
+         productSrv.addProductReview(form).then(function(res){
+            $scope.isLoading = false;
       	 	if(res.status == 'failed'){
       	 		 $scope.errorMsg = res.msg;
       	 		}else if(res.status == 'success'){
       	 		 $scope.errorMsg = '';
-      	 		 $scope.infoMsg = Msgs.reviewSuccessMsg;
+             $scope.infoMsg = Msgs.reviewSuccessMsg;
       	 		 toastr.success(Msgs.reviewSuccessMsg,"Review");
-      	 		 $scope.isAddPrifileImage = !$scope.isAddPrifileImage;
+      	 		 // $scope.isAddPrifileImage = !$scope.isAddPrifileImage;
+             var id = productSrv.getCurrentProduct().id;
+             $rootScope.$emit('review.RefreshList',{id});
+             $uibModalStack.dismissAll();
+
       	 		 }
       	 	  });
       	};

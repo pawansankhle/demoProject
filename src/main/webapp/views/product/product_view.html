@@ -61,6 +61,7 @@
 	  	</md-list>
 	 </div>
 </div>
+<<<<<<< HEAD
  <md-divider></md-divider>
 
 <div class="md-whiteframe-z1" style="margin:1%" ng-if="recommProductList.length >=1">
@@ -144,6 +145,41 @@
 						</div>
                         <md-divider ng-if="!$last"></md-divider>
            </md-list-item>
+=======
+</div><!--  /.other-product-row -->
+<div  style="margin-top: 10px;">
+	<div ng-controller="addRevieCtrl">
+		<strong class="text-muted"><font style="font-size: 15px;" class="bottom-border">Reviews<font><strong>
+		<span class="fa fa-plus pull-right btn" ng-click="addReview()" style="font-size: 12px;margin-top: 0px;">Add your Review</span>
+	</div>
+	<div class="bs-component" ng-if="reivews.length == 0">
+	  <font class="text-primary" style="font-size: 20px;">Be the First to Review this product</font>
+	</div>
+	<div class="bs-component" ng-if="reivews.length>0">
+				<div class="list-group" ng-repeat="review in reivews">
+					<div class="list-group-item">
+						<div class="row-action-primary">
+						<i class="material-icons">folder</i>
+						</div>
+						<div class="row-content">
+						<div class="least-content">{{review.createdOn | date}}</div>
+						<h4 class="list-group-item-heading">{{review.customer.firstName +" " +review.customer.lastName}}</h4>
+						<p class="list-group-item-text">{{review.review}}</p>
+						<p class="rating_div">
+							<i class="fa fa fa-star" ng-show="review.rating > 0"></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 1"></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 2"></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 3"></i>
+						    <i class="fa fa fa-star" ng-show="review.rating > 4"></i>
+						</p>
+                      </div>
+					</div>
+					<div class="list-group-separator"></div>
+				</div>
+	        </div>
+</div>
+
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
 
 
 		</md-list>	

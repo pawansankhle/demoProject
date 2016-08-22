@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'productSrv','Msgs','UserSrv','fileUploadSrv','$mdDialog','GLOBAL_APP','$mdMedia',
 	function($scope,$rootScope, $stateParams, productSrv,Msgs,UserSrv,fileUploadSrv,$mdDialog,GLOBAL_APP,$mdMedia){
      $scope.isAddReview = false;
      $scope.reviewForm = '';
      var fileName = '';
+=======
+app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'productSrv','Msgs','UserSrv','fileUploadSrv',
+	function($scope,$rootScope, $stateParams, productSrv,Msgs,UserSrv,fileUploadSrv){
+    var fileName = '';
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
      var files = '';
      $scope.errorMsg = false;
-     $scope.infoMsg = Msgs.reviewInfoMsg;
      $scope.isAddPrifileImage = false;
 
 	 $scope.getProductById = function(id){
@@ -15,8 +20,13 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
 	 });
     }
 	 
-
-	 $scope.getRatingById = function(id){
+	 $rootScope.$on('review.RefreshList',
+		function(evnt,res){
+		if(exist(res.id)){$scope.getReviewById(res.id)}
+	});
+	
+     
+	 $scope.getReviewById = function(id){
          productSrv.getRatingbyId($stateParams.id | id).then(function(res){
 	 	 $scope.reivews = res;
 	 });
@@ -34,22 +44,9 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
 	 	})
 	 };
 
-	 $scope.closeReviewModal = function(form){
-         $scope.isAddReview = !$scope.isAddReview;
-     }
+	
 
-      $scope.submitReivewForm = function(form){
-      	 productSrv.addProductReview(form).then(function(res){
-      	 	if(res.status == 'failed'){
-      	 		 $scope.errorMsg = res.msg;
-      	 		}else if(res.status == 'success'){
-      	 		 $scope.errorMsg = '';
-      	 		 $scope.infoMsg = Msgs.reviewSuccessMsg;
-      	 		 toastr.success(Msgs.reviewSuccessMsg,"Review");
-      	 		 $scope.isAddPrifileImage = !$scope.isAddPrifileImage;
-      	 		 }
-      	 	  });
-      	};
+      
       $scope.addPrifileImage = function(){
       	  files = fileUploadSrv.getCurretnFile();
       	  fileName = fileUploadSrv.getCurretnFileName();
@@ -63,6 +60,7 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
 		  $mdDialog.hide();
 	  }
 	 
+<<<<<<< HEAD
 	 $scope.addReview = function(ev){
 		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
@@ -84,6 +82,11 @@ app.controller('productViewCtrl',['$scope','$rootScope', '$stateParams', 'produc
 	$scope.getProductById(); 
 	$scope.getRatingById();
 	$scope.findProductRecomm();
+=======
+	 $scope.getProductById(); 
+	 $scope.getReviewById();
+	 $scope.findProductRecomm();
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
 	$scope.showAvailabe = function(qwt){if(qwt!=0){return true;}};
 	$scope.showOfferPrice = function(o,p){if(o!=p){return true;}};
 

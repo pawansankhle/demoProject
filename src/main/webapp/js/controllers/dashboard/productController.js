@@ -1,6 +1,6 @@
 app.
-controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','productSrv','URLS','STATS','$state','departmentSrv','Msgs',
-	function($scope,pageLowerLimit,pageUpperLimit,productSrv,URLS,STATS,$state,departmentSrv,Msgs){
+controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','productSrv','URLS','STATS','$state','departmentSrv','Msgs','$uibModal','$uibModalStack','GLOBAL_APP','$rootScope',
+	function($scope,pageLowerLimit,pageUpperLimit,productSrv,URLS,STATS,$state,departmentSrv,Msgs,$uibModal,$uibModalStack,GLOBAL_APP,$rootScope){
 	$scope.products = [];
     
     $scope.getProducts = function(lower,upper){
@@ -60,13 +60,15 @@ controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','p
      }
 
      $scope.addProduct = function(productForm){
+        $rootScope.$emit('toggleLoading');
          if(exist(productForm) && exist(productForm.department) && exist(productForm.category)){
               productForm.department  = _.find($scope.productDepartments, function(dept){ return dept.id == productForm.department; });
               productForm.category = _.find($scope.productcategories, function(cat){ return cat.id == productForm.category; });
               productSrv.addProduct(productForm).then(function(res){
-                $scope.isAddProduct = !$scope.isAddProduct;
                 $scope.products.push(res);
                 toastr.success(Msgs.productCreateMsg,"Product");
+                 $scope.close();
+                  $rootScope.$emit('toggleLoading');
               });
          }
          
@@ -87,6 +89,19 @@ controller('dashBoardProductCtrl',['$scope','pageLowerLimit','pageUpperLimit','p
         }
 
      }
+
+     $scope.showAddProduct = function(){
+          
+          var modelInstance = $uibModal.open({
+            animation: true,
+            templateUrl: GLOBAL_APP.dashboardaddProductTplPath,
+            controller: 'dashBoardProductCtrl',
+            size: 'lg',
+        });
+     }
+    $scope.close = function(){
+      $uibModalStack.dismissAll();
+    }
 
      
 	 /*$(document).ready(function(){

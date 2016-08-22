@@ -1,0 +1,95 @@
+<div class="modal-header">
+     <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body" style="min-height: 300px;" ng-init="showlogin = true;">
+      <div class="row">
+       	<div class="col-sm-6">
+       	    <h3 class="text-primary text-center">Login</h3>
+			<form  name="loginForm"  ng-init="disable=false" style="padding: 1px 40px 0px 40px;"
+							 
+							ng-submit="login(credentials);disable=!disable;" novalidate>
+							<div class="bs-component">
+								<div class="alert alert-danger alert-dismissible" ng-show="errorDialog">{{message }}</div>
+							</div>
+							<div class="form-group label-floating is-empty">
+								<label for="username" class="control-label">User Name</label> 
+								<input autocomplete="off" id="username"
+									class="form-control" ng-model="credentials.username" />
+							</div>
+							<div class="form-group label-floating is-empty">
+								<label for="password" class="control-label">Password</label> 
+								<input class="form-control" name="password"
+									type="password" autocomplete="off" ng-required="true" id="password"
+									ng-model="credentials.password" />
+									<div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+		                            <div ng-message="required" class="text-danger">password is required.</div>
+		                        </div>
+							</div>
+							<input type="submit" ng-disabled="disable || loginForm.$invalid" class="btn btn-success  btn-raised col-sm-12"
+								value="Login" >
+							<div class="form-group">
+								<button class="btn btn-link col-sm-12">Forgot Password..??</button>
+								<!-- <span class="pull-right badge ps-badge-uf"
+									ng-click="authModal('signup');" >signUp</span> -->
+								 <div style="margin-left: 128px;" ng-show="isLoginLoading">	
+									<i class="fa fa-spinner fa-pulse fa-fw fa-3x"></i>
+                                    <span class="sr-only">Loading...</span>
+                                 </div>
+							</div>
+			</form>
+
+	</div>
+	
+            
+	<div class="col-sm-6 left-border">
+	        <h3 class="text-primary text-center">signup</h3>
+			<form  style="padding: 1px 40px 0px 40px;" ng-init="disable=false"
+							ng-controller="authCtrl" name="signupForm"
+							ng-submit="signUp(signUpForm)">
+							<div class="form-group">
+								<div class="alert alert-danger" ng-show="errorDialog">{{ message }}</div>
+							</div>
+							<div class="form-group label-floating is-empty">
+								<label  class="control-label">User Name</label>
+								 <input type="text" name="username" ng-required="true" class="form-control" ng-model="signUpForm.username"
+									>
+								<div ng-messages="signupForm.username.$error" ng-if="signUpForm.username.$touched"></div>
+							</div>
+							<div class="form-group  label-floating is-empty">
+								<label  class="control-label">Email address</label> 
+								<input type="email" class="form-control" ng-required="true" ng-model="signUpForm.email" maxlength="30">
+							</div>
+							<div class="form-group label-floating is-empty">
+								<label for="password" class="control-label">Password</label> 
+								<input type="password" name="password"
+									class="form-control" minlength="6" ng-required="true" ng-model="signUpForm.password" required
+									>
+							    <div ng-messages="signupForm.password.$error" ng-if="signupForm.password.$touched">
+					                <div ng-message="minlength">
+					                  <font color="red" >minimum length 6 required</font>
+					                </div>
+					            </div>
+							</div>
+							<div class="form-group label-floating is-empty">
+								<label for="userrepassword"class="control-label">Re Password</label> 
+								<input type="password"  minlength="6"  name="repassword" class="form-control" ng-required="true" ng-model="repassword" required
+									>
+		                        <div ng-messages="signupForm.repassword.$error" ng-if="signupForm.repassword.$touched">
+					                <div ng-message="minlength"><font color="red" >minimum length 6 required</font></div>
+					            </div>
+							</div>
+							<div class="form-group">
+								<input type="submit" ng-disabled="disable || signupForm.$invalid" class="btn btn-success btn-raised col-sm-12"
+									value="SignUp">
+							</div>
+						</form>
+						<div style="margin-left: 178px;" ng-show="isSignupLoading">	
+							<i class="fa fa-spinner fa-pulse fa-fw fa-3x"></i>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+		            </div>
+</div>
+<div class="modal-footer"></div>
+
+
+

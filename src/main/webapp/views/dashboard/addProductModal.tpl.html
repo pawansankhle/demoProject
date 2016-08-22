@@ -1,0 +1,104 @@
+<div class="bs-component">
+<div class="modal-header">
+     <h3 class="modal-title">Add Product</h3>
+</div>
+<div class="modal-body" style="min-height: 300px;">
+  <div class="row">
+    <div class="col-sm-12">
+      <form  class="bs-component" style="padding: 1px 70px 0px 70px;" ng-init="disable = false"
+          name="addproductform" 
+          ng-submit="addProduct(addProductForm)" novalidate>
+
+          <div class="row">
+                <div class="form-group">
+                  <div class="alert alert-danger" ng-show="errorDialog">{{ message }}</div>
+                </div>
+                <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label for="username" class="control-label">Product Name<font color="red">*</font></label>
+                <input  ng-required="true" name="name"  maxlength="30" class="form-control" ng-model="addProductForm.name" />
+                <div ng-messages="addproductform.name.$error" ng-if="addproductform.name.$touched">
+			        <div ng-message="minlength">
+			            <font color="red" >minimum length 6 required</font>
+			        </div>
+			        <div ng-message="required"><font color="red">this field is required</font></div>
+			      </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label  class="control-label">Price<font color="red">*</font></label>
+                <input type="number" ng-required="true" class="form-control" name="price"  required ng-model="addProductForm.price" />
+                <div ng-messages="addproductform.price.$error" ng-if="addproductform.price.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+			    </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label  class="control-label">Discount<font color="red">*</font></label>
+                <input type="number" ng-required="true" class="form-control" name="discount" required ng-model="addProductForm.discount" />
+                <div ng-messages="addproductform.discount.$error" ng-if="addproductform.discount.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+			      
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group label-floating is-empty">
+                <label for="quantity" class="control-label">Quantity<font color="red">*</font></label>
+                <input type="number" ng-required="true" name="quantity" class="form-control"  required ng-model="addProductForm.quantity" />
+                <div ng-messages="addproductform.quantity.$error" ng-if="addproductform.quantity.$touched">
+                    <div ng-message="required"><font color="red" >this field is required</font></div>
+			      
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group is-empty">
+                <label for="department"  class="control-label">Department<font color="red">*</font></label>
+                <select ng-required="true" ng-model="addProductForm.department" class="form-control"  ng-change="getCategories(addProductForm.department)">
+                     <option ng-if="productDepartments" ng-repeat="department in productDepartments" value="{{department.id}}">{{department.name | lowercase}}</option>
+                </select>
+                  <div ng-messages="addproductform.department.$error" ng-if="addproductform.department.$touched">
+                   <div ng-message="required"><font color="red" >this field is required</font></div>
+			      
+                  </div>
+                  <span class="material-input"></span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group is-empty">
+                <label for="category"  class="control-label">Category<font color="red">*</font></label>
+                <select ng-required="true" ng-model="addProductForm.category" class="form-control">
+                    <option ng-if="productcategories" ng-repeat="category in productcategories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+                <div ng-messages="addproductform.category.$error" ng-if="addproductform.category.$touched">
+                   <div ng-message="required"><font color="red" >this field is required</font></div>
+			    </div>
+                  <span class="material-input"></span>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group label-floating is-empty">
+                <label for="description" class="control-label">Description</label>
+                <input ng-required="true" ng-maxlength=300 maxlength=300 name="description" required class="form-control" ng-model="addProductForm.description" />
+                   <div ng-messages="addproductform.description.$error" ng-if="addproductform.description.$touched">
+                     <div ng-message="maxlength">
+			            <font color="red" >maximum 300 character</font>
+			         </div>
+			         <div ng-message="required"><font color="red">this field is required</font></div>
+			       </div>
+              </div>
+            </div>
+            
+          </div>
+           <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create" ng-disabled="addproductform.$invalid || disable">
+          <!-- <input type="submit" class="btn btn-success  btn-raised col-sm-12" value="Create"> -->
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"></div>

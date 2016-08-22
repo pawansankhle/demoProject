@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 app.service('productSrv',['URLS', 'Restangular','$resource','fileUploadSrv','httpSrv',function(URLS, Restangular,$resource,fileUploadSrv,httpSrv) { 
+=======
+app.service('productSrv',['URLS', 'Restangular', 'baseUrl','$resource','fileUploadSrv','$rootScope',
+ function(URLS, Restangular, baseUrl,$resource,fileUploadSrv,$rootScope) { 
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
         
         this.setCurrentProduct = function(product){
             this.currentProduct = product;
@@ -81,9 +86,18 @@ app.service('productSrv',['URLS', 'Restangular','$resource','fileUploadSrv','htt
             this.postService(URLS.productUpdateUrl,product);
         };
 
+<<<<<<< HEAD
         this.getProductByCategoryId = function(id,lower,upper){
           var fiql="?_s=category.id=="+id+"&lowerLimit="+lower+"&upperLimit="+upper
             return this.getService(URLS.productSearchUrl+fiql);
+=======
+        this.getProductByCategoryId = function(id,lower,upper,orderBy,type){
+           $rootScope.$emit('toggleLoading');
+           var fiql = "?_s=category.id=="+id;
+           
+            fiql+= "&lowerLimit="+lower+"&upperLimit="+upper+"&orderType="+type+"&orderBy="+orderBy;
+            return this.getService(URLS.productSearchUrl+fiql).getList();
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
             
         };
 
@@ -126,7 +140,7 @@ app.service('productSrv',['URLS', 'Restangular','$resource','fileUploadSrv','htt
 
      this.addProductReview = function(review)
      {   
-        review.rating = 4;
+        
         var product = this.getCurrentProduct();
         return this.postService(URLS.reviewAddUrl+"/"+product.id,review);
      }

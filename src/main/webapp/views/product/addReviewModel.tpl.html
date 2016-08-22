@@ -1,0 +1,45 @@
+<div class="modal-header">
+     <h3 class="modal-title">Review<span class="text-muted pull-right" ng-click="close()">&times;</span></h3>
+     
+</div>
+<div>
+<div class="modal-body" >
+   <div class="bs-componenet">
+    <div class="alert alert-danger" ng-show="errorMsg">
+       {{errorMsg}}
+    </div>
+    <div class="alert alert-info" ng-show="!errorMsg">
+       <ul><li>{{infoMsg}}</li></ul>
+    </div>
+    <form name="reviewform" novalidate ng-show="!isAddPrifileImage">
+	    <div class="form-group label-floating is-empty">
+				<label for="review" class="control-label">Your Review</label>
+				<textarea  class="form-control" ng-model="reviewForm.review" name="review" maxlength="300" cols="70"></textarea>
+	    </div>
+		<div class="form-group">
+				<uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{overStar}}%</span>
+		   </div>
+		   <div class="form-group">
+		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal()">cancel</button>
+		   	<button  class="btn btn-success btn-raised" ng-click="submitReivewForm(reviewForm)">Submit
+               <i class="fa fa-spinner fa-pulse fa-fw" ng-show="isLoading"></i>
+                <span class="sr-only" ng-show="isLoading">Loading...</span>
+             </button>
+             
+		     </div>
+		</form>
+		<!-- <form name="uploadProfilePicForm" ng-show="isAddPrifileImage">
+           <div class="form-group">
+				<label for="userimageFile">Upload Your Image</label>
+				<upload-file></upload-file>
+		    </div>
+		    <div class="form-group">
+		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal()">cancel</button>
+		   	<button  class="btn btn-success btn-raised" ng-click="addPrifileImage()">Submit</button>
+		    
+		   </div>
+		</form>
+		-->
+   </div>
+</div>

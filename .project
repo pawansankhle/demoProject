@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
   <name>petwale2</name>
+=======
+  <name>petwale</name>
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
   <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects/>
   <buildSpec>

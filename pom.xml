@@ -2,11 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
   <groupId>com.petwale2</groupId>
   <artifactId>petwale2</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>petwale2</name>
+=======
+  <groupId>com.petwale</groupId>
+  <artifactId>petwale</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>petwale</name>
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
   <url>http://maven.apache.org</url>
 	<properties>
 	    <spring.framework.version>3.2.0.RELEASE</spring.framework.version>

@@ -79,11 +79,17 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
 		}
 		      
 		$scope.placeOrder = function(orderDetails){
+<<<<<<< HEAD
 			$scope.Orderstatus= 'progress';
 			OrderSrv.getService(URLS.placeOrderUrl+SessionSrv.cart.id).post($scope.orderDetails).
 			then(
 				function(res){
 				   $scope.Orderstatus= 'init';
+=======
+			OrderSrv.getService(URLS.placeOrderUrl+SessionSrv.cart.id).post($scope.orderDetails).
+			then(
+				function(res){
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
 				   $scope.shippingCharge = 0;
 				   $scope.order = res;
 				   $scope.paymentok = !$scope.paymentok;
@@ -96,7 +102,11 @@ app.controller('checkoutCtrl',['$rootScope','UserSrv','SessionSrv','$scope','$st
                    toastr.success(Msgs.PlaceOrderSuccessMsg,"Checkout")  
 				},
 				function(res){
+<<<<<<< HEAD
 				 toastr.error(Msgs.errorMsg,"checkout")
+=======
+				  toastr.error(Msgs.errorMsg,"checkout")
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
 
 			});
 		};

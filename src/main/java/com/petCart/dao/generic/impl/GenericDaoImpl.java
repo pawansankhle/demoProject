@@ -130,12 +130,12 @@ public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 			    final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(getType());
 			    final Root<T> root = criteriaQuery.from(getType());
 			    if(orderBy.equalsIgnoreCase("desc")){
-			    	criteriaQuery.select(root).orderBy(criteriaBuilder.desc(root.get("id")));
+			    	criteriaQuery.select(root).orderBy(criteriaBuilder.desc(root.get(orderBy)));
 			    }else if(orderBy.equalsIgnoreCase("asc")){
-			    	criteriaQuery.select(root).orderBy(criteriaBuilder.asc(root.get("id")));
+			    	criteriaQuery.select(root).orderBy(criteriaBuilder.asc(root.get(orderBy)));
 			    }
 			    
-			    
+			   
 			    TypedQuery<T> typedQuery = getEntityManager().createQuery(criteriaQuery);
 				if(lowerLimit>=0){
 					typedQuery.setFirstResult(lowerLimit);
@@ -144,7 +144,7 @@ public abstract class GenericDaoImpl<T> implements IGenericDao<T> {
 					typedQuery.setMaxResults(upperLimit-lowerLimit+1);
 				}
 				logger.info("Inside  @class :"+this.getClass().getName()+" @Method :searchSiteForIssue @Return");
-				return typedQuery.getResultList();
+		        return typedQuery.getResultList();
 			
 			}
 

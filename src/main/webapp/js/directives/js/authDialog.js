@@ -8,10 +8,17 @@ app.directive('modal', function (AUTH_EVENTS) {
       link: function postLink(scope,element, attrs) {
 		 scope.title = attrs.title;
 		 scope.$watch(attrs.visible, function(value){
+<<<<<<< HEAD
           // if(value == true)
           //   //$(element).modal('show');
           // else
           //   $(element).modal('hide');
+=======
+          /*if(value == true)
+            //$(element).modal('show');
+          else
+           // $(element).modal('hide');*/
+>>>>>>> 369ab10f4634de05ad9a1e0e5ee0f200159d98c4
         });
         
         scope.$on(AUTH_EVENTS.loginSuccess,function(evt){

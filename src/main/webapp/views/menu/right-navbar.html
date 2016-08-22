@@ -1,0 +1,30 @@
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right-navbar">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Your Cart Detail</h1>
+    </md-toolbar>
+    <md-content class="md-padding" ng-show="shoppingCart.items.length == 0">
+        <md-card>
+            <span>No Item in your Cart</span>
+        </md-card>
+    </md-content>
+    <md-content class="md-padding" ng-controller="cartCtrl">
+       
+        <div ng-include="'views/cart/cart-view.tpl.html'"></div>
+        
+        <md-divider></md-divider>
+        <div layout="row" layout-padding ng-show="shoppingCart.items.length > 0">
+            <md-button class="md-raised md-primary" flex  ng-click="updateCart(shoppingCart)">
+                <span ng-show="status == 'init'">Update</span>
+                <span ng-show="status == 'progress'"><i style="vertical-align: middle;" class="zmdi zmdi-rotate-right zmdi-hc-spin"></i></span>
+            </md-button>
+            <md-button flex ng-disabled="readyForCheckOut" class="md-raised md-accent" ng-click="toggleRightNavbar()" ui-sref="checkout.login">
+                <span>Checkout</span>
+            </md-button>
+        </div>
+        <div layout="column"  layout-padding ng-show="shoppingCart.items.length == 0">
+            <md-button  class="md-raised md-primary" flex  ng-click="toggleRightNavbar()">
+                <span>Back</span>
+            </md-button>
+        </div>
+    </md-content>
+</md-sidenav>

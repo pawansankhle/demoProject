@@ -1,80 +1,73 @@
-<div class="row">
-	<div class="col-sm-8 right-border bs-component" ng-controller="cartCtrl">
-	<div class="bottom-border well">
-	        <button ui-sref="home" class="btn btn-info btn-raised" ng-if="cart.items.length == 0">Continue Shopping...</button>
-			<table class="table table-stripped table-responsive" ng-if="cart.items.length > 0">
-				<thead class="">
-					<tr>
-						<td></td>
-						<td>Name</td>
-						<td>Qwt</td>
-						<td>Price</td>
-						<td></td>
-					</tr>
-			   </thead>
-			   <tbody>
-				   <tr ng-repeat="item in cart.items">
-					  <td><img class="img-thumbnil img-responsive" ng-src="{{item.itemId.images[0].file}}" width="50" height="100"></td>
-					  <td>{{ item.itemId.name | uppercase }}</td>
-					  <td><span ng-model="item.quantity" style="padding: 5px 10px 5px 10px;">{{ item.quantity }}</span></td>   
-					  <td>{{ item.itemId.offerPrice | currency:'&#8377;' }}</td>
-					  <td><h3><i class="fa fa-trash" ng-click="cartItemRemove($index,item.id)" style="cursor:pointer;"></i></h3></td>
-				  </tr>
-				 <tr class=""><td>Shipping Charges</td><td></td><td></td><td>{{ shippingCharge | currency:"&#8377;"}}</td><td></td></tr>
-		         <tr><td>Total</td><td></td><td></td><td>{{ cart.total + shippingCharge | currency:"&#8377;"}}</td><td></td></tr>
-		      </tbody>
-	      </table>
-      </div>
-     <div class="panel panel-warning">
-	<div class="panel-heading">
-	   <div class="bs-component" >
-		<h5>Shipping Address
-			<spandata-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top" title="on top"  >
-			<i class="fa fa-pencil pull-right" ng-click="editAddress()" style="cursor: pointer;font-size: 20px;"></i>
-			<i class="pull-right" ui-sref="checkout.address">edit</i><div class="ripple-container"></div>
-			</span>
-		</h5>
-	 </div>
-        
-   </div>
-   <div class="panel-body">
-	<div class="col-sm-6">
-	   <div class="address">
-			  <b>{{ currentUser.username }}</b><br/>
-			  {{currentUser.address.shippingAddress }}
-			  {{ currentUser.address.pincode}}<br/>
-			  <span class="text-strong">Mobile.</span> {{ currentUser.mobile }}
-	   </div>
-   </div>
-  </div>
-</div>
-  </div>
-   <div class="form-group">
-	<div class="col-sm-4 bottom-border">
-		<h4 class="text-muted bottom-border control-label">Payment Method</h4>
-		<form  novalidate>
-                  <div class="radio radio-primary">
-                    <label>
-                      <input type="radio" checked="" value="COD"  name="PaymentMethod" ng-model="orderDetails.paymentMethod">
-                      <span class="circle"></span>
-                      <span class="check"></span>
-                      Cash On Delivery
-                    </label>
+<md-content>
+                  <md-button ui-sref="home" layout="row" class="md-raised" ng-if="cart.items.length == 0">Continue Shopping...</md-button>
+                  <div layout="row" layout-xs="column" layout-margin ng-if="cart.items.length != 0">
+                      <div flex="60" flex-xs="100" ng-controller="cartCtrl">
+                          <div class="md-whiteframe-z2">
+                            
+                            <div ng-include="'views/cart/cart-view.tpl.html'"></div>
+                            
+                            <md-divider ng-show="shoppingCart.items.length > 0"></md-divider >
+                            <div layout="row" layout-padding ng-show="shoppingCart.items.length > 0">
+                                <md-button class="md-raised md-primary" flex="20"  ng-click="updateCart(shoppingCart)">
+                                    <span ng-show="status == 'init'">Update</span>
+                                    <span ng-show="status == 'progress'"><i style="vertical-align: middle;" class="zmdi zmdi-rotate-right zmdi-hc-spin"></i></span>
+                                </md-button>
+                                <div flex></div>
+                            </div>
+                        </div>
+                        <div layout="row" layout-padding layout-align="center center" >
+                               <md-button class="md-raised md-accent" ng-disabled="Orderstatus == 'progress'" ng-click="placeOrder(orderDetails)" ng-show="!order.id">
+                                    <span ng-show="Orderstatus == 'init'">Place Order</span><span ng-show="Orderstatus == 'progress'"><i style="vertical-align: middle;" class="zmdi zmdi-rotate-right zmdi-hc-spin"></i></span>
+                                </md-button>
+                                <div flex class="md-whiteframe-z2"" ng-if="order.id != null" style="background-color: #2196F3;color: white;">
+                                   <h4> your Order has been placed with ID: <span class="md-headline" >{{order.id}}</span></h4>
+                                </div>
+                        </div>
+                     </div>
+                     <div flex="40" flex-xs="100" layout="column"  layout-margin >
+                         <div flex class="md-whiteframe-z2">
+                             <div class="margin-bottom-30" style="border-color:rgb(0, 188, 212);color: rgb(255, 255, 255);background-color: rgb(0, 188, 212);">
+                                <div class="md-toolbar-tools">
+                                    <h5>
+                                        <span>PAYMENT METHOD</span>
+                                    </h5>
+                                    <span flex></span>
+                                </div>
+                            </div>
+                            <md-divider></md-divider>
+                            <md-list layout-padding>
+                                <md-list-item>
+                                    COD
+                                </md-list-item>
+                                <md-list-item>
+                                    Paytm
+                                </md-list-item>
+                            </md-list>
+                            </div>
+                            <div class="md-whiteframe-z2" style="border-color:rgb(0, 188, 212);color: rgb(255, 255, 255);background-color: rgb(0, 188, 212);" flex>
+                             <div class="margin-bottom-30">
+                                <div class="md-toolbar-tools">
+                                    <h5>
+                                        <span>SHIPPING ADDRESS</span>
+                                    </h5>
+                                    <div flex></div>
+                                    <div>
+                                        <md-button class="btn-link md-icon-button" ng-click="selectedTabIndex = 1;">
+                                            <md-icon style="font-size: 20px;color:#fff" class="zmdi zmdi-edit"><md-tooltip md-direction="top">Edit</md-tooltip></md-icon>
+                                        </md-button>
+                                   </div>
+                                 </div>
+                            </div>
+                            <md-divider></md-divider>
+                            <div layout="column" layout-padding>
+                                <span class="md-subhead">{{currentUser.firstname + " " +currentUser.lastname}} ,</span>
+                                <span>Address. <span style="color: #FFD740;font-weight: 400;font-size: 1.2em;">{{currentUser.address.shippingAddress}}</span></span>
+                                <span>Pin.<span style="color: #FFD740;font-weight: 400;font-size: 1.2em;"> {{currentUser.address.pincode}}</span></span>
+                                <span>Mob.<span style="color: #FFD740;font-weight: 400;font-size: 1.2em;"> {{currentUser.mobile}}</span></span>
+                            </div>
+                                
+                            </div>
+                        </div>
+                        <div flex></div>
                   </div>
-                  <div class="radio radio-primary">
-                    <label>
-                      <input type="radio" disabled checked="true" value="Paytm" id="radioPaytm" name="PaymentMethod" ng-model="orderDetails.paymentMethod"><span class="circle"></span><span class="check"></span>
-                      Paytm
-                    </label>
-                  </div>{{cart.items.length}}
-                  <button  ng-if="shoppingCart.items.length > 0" type="button" id="place_order_id" data-loading-text="Loading..."  ng-click="placeOrder(orderDetails)" class="btn btn-raised btn-success">Place Order</button>
-                 
-	           </div>
-        </form>
-    </div>
-    <div class="col-sm-4" style="margin-top:5px;" ng-if="order.id != null">
-       <p class="well"> your Order has been placed with id {{order.id}}</p>
-    </div>
- </div>
-</div>
- 
+                  </md-content>

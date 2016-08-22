@@ -1,0 +1,93 @@
+<md-dialog class="fullscreen-dialog"  area-label="form" ng-cloak ng-init="showsignup=false;showlogin=true;">
+	<md-toolbar>
+		  <div class="md-toolbar-tools">
+		    <h2 ng-if="showlogin">Login</h2>
+		    <h2 ng-if="showsignup">SignUp</h2>
+			<span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel();"> <i class="zmdi zmdi-close"></i> </md-button>
+		 </div>
+    </md-toolbar>
+    <md-dialog-content style="min-width: 362px;">
+		<div layout="column" layout-padding>
+			<form  name="loginForm" ng-init="disable=false" ng-submit="login(credentials);disable=!disable;" ng-show="showlogin">
+				<md-input-container class="md-block">
+					<label>User Name<font color="red">*</font></label>
+					<input name="username" ng-required="true" ng-model="credentials.username">
+					<div ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
+						<div ng-message="required" class="text-danger">username is required.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" t>
+					<label>Password<font color="red">*</font></label>
+					<input name="password" type="password"  ng-required="true"  ng-model="credentials.password" />
+					<div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+						<div ng-message="required" class="text-danger">password is required.</div>
+					</div>
+				</md-input-container>
+			
+			<div layout="row" layout-align="space-between center">
+                        <md-input-container class="md-cyan-theme">
+                            <md-checkbox ng-model="vm.user.rememberMe"   aria-label="Remember Me" aria-checked="false">
+							Remember Me
+                            </md-checkbox>
+                        </md-input-container>
+
+                        <md-input-container class="md-cyan-theme">
+                            <a class="md-primary md-button md-ink-ripple"  flex href="#/forgot" translate="Forgot password?" aria-label="Forgot password?">Forgot password?</a>
+                        </md-input-container>
+            </div>
+		 </form>
+		 <form ng-show="showsignup" ng-init="disable=false" name="signupForm">
+			 
+			 <md-input-container class="md-block">
+				 <label>User Name<font color="red">*</font></label>
+			     <input  name="username" ng-required="true"  ng-model="signUpForm.username">
+				 <div ng-messages="signupForm.username.$error" ng-if="signupForm.username.$touched">
+					 <div ng-message="required" class="text-danger">username is required.</div>
+				 </div>
+			 </md-input-container>
+			 <md-input-container class="md-block">
+				 <label>Email<font color="red">*</font></label>
+			     <input type="email" name="email" ng-required="true" ng-model="signUpForm.email" maxlength="30">
+				 <div ng-messages="signupForm.email.$error" ng-if="signupForm.email.$touched">
+					 <div ng-message="required" class="text-danger">Email is required.</div>
+				 </div>
+			 </md-input-container>
+			 <md-input-container class="md-block">
+				 <label>Password</label> 
+				 <input type="password" name="password"  minlength="6" ng-required="true" ng-model="signUpForm.password">
+			  	<div ng-messages="signupForm.password.$error" ng-if="signupForm.password.$touched">
+			    	<div ng-message="minlength">
+			        	<font color="red" >minimum length 6 required</font>
+			       </div>
+			    </div>
+			  </md-input-container>
+			  <md-input-container class="md-block">
+				  <label>Re Password</label>
+				  <input type="password"  minlength="6"  name="repassword"  ng-required="true" ng-model="repassword" >
+			  	   <div ng-messages="signupForm.repassword.$error" ng-if="signupForm.repassword.$touched">
+			                <div ng-message="minlength"><font color="red" >minimum length 6 required</font></div>
+			      </div>
+			  </md-input-container>
+		   </form>
+			<div layout="row">
+				<md-button ng-show="showlogin" flex class="md-raised md-primary" ng-click="login(credentials)" ng-disabled="loginForm.$invalid">
+					<span ng-show="status == 'init'">Login</span><span ng-show="status == 'progress'"><i style="vertical-align: middle;" class="zmdi zmdi-rotate-right zmdi-hc-spin"></i></span>
+				</md-button>
+				<md-button ng-show="showsignup" flex class="md-raised md-primary" ng-click="signUp(signUpForm)" ng-disabled="disable || signupForm.$invalid">
+					<span ng-show="status == 'init'">Signup</span><span ng-show="status == 'progress'"><i style="vertical-align: middle;" class="zmdi zmdi-rotate-right zmdi-hc-spin"></i></span>
+				</md-button>
+			</div>
+			<div layout="row">
+				<md-button flex  ng-show="showlogin" class="md-primary" ng-click="showsignup=!showsignup;showlogin=!showsignup;">
+					<span>DON'T HAVE ACCOUNT..?</span>
+				</md-button>
+				<md-button flex  ng-show="showsignup" class="md-primary" ng-click="showlogin=!showlogin;showsignup=!showlogin;">
+					<span>BACK TO LOGIN</span>
+				</md-button>
+			</div>
+			
+		
+		</div>
+	</md-dialog-content>
+	</md-dialog>

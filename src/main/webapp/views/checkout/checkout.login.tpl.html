@@ -1,6 +1,11 @@
-<div class="col-xs-6 col-xs-offset-3">
-    <h4 class="text-muted text-center">You Need to Login</h4>
-    <a class="btn btn-block btn-success btn-raised" ng-click="authModal('login')">
-    Login <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    </a>
-</div>
+<md-content class="md-padding">
+    <div layout="column" layout-padding layout-align="center center">
+        <h3 flex ng-show="!currentUser">You Need to Login First</h3>
+        <md-button ng-click="showAuthModal()" ng-show="!currentUser" class="md-raised md-accent" flex>
+                Login
+        </md-button>
+        <md-button   ng-show="currentUser" ng-click="nextStep(selectedTabIndex)" class="md-raised md-accent" flex>
+                Next
+        </md-button>
+    </div>
+</md-content>

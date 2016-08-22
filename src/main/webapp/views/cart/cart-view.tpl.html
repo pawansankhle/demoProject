@@ -1,39 +1,28 @@
-<div class="row" ng-controller="cartCtrl">
-<div class="col-sm-2 hidden-xs"></div>
-
- <div class="col-sm-8 col-xs-12 ps-cart-table">
-    <div class="bs-component">
-      <div class="alert alert-info alert-dismissible" ng-show="errMsg">{{errMsg}}</div>
-   </div>
-   <table class="table table-stripped table-responsive">
-   	<thead>
-   		<tr class="well">
-			<td></td>
-   			<td>Name</td>
-   			<td>Qwt</td>
-   			<td>Price</td>
-   			<td></td>
-   		</tr>
-   	 </thead>
-   	 <tbody>
-   		<tr ng-repeat="item in cart.items">
-		  <td><img class="img-thumbnil" ng-src="{{item.itemId.images[0].file}}" width="55" height="70"></td>
-   		  <td>{{ item.itemId.name | uppercase }}</td>
-		  <td><span class="ps-view-cart-updown" ng-click="upQwt($index,cart)">+</span><span ng-model="item.quantity" style="padding: 5px 10px 5px 10px;">{{ item.quantity }}</span><span class="ps-view-cart-updown" ng-click="downQwt($index,cart)">-</span></td>   
-		  <td>{{ item.itemId.offerPrice | currency:'&#8377;' }}</td>
-		  <td><h3><i class="fa fa-trash" ng-click="cartItemRemove($index,item.id)" style="cursor:pointer;"></i></h3></td>
-   		</tr>
-   		<tr class="well"><td>Total</td><td></td><td></td><td>{{ cart.total | currency:'&#8377;'}}</td><td></td></tr>
-   		<tr>
-		   <td><button class="col-sm-12 btn btn-raised btn-success" ng-click="updateCart(cart)">Update</button></td>
-		   <td><button class="col-sm-12 btn btn-raised btn-warning" ui-sref="checkout.login">Checkout</button></td>
-		   <td></td>
-		   <td></td>
-		  
-   	   </tr>
-   	</tbody>
-   	
-   </table>
- </div>
-<div class="col-sm-2 hidden-xs"></div>
-</div>
+<md-table-container class="sd-data-table-container border-top" ng-show="shoppingCart.items.length > 0">
+    <table md-table class="md-primary md-data-table">
+		<thead md-head>
+			<tr md-row>
+				<th style="width:20%"></th>
+				<th style="width:20%">Name</th>
+				<th style="width:20%">Qwantity</th>
+				<th style="width:20%">Price</th>
+				<th style="width:20%">Action</th>
+			</tr>
+		</thead>
+		<tbody md-body>
+			<tr md-row ng-repeat="item in shoppingCart.items">
+				<td md-cell>
+					<img class=" ps-cart-img" ng-src="{{item.itemId.images[0].file}}">
+				</td>
+				<td md-cell>{{ item.itemId.name | uppercase }}</td>
+				<td md-cell><span class="ps-view-cart-updown" ng-click="upQwt($index,shoppingCart)">+</span><span style="margin: 0px 5px 0 5px;">{{ item.quantity }}</span><span class="ps-view-cart-updown" ng-click="downQwt($index,shoppingCart)">-</span></td>
+				<td md-cell>{{ item.itemId.price | currency:'&#8377;' }}</td>
+					<td md-cell ng-click="cartItemRemove($index,item.id)">
+						<md-icon class="zmdi zmdi-delete" style="font-size: 20px;">
+							<md-tooltip md-direction="top">Delete</md-tooltip>
+						</md-icon>
+					</td>
+			</tr>
+		</tbody>
+	</table>
+</md-table-container>

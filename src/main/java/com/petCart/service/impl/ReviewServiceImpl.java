@@ -74,17 +74,16 @@ public class ReviewServiceImpl implements IReviewService {
             Review oldReview = null;
             if(user !=null && product != null){
             	
-            		//oldReview = reviewDao.getReviewByUserandProduct(user,product);
-            	
-            	
-            	
+            	oldReview = reviewDao.getReviewByUserandProduct(user.getId(),product.getId());
             	if(oldReview == null){
             		if(review.getRating() != null  && review.getReview() != null){
                 		review.setCustomer(user);
                     	review.setCreatedOn(new Date());
                     	review.setProduct(product);
                     	review.setReview(review.getReview().trim());
-                    	reviewDao.create(review);
+                    	System.out.println("review is:"+review.toString());
+                    	reviewDao.addReview(review);
+                    	
                 	}else{
                 		status="failed";
                     	msg = "Review and Rating Cannot be blank";

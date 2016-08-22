@@ -1,22 +1,43 @@
-<div class="row" id="product_category_div" ng-controller="menuCtrl" style="min-height:300px;">
-   	
-   	<ul class="list-group" ng-repeat="dept in departments" ng-if="!(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))">
-		<li class="list-group-item">
-			<span class="badge" ng-click="openSubCategory($index)" >{{(dept.categories).length }}&nbsp;
-				<span class="caret" ></span>
-		   </span>
-		   <a ui-sref="departmentCategory({did: dept.id})" style="color: #999;">{{ dept.name | uppercase}}</a>
-			<ul style="display:none" ng-attr-id="{{ 'ps-menu-'+$index }}" >
-				<li ui-sref="homeCategoryProduct({cid: cat.id,name: cat.name})" ng-repeat="cat in dept.categories" >{{ cat.name }}</li>
-			</ul>
-	   </li>
-	</ul>
-	<ul class="list-group" ng-repeat="menu in App.adminmenus" ng-if="isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier)">
-		<li class="list-group-item">
-		    <i style="font-size: 20px;color: #999;" class="{{menu.icon}}"></i>
-			<a ui-sref="{{menu.href}}">{{ menu.name }}</a>
-			
-		</li>
-	</ul>
-
-</div>
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+	<md-toolbar class="md-theme-blue">
+		<h3 class="md-toolbar-tools" ui-sref="home">PetWale</h3>
+	</md-toolbar>
+      <div layout-padding>
+       <div ng-controller="menuCtrl">
+		   	<md-list ng-repeat="dept in departments" ng-if="!(isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier))">
+		      <md-list-item>
+		          <md-button ng-click="openSubCategory($index)" class="sidenav-btn side-menu-link">
+		            <div layout="row">
+			            <md-icon md-svg-icon="./assets/svg/avatar-1.svg" class="avatar"></md-icon>
+			            <h1  ng-class="{active : dept.isActive}">{{ dept.name | uppercase}}</h1>
+			            <!--<a ui-sref="departmentCategory({did: dept.id})"><h2>{{ dept.name | uppercase}}</h2></a>-->
+					    <div>
+					        <span class="side-menu-badge">{{(dept.categories).length }}</span>
+						</div>
+						<div style="font-size: 20px;font-weight: 400;margin-left: 5%;">
+							<md-icon  class="zmdi" ng-class="{'zmdi-chevron-down' : dept.isOpen ,'zmdi-chevron-right' : !dept.isOpen}"></md-icon>
+						</div>
+					</div>
+				   </md-button>
+				    
+		         </md-list-item>
+		         <md-list style="display:none;" ng-attr-id="{{ 'ps-menu-'+$index }}" >
+		  				<md-list-item  ng-repeat="cat in dept.categories" >
+		  				 <md-button ng-click="openCategory(dept,dept.categories,cat)"ng-click="openSubCategory($index)" class="sidenav-btn side-menu-link">
+		  				 	<h1 ng-class="{active : cat.isActive}">{{ cat.name }}</h1>
+		  				 </md-button>
+		  			    </md-list-item>
+				    </md-list>
+		      <md-divider ng-if="!$last"></md-divider>
+		    </md-list>
+		   	<md-list ng-repeat="menu in App.menus" ng-if="isAuthorized(userRoles.admin) || isAuthorized(userRoles.supplier)">
+				 <md-button>
+				    <div layout="row">
+				    	<i style="font-size: 20px;color: #999;" class="{{menu.icon}}"></i>
+						<a ui-sref="{{menu.href}}">{{ menu.name }}</a>
+				    </div>
+				 </md-button>
+			</md-list>		
+		</div>
+	</div>
+</md-sidenav>

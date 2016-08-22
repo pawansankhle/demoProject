@@ -1,15 +1,18 @@
-<div class="row">
-	<div ui-view="homeSlider"></div> 
-</div>
-<div class="bottom-border"></div>
-<div class="row bottom-border" >
-	<div ui-view="homeproducts"></div> 
-</div>
-<div class="row" >
-		<div ui-view="homeTopRatedItem"></div>
-		<!-- <div ui-view="homeFeaureItem"></div>
-		<div ui-view="homeRecentView"></div> -->
-</div>
+
+	<!--<div layout="row">
+		<div ui-view="homeSlider"></div> 
+	</div> -->
+	<div class="bottom-border"></div>
+	<div layout-margin layout-padding>
+		<div ui-view="homeproducts"></div> 
+	</div>
+	<md-divider></md-divider>
+	<div layout="row" layout-margin layout-padding>
+			<div ui-view="homeTopRatedItem"></div>
+			<!-- <div ui-view="homeFeaureItem"></div>
+			<div ui-view="homeRecentView"></div> -->
+	</div>
+
 
 	
 

@@ -1,54 +1,33 @@
-<div class="row">
-    <h4 class="text-muted">Shipping Details</h4>
-    <div class="col-sm-10">
-	    <div class="bs-component">
-		    <div class="panel panel-warning">
-		        <div class="panel-heading">
-				  <span>Address</span>
-                  <span class="pull-right" ng-show="!isShippingAddressEdit">
-					<i class="fa fa-pencil" style="cursor: pointer;font-size: 20px;" ng-click="editShippingAddress()"></i>
-					<span  ng-click="editShippingAddress()">edit</span>
-			      </span>
-		        </div>
-			    <div class="panel-body"> 
-			        <div class="address" ng-show="showShippingAddress">
-				        <b>{{currentUser.username}}</b><br/>
-				           {{currentUser.address.shippingAddress}}<br/>
-		                   {{currentUser.address.pincode}}
-		            </div>
-		            <div class="col-sm-12 bs-component" ng-show="isShippingAddressEdit">
-					  <form role="shippingDetailsForm"   style="padding: 1px 70px 0px 70px;" method="post"  ng-submit="shippingDetails(currentUser)" novalidate >
-							<div class="form-group col-sm-12" >
-								<label for="username"  class="control-label">Shipping Address</label>
-								<input type="textarea" id="shippingAddress" class="form-control"  ng-model="currentUser.address.shippingAddress" />
-							</div>
-							<div class="form-group col-sm-12" >
-								<label for="username"  class="control-label">Area zip</label>
-								<input type="text" id="postalCode" class="form-control"  ng-model="currentUser.address.pincode" />
-						   </div>
-							<div class="form-group col-sm-12" >
-								<label for="username"  class="control-label">Mobile No.</label>
-								<input type="text" id="mobile" class="form-control" ng-model="currentUser.mobile" />
-						   </div>
-						   <div class="form-group">
-								<div class="col-xs-6 col-xs-offset-3">
-									<button class="btn btn-primary btn-raised" >
-										Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-									</button>
-							   </div>
-						  </div>
-					  </form>
-	  				</div>
-		        </div>
-		    </div>
-	   </div>
-	</div>
-   
-	  <div class="col-sm-12 bs-component">
-	  <div class="col-xs-6 col-xs-offset-3">
-			<button type="button" ui-sref="checkout.payment" ng-show="btnStatePayment" class="btn btn-primary btn-raised" >
-						Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
-			</button>
-	 </div>
-   </div>
-</div>
+<md-content class="md-padding" >
+                    <div layout="column">
+                        <form role="shippingDetailsForm" ng-submit="shippingDetails(currentUser)" novalidate ng-if="currentUser.address ? disabled=true : disabled = false">
+                            <md-input-container class="md-block">
+                                <label>Shipping Address</label>
+                                <input ng-model="currentUser.address.shippingAddress" ng-disabled="disabled" />
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Area zip</label>
+                                <input type="text" ng-model="currentUser.address.pincode" ng-disabled="disabled" />
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Mobile</label>
+                                <input type="text" id="mobile" class="form-control" ng-model="currentUser.mobile" ng-disabled="disabled" />
+                            </md-input-container>
+                            <div layout="row">
+                                <div flex></div>
+                                <md-button ng-show="!currentUser.address || isEditable" ng-click="shippingDetails(currentUser);disabled = !disabled;isEditable = !isEditable;" class="md-raised md-primary" flex>
+                                        Save
+                                </md-button>
+                                <md-button ng-show="currentUser.address && !isEditable" ng-click="disabled = !disabled;isEditable = !isEditable;" class="md-raised md-primary" flex>
+                                        Edit
+                                </md-button>
+                                <md-button  ng-click="nextStep()" class="md-raised md-accent" flex>
+                                        Next
+                                </md-button>
+                                <div flex></div>
+                            </div>
+                            
+                            
+                        </form>
+                    </div>
+                </md-content>

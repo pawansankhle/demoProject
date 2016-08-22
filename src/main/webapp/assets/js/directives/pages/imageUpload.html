@@ -1,0 +1,13 @@
+<div class="form-group">
+    <input type="file" multiple id="fileInput" ng-model="files">
+		<div class="input-group">
+			<input id="textInput" type="text" ng-model="fileName" placeholder="No file chosen" class="form-control" ng-readonly="true">
+			    <span class="input-group-btn input-group-sm">
+					<button class="btn btn-fab btn-fab-mini" type="button" id="uploadButton">
+						<i class="material-icons">attach image</i>
+			        </button>
+				</span>
+		</div>
+		<font color="red">{{errMsg}}</font>
+         <span class="material-input"></span>
+</div>

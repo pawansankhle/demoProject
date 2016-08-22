@@ -1,0 +1,57 @@
+<md-toolbar>
+      <div class="md-toolbar-tools" layout="row">
+            <div flex-xs="30" flex-md="30" flex="60">
+                  <md-button class="menu" hide-gt-sm class="md-icon-button" hide-gt-sm ng-click="toggleNavbar()">
+                  <md-icon md-svg-icon="menu"></md-icon>
+                  </md-button>
+                  <!--<h2>
+                  <span>Toolbar with Disabled/Enabled Icon Buttons</span>
+                  </h2>-->
+            </div>
+            <div flex>
+                <md-menu-bar>
+                   <md-menu md-position-mode="target-right target" >
+						<md-button  aria-label="Cart" style="min-width:85px" ng-click="$mdOpenMenu($event);toggleRightNavbar();">
+							<md-tooltip md-direction="right">Your Cart</md-tooltip>
+							<span style="font-size:25px" class="fa fa-shopping-cart"></span>
+							<span class="toolbar-button-badge">{{ count }}</span>
+						</md-button>
+						<md-menu-content width="8">
+						</md-menu-content>
+					</md-menu>
+	                <md-menu  ng-if="!currentUser">
+					    <md-button style="min-width:100px" class="md-icon-button" aria-label="Login" ng-click="$mdOpenMenu($event);showAuthModal($event);">
+							
+							<md-tooltip md-direction="right" >Login</md-tooltip>
+							Login
+						</md-button>
+						<md-menu-content width="4" style="display:none">
+						</md-menu-content>
+					</md-menu>
+					<md-menu ng-show="currentUser">
+						<md-button  aria-label="Login User" ng-click="$mdOpenMenu($event)">
+						  <md-icon hide-xs md-svg-icon="./assets/svg/avatar-1.svg" class="avatar" style="width: 30px;height: 30px;"></md-icon>
+						  <span hide-xs>hi!! {{ currentUser.firstname | lowercase}}</span>
+						  
+						</md-button>
+						<md-menu-content width="4">
+					    	<md-menu-item>
+								     <md-button ui-sref="account.setting">
+										 <md-icon  class="zmdi zmdi-settings"></md-icon>Settings
+										 </md-button>
+								   </md-menu-item>
+								   <md-divider></md-divider>
+								   <md-menu-item ng-if="isAuthorized(userRoles.user)">
+									<md-button ui-sref="account.orders" ><md-icon  class="zmdi zmdi-settings"></md-icon>Orders</md-button>
+								   </md-menu-item>
+								   <md-divider></md-divider>
+								   <md-menu-item class="md-2-line" ng-controller="authCtrl">
+									<md-button ng-click="logout()"><md-icon  class="zmdi zmdi-sign-in"></md-icon>Log out</md-button>
+							</md-menu-item>
+							
+					</md-menu>
+				</md-menu-bar>
+			</div>
+		</div>
+	</md-toolbar>
+				

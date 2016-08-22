@@ -1,10 +1,12 @@
-<div class="row">
-   <div class="items-wrap" ng-init="loading = false;">
-   <div infinite-scroll="loadMore()" infinite-scroll-disabled="loading" infinite-scroll-distance="2">
-	   <div class="col-sm-3 ps-single-item"   ng-repeat="product in products">
-	         <product-info product="product"></product-info>
-	   </div>
-	</div>
-   </div>
+<ol  class="breadcrumb" ng-init="breadcrumbs = ['home','category']">
+  <li  ng-repeat="b in breadcrumbs" class="breadcrumb-active">
+      {{b}} <span ng-if="!$last"> > </span>
+  </li>
+</ol>
+<div  layout="row">
+   <div  flex="25" ng-repeat="product in products">
+      <product-info product="product"></product-info>
+	 </div>
+	
 </div>
 

@@ -1,0 +1,65 @@
+<md-dialog   area-label="Review" ng-cloak>
+	<md-toolbar>
+		  <div class="md-toolbar-tools">
+		   	<h2 >Review</h2>
+			<span flex></span>
+            <md-button class="md-icon-button" ng-click="closeDialog();"> <i class="zmdi zmdi-close"></i> </md-button>
+		 </div>
+    </md-toolbar>
+    <md-dialog-content>
+		 <md-dialog-footer>
+			 
+			<md-button flex class="md-raised">
+				<span>Cancel</span>
+			</md-button>
+			<md-button flex class="md-raised">
+				<span>Save</span>
+			</md-button>
+	</md-dialog-footer>
+    </md-dialog-content>
+	
+	
+</md-dialog>
+
+	
+
+<!--<modal title="Review" visible="isAddReview">
+   <div class="bs-componenet">
+    <div class="alert alert-danger" ng-show="errMsg">
+       {{errorMsg}}
+    </div>
+    <div class="alert alert-warning" ng-show="!errMsg">
+       <ul><li>{{infoMsg}}</li></ul>
+    </div>
+    <form name="reviewform" novalidate ng-show="!isAddPrifileImage">
+	    <div class="form-group label-floating is-empty">
+				<label for="review" class="control-label">Your Review</label>
+				<textarea  class="form-control" ng-model="reviewForm.review" name="review" maxlength="300" cols="70"></textarea>
+	    </div>
+		<div class="form-group">
+				<label for="userimageFile"> Your Rating:</label>
+				<div class="rating_div">
+				  <i class="fa fa-star-o" ng-click="toggleRating(1)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(2)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(3)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(4)"></i>
+				  <i class="fa fa-star-o" ng-click="toggleRating(5)"></i>
+				</div>
+		   </div>
+		   <div class="form-group">
+		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal(reviewForm)">cancel</button>
+		   	<button  class="btn btn-success btn-raised" ng-click="submitReivewForm(reviewForm)">Submit</button>
+		   </div>
+		</form>
+		<form name="uploadProfilePicForm" ng-show="isAddPrifileImage">
+           <div class="form-group">
+				<label for="userimageFile">Upload Your Image</label>
+				<upload-file></upload-file>
+		    </div>
+		    <div class="form-group">
+		    <button class="btn btn-warning btn-raised" ng-click="closeReviewModal()">cancel</button>
+		   	<button  class="btn btn-success btn-raised" ng-click="addPrifileImage()">Submit</button>
+		   </div>
+		</form>
+</div>
+</modal>-->

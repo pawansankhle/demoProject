@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="petwale">
+  <head>
+    <meta charset="utf-8">
+    <title>Pet Wale</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/angular-material.min.css"/>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
+    
+    <link rel="stylesheet" href="assets/css/app.css"/>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/toastr.min.css">
+    <link rel="stylesheet" href="assets/css/ps-animate.css">
+    <link rel="stylesheet" href="assets/css/zmdi-icon.css">
+     <link rel="stylesheet" href="assets/css/md-data-table.css">
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+    <script type="text/ng-template" id="error-messages">
+    <div ng-message='required'> This Field is Required </div>
+    <div ng-message='minlength'>This Field is Too Short </div>
+    <div ng-message='maxlength'>This Field is Too Long </div>
+    <div ng-message='email'>Please Enter Valid Email</div>
+  </script>
+
+  </head>
+
+  <body  ng-controller="AppController as vm" layout="row">
+    
+    <div ng-cloak  ng-include="'views/menu/menu.html'" layout="vertical"></div>
+    <div ng-cloak  ng-include="'views/menu/right-navbar.html'" layout="vertical"></div>
+    
+    <div ng-cloak layout="column" flex>
+        <div ng-include="'views/navbar/navbar.html'"></div>
+        <md-progress-linear ng-hide="ready" class="md-accent margin-bottom-20" md-mode="indeterminate"></md-progress-linear>
+         <div ng-hide="ready" id="ui-view-loader">
+           <span><md-progress-circular ng-hide="ready" md-mode="indeterminate" class="md-hue-1" md-diameter="100px"></md-progress-circular><span>
+         </div>
+         <div ui-view ng-show="ready" if="content">
+        </div>
+      </div>
+    
+  
+    
+     <!-- Jquery and bootstrap -->
+     <script src="assets/js/lib/jquery-1.11.3.min.js"></script>
+    
+    <!-- Include the core AngularJS library -->
+    <script src="assets/js/lib/angular.min.js"></script>
+    <script src="assets/js/lib/underscore-min.js"></script>
+    <script src="assets/js/lib/restangular.min.js"></script>
+    <script src="assets/js/lib/angular-animate.min.js"></script>
+    <script src="assets/js/lib/angular-aria.min.js"></script>
+    <script src="assets/js/lib/angular-material.min.js"></script>
+    <script src="assets/js/lib/angular-resource.min.js"></script>
+    <script src="assets/js/lib/angular-sanitize.js"></script>
+    <script src="assets/js/lib/angular-animate.min.js"></script>
+    <script src="assets/js/lib/angular-ui-router.js"></script>
+    <script src="assets/js/lib/angular-messages.min.js"></script>
+    <script src="assets/js/lib/dirPagination.js"></script>
+    <script src="assets/js/lib/toastr.min.js"></script>
+    <script src="assets/js/lib/md-data-table.js"></script>
+
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/common.js"></script>
+
+    <!-- constants-->
+  <script src="assets/js/constants/url.js"></script>
+  <script src="assets/js/constants/global-var.js"></script>
+  <script src="assets/js/constants/authEvents.js"></script>
+  <script src="assets/js/constants/userRoles.js"></script>
+  <script src="assets/js/constants/stats.js"></script>
+  <script src="assets/js/constants/message.js"></script>
+
+  <!-- Controllers -->
+  <script src="assets/js/controllers/appController.js"></script>
+  <script src="assets/js/controllers/productController.js"></script>
+  <script src="assets/js/controllers/departmentController.js"></script>
+  <script src="assets/js/controllers/categoryController.js"></script>
+  <script src="assets/js/controllers/menuController.js"></script>
+  <script src="assets/js/controllers/authController.js"></script>
+  <script src="assets/js/controllers/cartController.js"></script>
+  <script src="assets/js/controllers/checkoutController.js"></script>
+  <script src="assets/js/controllers/productViewController.js"></script>
+  <script src="assets/js/controllers/productbyCategoryController.js"></script>
+  <script src="assets/js/controllers/dashboard/dashBoardController.js"></script>
+  <script src="assets/js/controllers/dashboard/userManagementController.js"></script>
+  <script src="assets/js/controllers/dashboard/ordersController.js"></script>
+  <script src="assets/js/controllers/accountController.js"></script>
+  <script src="assets/js/controllers/dashboard/productController.js"></script>
+  <script src="assets/js/controllers/dashboard/orderViewController.js"></script>
+  <script src="assets/js/controllers/dashboard/productDetailController.js"></script>
+
+<!-- Services -->
+  <script src="assets/js/services/userService.js"></script>
+  <script src="assets/js/services/productService.js"></script>
+  <script src="assets/js/services/departmentService.js"></script>
+  <script src="assets/js/services/categoryService.js"></script>
+  <script src="assets/js/services/searchService.js"></script>
+  <script src="assets/js/services/sessionService.js"></script>
+  <script src="assets/js/services/requestInterceptor.js"></script>
+  <script src="assets/js/services/AuthService.js"></script>
+  <script src="assets/js/services/CartService.js"></script>
+  <script src="assets/js/services/MenuService.js"></script>
+  <script src="assets/js/services/OrdersService.js"></script>
+  <script src="assets/js/services/fileUploadService.js"></script>
+  <script src="assets/js/services/httpService.js"></script>
+  
+
+  <!-- Directives -->
+  <script src="assets/js/directives/js/product.js"></script>
+  <script src="assets/js/directives/js/formAutofillFix.js"></script>
+  <script src="assets/js/directives/js/authDialog.js"></script>
+  <script src="assets/js/directives/js/infiniteScroll.js"></script>
+  <script src="assets/js/directives/js/imageUpload.js"></script>
+
+
+    
+
+
+    
+    
+
+    
+
+  </body>
+</html>

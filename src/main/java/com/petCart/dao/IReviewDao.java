@@ -9,7 +9,7 @@ public interface IReviewDao extends IGenericDao<Review> {
 	
 	Integer getRatingByProductId(Product product);
 	Review addReview(Review review);
-	Review getReviewByUserandProduct(Users customer, Product product);
+	Review getReviewByUserandProduct(Integer userid, Integer productid);
 	
 
 }

@@ -3,6 +3,7 @@ package com.petCart.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.apache.cxf.jaxrs.ext.search.SearchContext;
@@ -42,12 +43,16 @@ public class ReviewDaoImpl  extends GenericDaoImpl<Review> implements IReviewDao
 	}
 	
 	@Override
-	public Review getReviewByUserandProduct(Users customer,Product product) {
+	public Review getReviewByUserandProduct(Integer userid,Integer productid) {
+		logger.info("userid: "+userid+"productid: "+productid);
 		try{
-			Query query = getEntityManager().createNamedQuery("Review.byUseraAndProduct").setParameter("customer", customer).setParameter("product", product);
+			Query query = getEntityManager().createNamedQuery("Review.byUserAndProduct").setParameter("customer", userid).setParameter("product",productid);
 			return (Review)query.getSingleResult();
 		}catch(EntityNotFoundException ex){
 			logger.info("@class: ReviewDaoImpl  @method: getReviewByUserandProduct cause: "+ex.toString());
+			return null;
+		}catch (NoResultException e) {
+			logger.info("@class: ReviewDaoImpl  @method: getReviewByUserandProduct cause: "+e.toString());
 			return null;
 		}
 		
@@ -55,6 +60,7 @@ public class ReviewDaoImpl  extends GenericDaoImpl<Review> implements IReviewDao
 
 	@Override
 	public Review addReview(Review review) {
+		logger.info("@class: ReviewDaoImpl @method: addReview  obj is: "+review.toString());
 		try{
 			return super.create(review);
 		}catch(Exception ex){
